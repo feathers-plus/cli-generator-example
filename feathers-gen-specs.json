@@ -1,0 +1,30 @@
+{
+  "app": {
+    "src": "src",
+    "packager": "yarn@>= 0.18.0",
+    "providers": [
+      "primus"
+    ]
+  },
+  "services": {
+    "test": {
+      "name": "test",
+      "adapter": "memory",
+      "path": "mymemory",
+      "requiresAuth": false
+    },
+    "user": {
+      "name": "user",
+      "adapter": "memory",
+      "path": "/users",
+      "requiresAuth": false,
+      "graphql": true
+    }
+  },
+  "graphql": {
+    "path": "mygraphql",
+    "resolvers": [
+      "resolvers"
+    ]
+  }
+}
