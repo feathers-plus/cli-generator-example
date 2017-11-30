@@ -7,22 +7,44 @@
     ]
   },
   "services": {
-    "test": {
-      "name": "test",
-      "adapter": "memory",
-      "path": "mymemory",
-      "requiresAuth": false
-    },
     "user": {
       "name": "user",
       "adapter": "memory",
-      "path": "/users",
+      "path": "/user",
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "comment": {
+      "name": "comment",
+      "adapter": "memory",
+      "path": "/comment",
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "like": {
+      "name": "like",
+      "adapter": "memory",
+      "path": "/like",
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "post": {
+      "name": "post",
+      "adapter": "memory",
+      "path": "/post",
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "relationship": {
+      "name": "relationship",
+      "adapter": "memory",
+      "path": "/relationship",
       "requiresAuth": false,
       "graphql": true
     }
   },
   "graphql": {
-    "path": "mygraphql",
+    "path": "graphql",
     "resolvers": [
       "resolvers"
     ]

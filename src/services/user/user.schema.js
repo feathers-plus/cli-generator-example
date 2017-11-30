@@ -19,9 +19,9 @@ let schema = {
   ],
   properties: {
     //!code: schema_properties
-    id: { type: 'Id' },
-    _id: { type: 'Id' },
-    uuid: { type: 'Id' },
+    id: { type: 'ID' },
+    _id: { type: 'ID' },
+    uuid: { type: 'ID' },
     email: {},
     firstName: {},
     lastName: {},
@@ -33,7 +33,7 @@ let schema = {
 let extension = {
   graphql: {
     //!code: extension_header
-    name: 'Userxxx', // GraphQL name
+    name: 'User', // GraphQL name
     sort: { id: 1 }, // Default sort for CRUD find query
     //!end
     discard: [
@@ -43,8 +43,61 @@ let extension = {
     ],
     add: {
       //!code: extension_add
-      fullName: 'String!',
-      supervisor: 'Userxxx',
+      fullName: {
+        type: 'String!',
+        args: false,
+        resolver: ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
+      },
+      posts: {
+        type: '[Post!]',
+        // args: false,
+        resolver: ({ uuid }, args, content, ast) => {
+          const feathersParams = convertArgsToFeathers(args, {
+            query: { authorUuid: uuid, $sort: { uuid: 1 } }
+          });
+          return options.services.post.find(feathersParams).then(extractAllItems);
+        },
+      },
+      comments: {
+        type: '[Comment!]',
+        args: false,
+        resolver: ({ uuid }, args, content, ast) => {
+          const feathersParams = convertArgsToFeathers(args, {
+            query: { authorUuid: uuid, $sort: { uuid: 1 } }
+          });
+          return options.services.comment.find(feathersParams).then(extractAllItems);
+        },
+      },
+      followed_by: {
+        type: '[Relationship!]',
+        args: false,
+        resolver: ({ uuid }, args, content, ast) => {
+          const feathersParams = convertArgsToFeathers(args, {
+            query: { followeeUuid: uuid, $sort: { uuid: 1 } }
+          });
+          return options.services.relationship.find(feathersParams).then(extractAllItems);
+        },
+      },
+      following: {
+        type: '[Relationship!]',
+        args: false,
+        resolver: ({ uuid }, args, content, ast) => {
+          const feathersParams = convertArgsToFeathers(args, {
+            query: { followerUuid: uuid, $sort: { uuid: 1 } }
+          });
+          return options.services.relationship.find(feathersParams).then(extractAllItems);
+        },
+      },
+      likes: {
+        type: '[Like!]',
+        args: false,
+        resolver: ({ uuid }, args, content, ast) => {
+          const feathersParams = convertArgsToFeathers(args, {
+            query: {authorUuid: uuid, $sort: {uuid: 1}}
+          });
+          return options.services.like.find(feathersParams).then(extractAllItems);
+        },
+      },
       //!end
     },
     //!code: extension_more //!end

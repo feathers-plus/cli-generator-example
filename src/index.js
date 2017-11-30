@@ -12,10 +12,10 @@ server.on('listening', () =>
   logger.info('Feathers application started on http://%s:%d', app.get('host'), port)
 );
 
-const initNonSqlDb = require('./init-non-sql-db');
+const initDb = require('./init-db');
 const tester = require('./tester');
 
-initNonSqlDb(app)
+initDb(app)
   .then(() => tester(app))
   .catch(err => {
     console.log(err.message);

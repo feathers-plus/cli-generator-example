@@ -6,6 +6,7 @@ const getUser = `{
     email
     firstName
     lastName
+    fullName
   }
 }`;
 
@@ -16,6 +17,23 @@ const findUser = `{
     email
     firstName
     lastName
+    fullName
+  }
+}`;
+
+const getComment = `{
+  getComment(key: 10) {
+    id
+    uuid
+    authorUuid 
+    postUuid 
+    body 
+    archived 
+    author {
+      uuid
+      email
+      fullName
+    }
   }
 }`;
 
@@ -24,13 +42,17 @@ module.exports = function tester(app) {
 
   graphql.find({ query: { graphql: findUser } })
     .then(response => {
-      console.log('>>>>> findUser', response);
+      console.log('>>>>> findUser\n', response);
 
       return graphql.find({ query: { graphql: getUser } });
     })
-
     .then(response => {
-      console.log('>>>>> getUser', response);
+      console.log('>>>>> getUser(key: 1)\n', response);
+
+      return graphql.find({ query: { graphql: getComment } });
+    })
+    .then(response => {
+      console.log('>>>>> getComment(key: 10)\n', response);
     })
     .catch(err => console.log(err));
 };

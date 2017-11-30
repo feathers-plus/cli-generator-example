@@ -4,20 +4,25 @@ const { mergeTypes } = require('merge-graphql-schemas');
 const hooks = require('./graphql.hooks');
 
 const metadata = {
-  /*
-  Comment: { service: 'comment' },
-  Like: { service: 'like' },
-  Post: { service: 'post' },
-  Relationship: { service: 'relationship' },
-  */
+  // Comment: { service: 'comment' },
+  // Like: { service: 'like' },
+  // Post: { service: 'post' },
+  // Relationship: { service: 'relationship' },
   User: { service: 'user' }
 };
-
+/*
 const schemas = mergeTypes([
-  require('./graphql.schemas.js'),
+  // todo require('.../users.schema.js'),
 ]);
 
-const resolvers = require('./graphql.resolvers.js');
+const resolvers = Object.assign({},
+  // todo require('.../users.resolvers.js')
+  // todo require('.../users.query.js')
+);
+*/
+const schemas = require('./graphql.schemas');
+
+const resolvers = require('./graphql.resolvers');
 
 module.exports = function(){
   const app = this;

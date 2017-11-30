@@ -1,10 +1,11 @@
-# newgen
+# cli-generator-example
 
-> newgen app
+> Example Feathers app using the @feathers-plus/graphql adapter to expose a GraphQL endpoint.
 
 ## About
 
-This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
+This app uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
+
 
 ## Getting Started
 
@@ -14,7 +15,8 @@ Getting up and running is as easy as 1, 2, 3.
 2. Install your dependencies
 
     ```
-    cd path/to/newgen; npm install
+    cd path/to/cli-generator-example
+    npm install
     ```
 
 3. Start your app
@@ -23,9 +25,23 @@ Getting up and running is as easy as 1, 2, 3.
     npm start
     ```
 
-## Testing
+## Starting the app
 
-Simply run `npm test` and all your tests in the `test/` directory will be run.
+Point your browser at `localhost:3030` and you will see this test harness:
+
+![test harness](./docs/test-harness.jpg)
+
+## Database
+
+This app can use either an NeDB or SQLite database, both of which reside in `./data`.
+
+Both databases have the same structure:
+
+![database stucture](./docs/schema.jpg)
+
+and contain the same data:
+
+![database data](./docs/tables.jpg)
 
 ## Scaffolding
 

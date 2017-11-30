@@ -1,21 +1,24 @@
-// Initializes the `user` service on path `/users`
+// Initializes the `like` service on path `/like`
 const createService = require('feathers-memory');
-const hooks = require('./user.hooks');
+const hooks = require('./like.hooks');
 
 module.exports = function (app) {
   
   const paginate = app.get('paginate');
 
   const options = {
-    name: 'user',
-    paginate
+    name: 'like',
+    paginate,
+    //!code: options_more
+    id: 'uuid',
+    //!end
   };
 
   // Initialize our service with any options it requires
-  app.use('/user', createService(options));
+  app.use('/like', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
-  const service = app.service('user');
+  const service = app.service('like');
 
   service.hooks(hooks);
 };
