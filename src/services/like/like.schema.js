@@ -26,9 +26,19 @@ let schema = {
 
 let extension = {
   graphql: {
-    //!default code: extension_header
+    //!code: extension_header
     name: 'Like',
-    sort: { uuid: 1 },
+    service: {
+      sort: { uuid: 1 },
+    },
+    sql: {
+      sqlTable: 'Likes',
+      uniqueKey: 'uuid',
+      sqlColumn: {
+        authorUuid: 'author_uuid',
+        commentUuid: 'comment_uuid',
+      },
+    },
     //!end
     discard: [
       //!code: extension_discard //!end
@@ -38,21 +48,35 @@ let extension = {
       author: {
         type: 'User!',
         args: false,
-        resolver: ({ authorUuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: authorUuid, $sort: { uuid: 1 } }
-          });
-          return options.services.user.find(feathersParams).then(extractFirstItem);
+        service: {
+          resolver: ({ authorUuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { uuid: authorUuid, $sort: { uuid: 1 } }
+            });
+            return options.services.user.find(feathersParams).then(extractFirstItem);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, null); },
+          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); },
         },
       },
       comment: {
         type: 'Comment!',
         args: false,
-        resolver: ({ commentUuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: commentUuid, $sort: { uuid: 1 } }
-          });
-          return options.services.comment.find(feathersParams).then(extractFirstItem);
+        service: {
+          resolver: ({ commentUuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { uuid: commentUuid, $sort: { uuid: 1 } }
+            });
+            return options.services.comment.find(feathersParams).then(extractFirstItem);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.comment_uuid = ' + otherTable + '.uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, null); },
+          where(table, args) { return makeWhere(table, args, 'comment_uuid', undefined); },
         },
       },
       //!end

@@ -1,13 +1,13 @@
-// Initializes the `graphql` service on path `/mygraphql`
+// Initializes the `graphql` service on path `/graphql`
 const createService = require('@feathers-x/graphql');
 const { mergeTypes } = require('merge-graphql-schemas');
 const hooks = require('./graphql.hooks');
 
 const metadata = {
-  // Comment: { service: 'comment' },
-  // Like: { service: 'like' },
-  // Post: { service: 'post' },
-  // Relationship: { service: 'relationship' },
+  Comment: { service: 'comment' },
+  Like: { service: 'like' },
+  Post: { service: 'post' },
+  Relationship: { service: 'relationship' },
   User: { service: 'user' }
 };
 /*
@@ -22,7 +22,7 @@ const resolvers = Object.assign({},
 */
 const schemas = require('./graphql.schemas');
 
-const resolvers = require('./graphql.resolvers');
+const resolvers = require('./service.resolvers');
 
 module.exports = function(){
   const app = this;

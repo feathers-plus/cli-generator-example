@@ -6,7 +6,7 @@ let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
   //!code: schema_header
   title: 'Users1',
-  description: 'Information about users.',
+  description: 'User data',
   //!end
   type: 'object',
   required: [
@@ -33,8 +33,19 @@ let schema = {
 let extension = {
   graphql: {
     //!code: extension_header
-    name: 'User', // GraphQL name
-    sort: { id: 1 }, // Default sort for CRUD find query
+    name: 'User',
+    service: {
+      sort: { uuid: 1 },
+    },
+    sql: {
+      sqlTable: 'Accounts',
+      uniqueKey: 'uuid',
+      sqlColumn: {
+        email: 'email_address',
+        firstName: 'first_name',
+        lastName: 'last_name',
+      },
+    },
     //!end
     discard: [
       //!code: extension_discard
@@ -46,56 +57,96 @@ let extension = {
       fullName: {
         type: 'String!',
         args: false,
-        resolver: ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
+        service: {
+          resolver: ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
+        },
+        sql: {
+          sqlExpr: (tableName, args) => `${tableName}.first_name ${tableName}.last_name`,
+        },
       },
       posts: {
         type: '[Post!]',
         // args: false,
-        resolver: ({ uuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: { authorUuid: uuid, $sort: { uuid: 1 } }
-          });
-          return options.services.post.find(feathersParams).then(extractAllItems);
+        service: {
+          resolver: ({ uuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { authorUuid: uuid, $sort: { uuid: 1 } }
+            });
+            return options.services.post.find(feathersParams).then(extractAllItems);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', {"body":{"$ne":"xxx"}}); },
         },
       },
       comments: {
         type: '[Comment!]',
         args: false,
-        resolver: ({ uuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: { authorUuid: uuid, $sort: { uuid: 1 } }
-          });
-          return options.services.comment.find(feathersParams).then(extractAllItems);
+        service: {
+          resolver: ({ uuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { authorUuid: uuid, $sort: { uuid: 1 } }
+            });
+            return options.services.comment.find(feathersParams).then(extractAllItems);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
         },
       },
       followed_by: {
         type: '[Relationship!]',
         args: false,
-        resolver: ({ uuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: { followeeUuid: uuid, $sort: { uuid: 1 } }
-          });
-          return options.services.relationship.find(feathersParams).then(extractAllItems);
+        service: {
+          resolver: ({ uuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { followeeUuid: uuid, $sort: { uuid: 1 } }
+            });
+            return options.services.relationship.find(feathersParams).then(extractAllItems);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.followee_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: -1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
         },
       },
       following: {
         type: '[Relationship!]',
         args: false,
-        resolver: ({ uuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: { followerUuid: uuid, $sort: { uuid: 1 } }
-          });
-          return options.services.relationship.find(feathersParams).then(extractAllItems);
+        service: {
+          resolver: ({ uuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { followerUuid: uuid, $sort: { uuid: 1 } }
+            });
+            return options.services.relationship.find(feathersParams).then(extractAllItems);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.follower_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
         },
       },
       likes: {
         type: '[Like!]',
         args: false,
-        resolver: ({ uuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: {authorUuid: uuid, $sort: {uuid: 1}}
-          });
-          return options.services.like.find(feathersParams).then(extractAllItems);
+        service: {
+          resolver: ({ uuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: {authorUuid: uuid, $sort: {uuid: 1}}
+            });
+            return options.services.like.find(feathersParams).then(extractAllItems);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
         },
       },
       //!end

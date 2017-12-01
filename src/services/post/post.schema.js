@@ -4,9 +4,9 @@
 
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
-  //!default code: schema_header
-  title: '...',
-  description: '...',
+  //!code: schema_header
+  title: 'Post1',
+  description: 'Post data',
   //!end
   type: 'object',
   required: [
@@ -29,7 +29,16 @@ let extension = {
   graphql: {
     //!code: extension_header
     name: 'Post',
-    sort: { uuid: 1 },
+    service: {
+      sort: { uuid: 1 },
+    },
+    sql: {
+      sqlTable: 'Posts',
+      uniqueKey: 'uuid',
+      sqlColumn: {
+        authorUuid: 'author_uuid',
+      },
+    },
     //!end
     discard: [
       //!code: extension_discard //!end
@@ -39,21 +48,35 @@ let extension = {
       author: {
         type: 'User!',
         args: false,
-        resolver: ({ authorUuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: authorUuid, $sort: { uuid: 1 } }
-          });
-          return options.services.user.find(feathersParams).then(extractFirstItem);
+        service: {
+          resolver: ({ authorUuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { uuid: authorUuid, $sort: { uuid: 1 } }
+            });
+            return options.services.user.find(feathersParams).then(extractFirstItem);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, null); },
+          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); },
         },
       },
     comments: {
       type: '[Comment!]',
       args: false,
-      resolver: ({ uuid }, args, content, ast) => {
-        const feathersParams = convertArgsToFeathers(args, {
-          query: { postUuid: uuid, $sort: { uuid: 1 } }
-      });
-        return options.services.comment.find(feathersParams).then(extractAllItems);
+      service: {
+        resolver: ({ uuid }, args, content, ast) => {
+          const feathersParams = convertArgsToFeathers(args, {
+            query: { postUuid: uuid, $sort: { uuid: 1 } }
+          });
+          return options.services.comment.find(feathersParams).then(extractAllItems);
+        },
+      },
+      sql: {
+        sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.post_uuid'; },
+        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
       },
     },
       //!end
