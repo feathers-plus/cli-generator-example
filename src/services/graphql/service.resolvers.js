@@ -48,11 +48,11 @@ let moduleExports = function serviceResolvers(app, options) {
           },
       // comments: [Comment!]
       comments: ({ uuid }, args, content, ast) => {
-          const feathersParams = convertArgsToFeathers(args, {
-            query: { postUuid: uuid, $sort: { uuid: 1 } }
-          });
-          return options.services.comment.find(feathersParams).then(extractAllItems);
-        },
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { postUuid: uuid, $sort: { uuid: 1 } }
+            });
+            return options.services.comment.find(feathersParams).then(extractAllItems);
+          },
     },
     Relationship: {
       // followee: User!
@@ -165,7 +165,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // findUser(query: JSON, params: JSON): [User!]
       findUser(parent, args, content, info) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
+        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"id":1} } });
         return options.services.user.find(feathersParams).then(extractAllItems);
       },
       //!code: resolver_query_more //!end

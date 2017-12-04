@@ -4,46 +4,81 @@
 
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
-  //!<DEFAULT> code: schema_header
-  title: '...',
-  description: '...',
+  //!code: schema_header
+  title: 'Relationship1',
+  description: 'Relationship data',
   //!end
   type: 'object',
   required: [
     //!code: schema_required //!end
   ],
   properties: {
-    //!code: schema_properties //!end
+    //!code: schema_properties
+    id: { type: 'ID' },
+    _id: { type: 'ID' },
+    uuid: { type: 'ID' },
+    followerUuid: { type: 'ID' },
+    followeeUuid: { type: 'ID' },
+    //!end
   },
   //!code: schema_more //!end
 };
 
 let extension = {
   graphql: {
-    //!<DEFAULT> code: extension_header
-    // name: '...',
-    // service : {
-    //   sort: { id: 1 },
-    // },
+    //!code: graphql_header
+    name: 'Relationship',
+    service: {
+      sort: { uuid: 1 },
+    },
+    sql: {
+      sqlTable: 'Relationships',
+      uniqueKey: 'uuid',
+      sqlColumn: {
+        followerUuid: 'follower_uuid',
+        followeeUuid: 'followee_uuid',
+      },
+    },
     //!end
     discard: [
-      //!code: extension_discard //!end
+      //!code: graphql_discard //!end
     ],
     add: {
-      //!<DEFAULT> code: extension_add
-      // ???: {
-      //   type: 'User!',
-      //   args: false,
-      //   service: {
-      //     resolver: (parent, args, content, ast) => {
-      //       const feathersParams = convertArgsToFeathers(args, {
-      //         query: { ???: ???, $sort: { ???: 1 } }
-      //       });
-      //       return options.services.???.find(feathersParams).then(extractFirstItem);
-      //       return options.services.???.find(feathersParams).then(extractAllItems);
-      //     },
-      //   },
-      // },
+      //!code: graphql_add
+      follower: {
+        type: 'User!',
+        args: false,
+        service: {
+          resolver: ({ followerUuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { uuid: followerUuid, $sort: { uuid: 1 } }
+            });
+            return options.services.user.find(feathersParams).then(extractFirstItem);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.follower_uuid = ' + otherTable + '.uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, null); },
+          where(table, args) { return makeWhere(table, args, 'follower_uuid', undefined); },
+        },
+      },
+      followee: {
+        type: 'User!',
+        args: false,
+        service: {
+          resolver: ({ followeeUuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { uuid: followeeUuid, $sort: { uuid: 1 } }
+            });
+            return options.services.user.find(feathersParams).then(extractFirstItem);
+          },
+        },
+        sql: {
+          sqlJoin(ourTable, otherTable) { return ourTable + '.followee_uuid = ' + otherTable + '.uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, null); },
+          where(table, args) { return makeWhere(table, args, 'followee_uuid', undefined); },
+        },
+      },
       //!end
     },
     //!code: extension_more //!end

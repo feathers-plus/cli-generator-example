@@ -9,53 +9,56 @@ const hooks = require('./graphql.hooks');
 const schemas = require('./graphql.schemas');
 // const schemas = mergeTypes([
 //   require('./graphql.schemas'),
-//   ...
+//   // other schemas
 // ]);
 //!end
 
-// *** services
-/*
-//!<DEFAULT> code: metadata
+// Setup for using Feathers service resolvers.
+
+//!<DEFAULT> code: service_resolvers
+const serviceResolvers = require('./service.resolvers');
+// const serviceResolvers = (app, options) => Object.assign({},
+//   require('./service.resolvers')(app, options),
+//   // other service resolvers
+// );
+//!end
+
+//!<DEFAULT> code: service_metadata
 const metadata = require('./graphql.metadata').graphql;
 // const metadata = Object.assign({},
 //   require('./graphql.metadata').graphql,
-//   ...
+//   // other service metadata
 // );
 //!end
 
-//!<DEFAULT> code: resolvers
-const resolvers = require('./service.resolvers');
-// const resolvers = (app, options) => Object.assign({},
-//   require('./service.resolvers')(app, options),
-//   ...
+// Setup for using SQL statement resolvers.
+
+const { dialect, executeSql, openDb } = require('./sql.execute');
+//!<DEFAULT> code: sql_resolvers
+const sqlResolvers = require('./sql.resolvers');;
+// const sqlResolvers = Object.assign({},
+//   require('./sql.resolvers'),
+//   // other sql resolvers
 // );
 //!end
-*/
 
-// *** SQL
-const { cwd } = require('process');
-const { join } = require('path');
-const sqlite = require('sqlite');
-
-const resolvers = require('./sql.resolvers');
+//!<DEFAULT> code: service_metadata
 const sqlJoins = require('./sql.metadata');
+// const sqlJoins = Object.assign({},
+//   require('./sql.metadata'),
+//   // other sql metadata
+// );
+//!end
 
-const usingSql = true;
-const sql = {
-  dialect: 'sqlite3',
-  openDb: () => {
-    console.log('..open sql db', join(cwd(), 'data', 'sqlite3.db'));
-    sqlite.open(join(cwd(), 'data', 'sqlite3.db'));
-    console.log('..open sql db2', typeof sqlite, Object.keys(sqlite), sqlite);
-    return sqlite;
-  },
-  executeSql: sql => sqlite.all(sql)
-    .catch(err => {
-      console.log('config/default/executeSql error=', err.message);
-      throw err;
-    })
-};
-const { dialect, executeSql, openDb } = sql || {};
+if (!dialect) {
+  throw new Error('services/graphql/sql.execute.js has not been configured.');
+}
+
+// Setup for both Feathers service and SQL statement resolvers.
+  
+//!<DEFAULT> code: service_either
+const usingSql = false;
+//!end
 
 let moduleExports = function(){
   const app = this;
@@ -64,21 +67,6 @@ let moduleExports = function(){
   console.log('\n===== configuring graphql service for custom Feathers services resolvers.\n'); // eslint-disable-line
 
   const options = {
-    /* services only
-    schemas,
-    metadata,
-    resolvers,
-    */
-    // SQL only
-    schemas,
-    resolvers,
-    sqlJoins,
-    dialect,
-    executeSql,
-    openDb,
-    logSql: true,
-     //
-    /* services and SQL
     schemas,
     metadata,
     resolvers: usingSql ? sqlResolvers : serviceResolvers,
@@ -87,7 +75,6 @@ let moduleExports = function(){
     executeSql,
     openDb: usingSql ? openDb : undefined,
     logSql: false,
-    */
     //!code: func_options //!end
   };
 

@@ -20,14 +20,14 @@ let moduleExports = function sqlMetadata(app, options) {
         sqlColumn: "post_uuid"
       },
       author: {
-        sqlJoin: (ourTable, otherTable) => { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
-        orderBy: (args, content) => { return makeOrderBy(args, null); },
-        where: (table, args) => { return makeWhere(table, args, 'author_uuid', undefined); }
+        sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
+        orderBy(args, content) { return makeOrderBy(args, null); },
+        where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); }
       },
       likes: {
-        sqlJoin: (ourTable, otherTable) => { return ourTable + '.uuid = ' + otherTable + '.comment_uuid'; },
-        orderBy: (args, content) => { return makeOrderBy(args, { uuid: 1 }); },
-        where: (table, args) => { return makeWhere(table, args, 'uuid', undefined); }
+        sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.comment_uuid'; },
+        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+        where(table, args) { return makeWhere(table, args, 'uuid', undefined); }
       }
     }
   },
@@ -123,7 +123,7 @@ let moduleExports = function sqlMetadata(app, options) {
         where(table, args) { return makeWhere(table, args, 'uuid', undefined); }
       },
       fullName: {
-        sqlExpr: (tableName, args) => `${tableName}.first_name ${tableName}.last_name`
+        sqlExpr: (tableName, args) => `${tableName}.first_name || ' ' || ${tableName}.last_name`
       },
       likes: {
         sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
@@ -140,55 +140,45 @@ let moduleExports = function sqlMetadata(app, options) {
   Query: {
     fields: {
       getComment: {
-        // Comment, feathers.get
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       findComment: {
-        // Comment, feathers.find
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       getLike: {
-        // Like, feathers.get
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       findLike: {
-        // Like, feathers.find
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       getPost: {
-        // Post, feathers.get
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       findPost: {
-        // Post, feathers.find
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       getRelationship: {
-        // Relationship, feathers.get
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       findRelationship: {
-        // Relationship, feathers.find
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       getUser: {
-        // User, feathers.get
-        orderBy(args, content) { return makeOrderBy(args, { uuid: -1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
       },
       findUser: {
-        // User, feathers.find
-        orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-        where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
-      },
+        orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
+        where: (table, args) => makeWhere(table, args, 'uuid')
+      }
     }
   }
 };

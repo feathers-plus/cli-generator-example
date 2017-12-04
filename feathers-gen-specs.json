@@ -46,7 +46,8 @@
   "graphql": {
     "path": "graphql",
     "resolvers": [
-      "resolvers"
+      "resolvers",
+      "sql"
     ]
   }
 }

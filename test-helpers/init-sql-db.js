@@ -11,10 +11,8 @@ module.exports = async function initSqlDb (app) { // eslint-disable-line
   const user = app.service('user');
 
   sqlDb = app.service('graphql').sqlDb;
-  console.log('sqlDb', typeof sqlDb, Object.keys(sqlDb));
 
   results = await user.find({ query: { $sort: { uuid: 1 } } });
-  console.log('a');
   await copyServiceToTable(results, 'Accounts', {
     columns: {
       uuid: { type: 'INTEGER PRIMARY KEY' },
@@ -23,7 +21,6 @@ module.exports = async function initSqlDb (app) { // eslint-disable-line
       email: { name: 'email_address' }
     }
   });
-  console.log('b');
 
   results = await post.find({ query: { $sort: { uuid: 1 } } });
   await copyServiceToTable(results, 'Posts', {
@@ -93,7 +90,6 @@ async function copyServiceToTable (data, tableName, options = {}) {
     return `${fieldList}${i ? ', ' : ''}${column.name}`;
   }, '');
 
-  console.log('sqlDb2', typeof sqlDb, typeof sqlDb.run, Object.keys(sqlDb));
   await sqlDb.run(`DROP TABLE IF EXISTS ${tableName}`);
   await sqlDb.run(`CREATE TABLE ${tableName} (${schema})`);
 

@@ -8,7 +8,6 @@ module.exports = function initDb (app) {
       console.log('non-SQL DB initialized.');
 
       const sqlDb = app.service('graphql').sqlDb;
-      console.log('aaaaaaaaaa', typeof sqlDb, sqlDb);
       if (!sqlDb) return;
 
       return initSqlDb(app)

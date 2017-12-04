@@ -5,8 +5,8 @@
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
   //!<DEFAULT> code: schema_header
-  title: '...',
-  description: '...',
+  title: 'Users1',
+  description: 'User data',
   //!end
   type: 'object',
   required: [
@@ -32,19 +32,28 @@ let schema = {
 
 let extension = {
   graphql: {
-    //!<DEFAULT> code: extension_header
-    // name: '...',
-    // service : {
-    //   sort: { id: 1 },
-    // },
+    //!code: graphql_header
+    name: 'User',
+    service : {
+      sort: { id: 1 },
+    },
+    sql: {
+      sqlTable: 'Accounts',
+      uniqueKey: 'uuid',
+      sqlColumn: {
+        email: 'email_address',
+        firstName: 'first_name',
+        lastName: 'last_name',
+      },
+    },
     //!end
     discard: [
-      //!code: extension_discard
+      //!code: graphql_discard
       'mass', 'height'
       //!end
     ],
     add: {
-      //!code: extension_add
+      //!code: graphql_add
       fullName: {
         type: 'String!',
         args: false,
@@ -52,7 +61,7 @@ let extension = {
           resolver: ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
         },
         sql: {
-          sqlExpr: (tableName, args) => `${tableName}.first_name ${tableName}.last_name`,
+          sqlExpr: (tableName, args) => `${tableName}.first_name || ' ' || ${tableName}.last_name`,
         },
       },
       posts: {

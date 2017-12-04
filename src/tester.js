@@ -1,8 +1,7 @@
 
-/*
 const getUser = `{
   getUser(key: 1) {
-    id
+    _id
     uuid
     email
     firstName
@@ -13,7 +12,7 @@ const getUser = `{
 
 const findUser = `{
   findUser {
-    id
+    _id
     uuid
     email
     firstName
@@ -24,7 +23,7 @@ const findUser = `{
 
 const getComment = `{
   getComment(key: 10) {
-    id
+    _id
     uuid
     authorUuid
     postUuid
@@ -34,38 +33,6 @@ const getComment = `{
       uuid
       email
       fullName
-    }
-  }
-}`;
-*/
-const getUser = `{
-  getUser(key: 1) {
-    uuid
-    email
-    firstName
-    lastName
-  }
-}`;
-
-const findUser = `{
-  findUser {
-    uuid
-    email
-    firstName
-    lastName
-  }
-}`;
-
-const getComment = `{
-  getComment(key: 10) {
-    uuid
-    authorUuid 
-    postUuid 
-    body 
-    archived 
-    author {
-      uuid
-      email
     }
   }
 }`;
