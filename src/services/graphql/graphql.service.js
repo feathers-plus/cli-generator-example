@@ -35,7 +35,7 @@ const metadata = require('./graphql.metadata').graphql;
 
 const { dialect, executeSql, openDb } = require('./sql.execute');
 //!<DEFAULT> code: sql_resolvers
-const sqlResolvers = require('./sql.resolvers');;
+const sqlResolvers = require('./sql.resolvers');
 // const sqlResolvers = Object.assign({},
 //   require('./sql.resolvers'),
 //   // other sql resolvers
@@ -54,8 +54,8 @@ if (!dialect) {
   throw new Error('services/graphql/sql.execute.js has not been configured.');
 }
 
-// Setup for both Feathers service and SQL statement resolvers.
-  
+// Setup for using both Feathers service and SQL statement resolvers.
+
 //!<DEFAULT> code: service_either
 const usingSql = false;
 //!end

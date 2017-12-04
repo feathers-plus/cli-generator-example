@@ -1,4 +1,6 @@
 
+const asyncTest = require('../test-helpers/async-test');
+
 const getUser = `{
   getUser(key: 1) {
     _id
@@ -53,6 +55,9 @@ module.exports = function tester(app) {
     })
     .then(response => {
       console.log('>>>>> getComment(key: 10)\n', response);
+
+      console.log('>>>>> start async test');
+      asyncTest(app, 10);
     })
     .catch(err => console.log(err));
 };
