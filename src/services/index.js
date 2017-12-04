@@ -4,13 +4,12 @@ const comment = require('./comment/comment.service.js');
 const like = require('./like/like.service.js');
 const post = require('./post/post.service.js');
 const relationship = require('./relationship/relationship.service.js');
-const test = require('./test/test.service.js');
 module.exports = function (app) {
   app.configure(user);
-  app.configure(graphql);
   app.configure(comment);
   app.configure(like);
   app.configure(post);
   app.configure(relationship);
-  app.configure(test);
+
+  app.configure(graphql);
 };

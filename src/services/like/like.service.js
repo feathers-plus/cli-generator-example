@@ -1,13 +1,15 @@
 // Initializes the `like` service on path `/like`
-const createService = require('feathers-memory');
+const createService = require('feathers-nedb');
+const createModel = require('../../models/like.model');
 const hooks = require('./like.hooks');
 
 module.exports = function (app) {
-  
+  const Model = createModel(app);
   const paginate = app.get('paginate');
 
   const options = {
     name: 'like',
+    Model,
     paginate,
     //!code: options_more
     id: 'uuid',

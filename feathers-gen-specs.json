@@ -9,35 +9,35 @@
   "services": {
     "user": {
       "name": "user",
-      "adapter": "memory",
+      "adapter": "nedb",
       "path": "/user",
       "requiresAuth": false,
       "graphql": true
     },
     "comment": {
       "name": "comment",
-      "adapter": "memory",
+      "adapter": "nedb",
       "path": "/comment",
       "requiresAuth": false,
       "graphql": true
     },
     "like": {
       "name": "like",
-      "adapter": "memory",
+      "adapter": "nedb",
       "path": "/like",
       "requiresAuth": false,
       "graphql": true
     },
     "post": {
       "name": "post",
-      "adapter": "memory",
+      "adapter": "nedb",
       "path": "/post",
       "requiresAuth": false,
       "graphql": true
     },
     "relationship": {
       "name": "relationship",
-      "adapter": "memory",
+      "adapter": "nedb",
       "path": "/relationship",
       "requiresAuth": false,
       "graphql": true

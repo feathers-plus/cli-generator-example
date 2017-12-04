@@ -4,9 +4,9 @@
 
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
-  //!code: schema_header
-  title: 'Users1',
-  description: 'User data',
+  //!<DEFAULT> code: schema_header
+  title: '...',
+  description: '...',
   //!end
   type: 'object',
   required: [
@@ -32,20 +32,11 @@ let schema = {
 
 let extension = {
   graphql: {
-    //!code: extension_header
-    name: 'User',
-    service: {
-      sort: { uuid: 1 },
-    },
-    sql: {
-      sqlTable: 'Accounts',
-      uniqueKey: 'uuid',
-      sqlColumn: {
-        email: 'email_address',
-        firstName: 'first_name',
-        lastName: 'last_name',
-      },
-    },
+    //!<DEFAULT> code: extension_header
+    // name: '...',
+    // service : {
+    //   sort: { id: 1 },
+    // },
     //!end
     discard: [
       //!code: extension_discard

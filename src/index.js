@@ -12,7 +12,7 @@ server.on('listening', () =>
   logger.info('Feathers application started on http://%s:%d', app.get('host'), port)
 );
 
-const initDb = require('./init-db');
+const initDb = require('../test-helpers/init-db');
 const tester = require('./tester');
 
 initDb(app)

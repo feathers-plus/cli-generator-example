@@ -1,13 +1,15 @@
 // Initializes the `post` service on path `/post`
-const createService = require('feathers-memory');
+const createService = require('feathers-nedb');
+const createModel = require('../../models/post.model');
 const hooks = require('./post.hooks');
 
 module.exports = function (app) {
-  
+  const Model = createModel(app);
   const paginate = app.get('paginate');
 
   const options = {
     name: 'post',
+    Model,
     paginate,
     //!code: options_more
     id: 'uuid',

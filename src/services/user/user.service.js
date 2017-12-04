@@ -1,13 +1,15 @@
 // Initializes the `user` service on path `/user`
-const createService = require('feathers-memory');
+const createService = require('feathers-nedb');
+const createModel = require('../../models/user.model');
 const hooks = require('./user.hooks');
 
 module.exports = function (app) {
-  
+  const Model = createModel(app);
   const paginate = app.get('paginate');
 
   const options = {
     name: 'user',
+    Model,
     paginate,
     //!code: options_more
     id: 'uuid',

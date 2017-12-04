@@ -5,9 +5,7 @@
 let moduleExports = {
   before: {
     all: [ 
-      //!code: before_all
-      () => {},
-      //!end
+      //!code: before_all //!end
     ],
     find: [
       //!code: before_find

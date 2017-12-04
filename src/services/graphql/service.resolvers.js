@@ -55,13 +55,6 @@ let moduleExports = function serviceResolvers(app, options) {
         },
     },
     Relationship: {
-      // follower: User!
-      follower: ({ followerUuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { uuid: followerUuid, $sort: { uuid: 1 } }
-            });
-            return options.services.user.find(feathersParams).then(extractFirstItem);
-          },
       // followee: User!
       followee: ({ followeeUuid }, args, content, ast) => {
             const feathersParams = convertArgsToFeathers(args, {
@@ -69,17 +62,15 @@ let moduleExports = function serviceResolvers(app, options) {
             });
             return options.services.user.find(feathersParams).then(extractFirstItem);
           },
+      // follower: User!
+      follower: ({ followerUuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { uuid: followerUuid, $sort: { uuid: 1 } }
+            });
+            return options.services.user.find(feathersParams).then(extractFirstItem);
+          },
     },
     User: {
-      // fullName: String!
-      fullName: ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
-      // posts(query: JSON, params: JSON, key: JSON): [Post!]
-      posts: ({ uuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { authorUuid: uuid, $sort: { uuid: 1 } }
-            });
-            return options.services.post.find(feathersParams).then(extractAllItems);
-          },
       // comments: [Comment!]
       comments: ({ uuid }, args, content, ast) => {
             const feathersParams = convertArgsToFeathers(args, {
@@ -101,12 +92,21 @@ let moduleExports = function serviceResolvers(app, options) {
             });
             return options.services.relationship.find(feathersParams).then(extractAllItems);
           },
+      // fullName: String!
+      fullName: ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
       // likes: [Like!]
       likes: ({ uuid }, args, content, ast) => {
             const feathersParams = convertArgsToFeathers(args, {
               query: {authorUuid: uuid, $sort: {uuid: 1}}
             });
             return options.services.like.find(feathersParams).then(extractAllItems);
+          },
+      // posts(query: JSON, params: JSON, key: JSON): [Post!]
+      posts: ({ uuid }, args, content, ast) => {
+            const feathersParams = convertArgsToFeathers(args, {
+              query: { authorUuid: uuid, $sort: { uuid: 1 } }
+            });
+            return options.services.post.find(feathersParams).then(extractAllItems);
           },
     },
 
