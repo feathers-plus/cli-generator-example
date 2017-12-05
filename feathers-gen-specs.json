@@ -41,6 +41,13 @@
       "path": "/relationship",
       "requiresAuth": false,
       "graphql": true
+    },
+    "testschema": {
+      "name": "testschema",
+      "adapter": "nedb",
+      "path": "/testschema",
+      "requiresAuth": false,
+      "graphql": false
     }
   },
   "graphql": {

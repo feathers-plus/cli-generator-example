@@ -4,7 +4,6 @@ const comment = require('./comment/comment.service.js');
 const like = require('./like/like.service.js');
 const post = require('./post/post.service.js');
 const relationship = require('./relationship/relationship.service.js');
-const testschema = require('./testschema/testschema.service.js');
 module.exports = function (app) {
   app.configure(user);
   app.configure(comment);
@@ -13,5 +12,4 @@ module.exports = function (app) {
   app.configure(relationship);
 
   app.configure(graphql);
-  app.configure(testschema);
 };

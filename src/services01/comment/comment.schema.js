@@ -41,12 +41,12 @@ let extension = {
         postUuid: 'post_uuid',
       },
     },
-    //!end,
+    //!end
     discard: [
       //!code: graphql_discard //!end
     ],
     add: {
-    //!code: graphql_add
+      //!code: graphql_add
       author: {
         type: 'User!',
         args: false,
@@ -83,7 +83,7 @@ let extension = {
       },
       //!end
     },
-    //!code: graphql_more //!end
+    //!code: extension_more //!end
   },
 };
 

@@ -5,8 +5,8 @@
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
   //!code: schema_header
-  title: 'Comment1',
-  description: 'Comment data',
+  title: 'Relationship1',
+  description: 'Relationship data',
   //!end
   type: 'object',
   required: [
@@ -17,10 +17,8 @@ let schema = {
     id: { type: 'ID' },
     _id: { type: 'ID' },
     uuid: { type: 'ID' },
-    authorUuid: { type: 'ID' },
-    postUuid: { type: 'ID' },
-    body: { type: 'string' },
-    archived: { type: 'integer' }
+    followerUuid: { type: 'ID' },
+    followeeUuid: { type: 'ID' },
     //!end
   },
   //!code: schema_more //!end
@@ -29,61 +27,61 @@ let schema = {
 let extension = {
   graphql: {
     //!code: graphql_header
-    name: 'Comment',
+    name: 'Relationship',
     service: {
       sort: { uuid: 1 },
     },
     sql: {
-      sqlTable: 'Comments',
+      sqlTable: 'Relationships',
       uniqueKey: 'uuid',
       sqlColumn: {
-        authorUuid: 'author_uuid',
-        postUuid: 'post_uuid',
+        followerUuid: 'follower_uuid',
+        followeeUuid: 'followee_uuid',
       },
     },
-    //!end,
+    //!end
     discard: [
       //!code: graphql_discard //!end
     ],
     add: {
-    //!code: graphql_add
-      author: {
+      //!code: graphql_add
+      follower: {
         type: 'User!',
         args: false,
         service: {
-          resolver: ({ authorUuid }, args, content, ast) => {
+          resolver: ({ followerUuid }, args, content, ast) => {
             const feathersParams = convertArgsToFeathers(args, {
-              query: { uuid: authorUuid, $sort: { uuid: 1 } }
+              query: { uuid: followerUuid, $sort: { uuid: 1 } }
             });
-            return options.services.user.find(feathersParams).then(extractFirstItem)
+            return options.services.user.find(feathersParams).then(extractFirstItem);
           },
         },
         sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
+          sqlJoin(ourTable, otherTable) { return ourTable + '.follower_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); },
+          where(table, args) { return makeWhere(table, args, 'follower_uuid', undefined); },
         },
       },
-      likes: {
-        type: '[Like!]',
+      followee: {
+        type: 'User!',
         args: false,
         service: {
-          resolver: ({ uuid }, args, content, ast) => {
+          resolver: ({ followeeUuid }, args, content, ast) => {
             const feathersParams = convertArgsToFeathers(args, {
-              query: { commentUuid: uuid, $sort: { uuid: 1 } }
+              query: { uuid: followeeUuid, $sort: { uuid: 1 } }
             });
-            return options.services.like.find(feathersParams).then(extractAllItems);
+            return options.services.user.find(feathersParams).then(extractFirstItem);
           },
         },
         sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.comment_uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+          sqlJoin(ourTable, otherTable) { return ourTable + '.followee_uuid = ' + otherTable + '.uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, null); },
+          where(table, args) { return makeWhere(table, args, 'followee_uuid', undefined); },
         },
       },
       //!end
     },
-    //!code: graphql_more //!end
+    //!code: extension_more //!end
   },
 };
 

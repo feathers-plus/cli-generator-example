@@ -5,8 +5,8 @@
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
   //!code: schema_header
-  title: 'Comment1',
-  description: 'Comment data',
+  title: 'Post1',
+  description: 'Post data',
   //!end
   type: 'object',
   required: [
@@ -18,9 +18,8 @@ let schema = {
     _id: { type: 'ID' },
     uuid: { type: 'ID' },
     authorUuid: { type: 'ID' },
-    postUuid: { type: 'ID' },
-    body: { type: 'string' },
-    archived: { type: 'integer' }
+    body: {},
+    draft: { type: 'integer' },
     //!end
   },
   //!code: schema_more //!end
@@ -29,24 +28,23 @@ let schema = {
 let extension = {
   graphql: {
     //!code: graphql_header
-    name: 'Comment',
+    name: 'Post',
     service: {
       sort: { uuid: 1 },
     },
     sql: {
-      sqlTable: 'Comments',
+      sqlTable: 'Posts',
       uniqueKey: 'uuid',
       sqlColumn: {
         authorUuid: 'author_uuid',
-        postUuid: 'post_uuid',
       },
     },
-    //!end,
+    //!end
     discard: [
       //!code: graphql_discard //!end
     ],
     add: {
-    //!code: graphql_add
+      //!code: graphql_add
       author: {
         type: 'User!',
         args: false,
@@ -55,7 +53,7 @@ let extension = {
             const feathersParams = convertArgsToFeathers(args, {
               query: { uuid: authorUuid, $sort: { uuid: 1 } }
             });
-            return options.services.user.find(feathersParams).then(extractFirstItem)
+            return options.services.user.find(feathersParams).then(extractFirstItem);
           },
         },
         sql: {
@@ -64,26 +62,26 @@ let extension = {
           where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); },
         },
       },
-      likes: {
-        type: '[Like!]',
+      comments: {
+        type: '[Comment!]',
         args: false,
         service: {
           resolver: ({ uuid }, args, content, ast) => {
             const feathersParams = convertArgsToFeathers(args, {
-              query: { commentUuid: uuid, $sort: { uuid: 1 } }
+              query: { postUuid: uuid, $sort: { uuid: 1 } }
             });
-            return options.services.like.find(feathersParams).then(extractAllItems);
+            return options.services.comment.find(feathersParams).then(extractAllItems);
           },
         },
         sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.comment_uuid'; },
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.post_uuid'; },
           orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
           where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
         },
       },
       //!end
     },
-    //!code: graphql_more //!end
+    //!code: extension_more //!end
   },
 };
 
