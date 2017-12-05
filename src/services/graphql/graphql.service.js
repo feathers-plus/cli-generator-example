@@ -5,63 +5,47 @@ const { mergeTypes } = require('merge-graphql-schemas');
 const hooks = require('./graphql.hooks');
 //!code: imports //!end
 
-//!<DEFAULT> code: schemas
-const schemas = require('./graphql.schemas');
-// const schemas = mergeTypes([
-//   require('./graphql.schemas'),
-//   // other schemas
-// ]);
-//!end
+const schemas = mergeTypes([
+  require('./graphql.schemas'),
+  //!code: schemas //!end
+]);
 
 // Setup for using Feathers service resolvers.
 
-//!<DEFAULT> code: service_resolvers
-const serviceResolvers = require('./service.resolvers');
-// const serviceResolvers = (app, options) => Object.assign({},
-//   require('./service.resolvers')(app, options),
-//   // other service resolvers
-// );
-//!end
+const serviceResolvers = (app, options) => Object.assign({},
+  require('./service.resolvers')(app, options),
+  //!code: service_resolvers //!end
+);
 
-//!<DEFAULT> code: service_metadata
-const metadata = require('./graphql.metadata').graphql;
-// const metadata = Object.assign({},
-//   require('./graphql.metadata').graphql,
-//   // other service metadata
-// );
-//!end
+const metadata = Object.assign({},
+  require('./service.metadata').graphql,
+  //!code: service_metadata //!end
+);
 
 // Setup for using SQL statement resolvers.
 
 const { dialect, executeSql, openDb } = require('./sql.execute');
-//!<DEFAULT> code: sql_resolvers
-const sqlResolvers = require('./sql.resolvers');
-// const sqlResolvers = Object.assign({},
-//   require('./sql.resolvers'),
-//   // other sql resolvers
-// );
-//!end
-
-//!<DEFAULT> code: service_metadata
-const sqlJoins = require('./sql.metadata');
-// const sqlJoins = Object.assign({},
-//   require('./sql.metadata'),
-//   // other sql metadata
-// );
-//!end
-
 if (!dialect) {
   throw new Error('services/graphql/sql.execute.js has not been configured.');
 }
 
-// Setup for using both Feathers service and SQL statement resolvers.
+const sqlResolvers = (app, options) => Object.assign({},
+  require('./sql.resolvers')(app, options),
+  //!code: sql_resolvers //!end
+);
 
-//!<DEFAULT> code: service_either
-const usingSql = false;
-//!end
+const sqlJoins = (app, options) => Object.assign({},
+  require('./sql.metadata')(app, options),
+  //!code: sql_metadata //!end
+);
 
 let moduleExports = function(){
   const app = this;
+
+// Setup for using both Feathers service and SQL statement resolvers.
+//!<DEFAULT> code: service_either
+const usingSql = true;
+//!end
   //!code: func_init //!end
 
   console.log('\n===== configuring graphql service for custom Feathers services resolvers.\n'); // eslint-disable-line
