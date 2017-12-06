@@ -1,9 +1,10 @@
 {
   "app": {
     "src": "src",
-    "packager": "yarn@>= 0.18.0",
+    "packager": "npm@>= 3.0.0",
     "providers": [
-      "primus"
+      "rest",
+      "socketio"
     ]
   },
   "services": {

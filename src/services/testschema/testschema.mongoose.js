@@ -1,12 +1,15 @@
 
+// Defines Mongoose model for service `testschema`.
+const deepMerge = require('deepmerge');
 const mongoose = require('mongoose');
 //!code: imports //!end
 //!code: init //!end
 
-let moduleExports = Object.assign({},
+let moduleExports = deepMerge.all([{},
   //!<DEFAULT> code: model
   {
     str1: {
+      required: true,
       type: String,
       match: "^[0-9]+$"
     },
@@ -19,11 +22,14 @@ let moduleExports = Object.assign({},
     array1: [
       Number
     ],
-    uuid: mongoose.Schema.ObjectId
-  }
+    uuid: {
+      required: true,
+      type: mongoose.Schema.ObjectId
+    }
+  },
   //!end
   //!code: moduleExports //!end
-);
+]);
 
 //!code: exports //!end
 module.exports = moduleExports;

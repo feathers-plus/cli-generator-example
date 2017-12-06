@@ -12,7 +12,7 @@ let schema = {
   required: [
     //!code: schema_required
     'str1', 'uuid'
-    // !end
+    //!end
   ],
   properties: {
     //!code: schema_properties
