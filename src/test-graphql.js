@@ -39,7 +39,7 @@ const getComment = `{
   }
 }`;
 
-module.exports = function tester(app) {
+module.exports = function testGraphql(app) {
   const graphql = app.service('/graphql');
 
   graphql.find({ query: { graphql: findUser } })

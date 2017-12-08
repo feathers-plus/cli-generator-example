@@ -2,7 +2,10 @@
 /* eslint-disable no-console */
 const logger = require('winston');
 const app = require('./app');
-//!code: imports //!end
+//!code: imports
+const initDb = require('../test-helpers/init-db');
+const testGraphql = require('./test-graphql');
+// !end
 //!code: init //!end
 
 const port = app.get('port');
@@ -25,11 +28,10 @@ server.on('listening', () => {
 
 //!code: funcs //!end
 //!code: end
-const initDb = require('../test-helpers/init-db');
-const tester = require('./tester');
+
 
 initDb(app)
-  .then(() => tester(app))
+  .then(() => testGraphql(app))
   .catch(err => {
     console.log(err.message);
     console.log(err.stack);
