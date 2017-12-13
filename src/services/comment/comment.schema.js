@@ -27,41 +27,6 @@ let schema = {
 };
 
 let extension = {
-  fastJoin: {
-    name: 'Comment',
-    persistent: CacheMap => {
-      const cacheMapUsers = CacheMap({ max: 100 }); // *********************************
-      loaders.user.id = new BatchLoader(async keys => {
-          const result = await users.find(makeCallingParams({}, { id: { $in: getUniqueKeys(keys) } }));
-          return getResultsByKey(keys, result, user => user.id, '!');
-        },
-        { cacheMap: cacheMapUsers }
-      );
-    },
-
-    before: context => {
-      context._loaders = { user: {} }; // ***** context._loaders.Comment create for all services
-
-      context._loaders.comments.postId = new BatchLoader(async (keys, context) => {
-          const result = await comments.find(makeCallingParams(context, { postId: { $in: getUniqueKeys(keys) } }));
-          return getResultsByKey(keys, result, comment => comment.postId, '[!]');
-        },
-        { context }
-      );
-    },
-
-    after: context => {},
-
-    joins: {
-      author: () => async (post, context) =>
-        post.author = await context._loaders.user.id.load(post.userId),
-      comments: {
-        resolver: (...args) => async (post, context) =>
-          post.commentRecords = await context._loaders.comments.postId.load(post.id),
-        joins: 'commentResolvers', // ***************************
-      },
-    },
-  },
   graphql: {
     //!code: graphql_header
     name: 'Comment',
