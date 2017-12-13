@@ -17,10 +17,6 @@ const serviceResolvers = (app, options) => Object.assign({},
   //!code: service_resolvers //!end
 );
 
-const metadata = Object.assign({},
-  require('./service.metadata').graphql,
-  //!code: service_metadata //!end
-);
 
 // Setup for using SQL statement resolvers.
 
@@ -52,7 +48,6 @@ let moduleExports = function(){
 
   const options = {
     schemas,
-    metadata,
     resolvers: usingSql ? sqlResolvers : serviceResolvers,
     sqlJoins,
     dialect,

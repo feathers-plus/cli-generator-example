@@ -57,9 +57,6 @@ let extension = {
       fullName: {
         type: 'String!',
         args: false,
-        service: {
-          resolver: ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
-        },
         sql: {
           sqlExpr: (tableName, args) => `${tableName}.first_name || ' ' || ${tableName}.last_name`,
         },
@@ -67,14 +64,6 @@ let extension = {
       posts: {
         type: '[Post!]',
         // args: false,
-        service: {
-          resolver: ({ uuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { authorUuid: uuid, $sort: { uuid: 1 } }
-            });
-            return options.services.post.find(feathersParams).then(extractAllItems);
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
           orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
@@ -84,14 +73,6 @@ let extension = {
       comments: {
         type: '[Comment!]',
         args: false,
-        service: {
-          resolver: ({ uuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { authorUuid: uuid, $sort: { uuid: 1 } }
-            });
-            return options.services.comment.find(feathersParams).then(extractAllItems);
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
           orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
@@ -101,14 +82,6 @@ let extension = {
       followed_by: {
         type: '[Relationship!]',
         args: false,
-        service: {
-          resolver: ({ uuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { followeeUuid: uuid, $sort: { uuid: 1 } }
-            });
-            return options.services.relationship.find(feathersParams).then(extractAllItems);
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.followee_uuid'; },
           orderBy(args, content) { return makeOrderBy(args, { uuid: -1 }); },
@@ -118,14 +91,6 @@ let extension = {
       following: {
         type: '[Relationship!]',
         args: false,
-        service: {
-          resolver: ({ uuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { followerUuid: uuid, $sort: { uuid: 1 } }
-            });
-            return options.services.relationship.find(feathersParams).then(extractAllItems);
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.follower_uuid'; },
           orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
@@ -135,14 +100,6 @@ let extension = {
       likes: {
         type: '[Like!]',
         args: false,
-        service: {
-          resolver: ({ uuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: {authorUuid: uuid, $sort: {uuid: 1}}
-            });
-            return options.services.like.find(feathersParams).then(extractAllItems);
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
           orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },

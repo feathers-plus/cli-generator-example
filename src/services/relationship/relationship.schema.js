@@ -48,14 +48,6 @@ let extension = {
       follower: {
         type: 'User!',
         args: false,
-        service: {
-          resolver: ({ followerUuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { uuid: followerUuid, $sort: { uuid: 1 } }
-            });
-            return options.services.user.find(feathersParams).then(extractFirstItem);
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.follower_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
@@ -65,14 +57,6 @@ let extension = {
       followee: {
         type: 'User!',
         args: false,
-        service: {
-          resolver: ({ followeeUuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { uuid: followeeUuid, $sort: { uuid: 1 } }
-            });
-            return options.services.user.find(feathersParams).then(extractFirstItem);
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.followee_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },

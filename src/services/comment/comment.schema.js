@@ -50,14 +50,6 @@ let extension = {
       author: {
         type: 'User!',
         args: false,
-        service: {
-          resolver: ({ authorUuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { uuid: authorUuid, $sort: { uuid: 1 } }
-            });
-            return options.services.user.find(feathersParams).then(extractFirstItem)
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
@@ -67,14 +59,6 @@ let extension = {
       likes: {
         type: '[Like!]',
         args: false,
-        service: {
-          resolver: ({ uuid }, args, content, ast) => {
-            const feathersParams = convertArgsToFeathers(args, {
-              query: { commentUuid: uuid, $sort: { uuid: 1 } }
-            });
-            return options.services.like.find(feathersParams).then(extractAllItems);
-          },
-        },
         sql: {
           sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.comment_uuid'; },
           orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
