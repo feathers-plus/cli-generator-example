@@ -40,11 +40,11 @@ let moduleExports = function(){
 
   // Setup for using both Feathers service and SQL statement resolvers.
   //!<DEFAULT> code: use_either
-  const usingSql = true;
+  const usingSql = false;
   //!end
   //!code: func_init //!end
 
-  console.log('\n===== configuring graphql service for custom Feathers services resolvers.\n'); // eslint-disable-line
+  console.log(`\n===== configuring graphql service for ${usingSql ? 'SQL statements' : 'Feathers services'}.\n`); // eslint-disable-line
 
   const options = {
     schemas,

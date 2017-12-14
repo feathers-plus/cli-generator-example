@@ -50,20 +50,10 @@ let extension = {
       author: {
         type: 'User!',
         args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); },
-        },
       },
       likes: {
         type: '[Like!]',
         args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.comment_uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
-        },
       },
       //!end
     },

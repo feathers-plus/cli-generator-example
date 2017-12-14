@@ -57,54 +57,26 @@ let extension = {
       fullName: {
         type: 'String!',
         args: false,
-        sql: {
-          sqlExpr: (tableName, args) => `${tableName}.first_name || ' ' || ${tableName}.last_name`,
-        },
       },
       posts: {
         type: '[Post!]',
         // args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-          where(table, args) { return makeWhere(table, args, 'uuid', {"body":{"$ne":"xxx"}}); },
-        },
       },
       comments: {
         type: '[Comment!]',
         args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
-        },
       },
       followed_by: {
         type: '[Relationship!]',
         args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.followee_uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, { uuid: -1 }); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
-        },
       },
       following: {
         type: '[Relationship!]',
         args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.follower_uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
-        },
       },
       likes: {
         type: '[Like!]',
         args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
-        },
       },
       //!end
     },

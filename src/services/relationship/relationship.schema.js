@@ -48,20 +48,10 @@ let extension = {
       follower: {
         type: 'User!',
         args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.follower_uuid = ' + otherTable + '.uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'follower_uuid', undefined); },
-        },
       },
       followee: {
         type: 'User!',
         args: false,
-        sql: {
-          sqlJoin(ourTable, otherTable) { return ourTable + '.followee_uuid = ' + otherTable + '.uuid'; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'followee_uuid', undefined); },
-        },
       },
       //!end
     },
