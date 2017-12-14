@@ -6,7 +6,7 @@ let moduleExports = function sqlResolvers(app, options) {
   let { dialect, executeSql, genAndRunSql } = options;
   let genRunSql = genAndRunSql(executeSql, { dialect }, options);
 
-  return {
+  const returns = {
     //!code: resolver_field_more //!end
 
     Query: {
@@ -54,6 +54,9 @@ let moduleExports = function sqlResolvers(app, options) {
       //!code: resolver_query_more //!end
     },
   };
+
+  //!code: func_return //!end
+  return returns;
 };
 
 //!code: more //!end

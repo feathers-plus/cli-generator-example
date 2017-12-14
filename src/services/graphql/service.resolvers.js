@@ -13,7 +13,7 @@ let moduleExports = function serviceResolvers(app, options) {
   const user = app.service('/user');
   //!end
 
-  return {
+  let returns = {
 
     Comment: {
 
@@ -152,8 +152,8 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // fullName: String!
       fullName:
-        //!<DEFAULT> code: resolver-User-fullName-non
-        (parent, args, content, ast) => {},
+        //!code: resolver-User-fullName-non
+        ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
         //!end
 
       // likes: [Like!]
@@ -187,13 +187,13 @@ let moduleExports = function serviceResolvers(app, options) {
       // getComment(query: JSON, params: JSON, key: JSON): Comment
       getComment (parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args);
-        return options.services.comment.get(args.key, feathersParams).then(extractFirstItem);
+        return comment.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findComment(query: JSON, params: JSON): [Comment!]
       findComment(parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
-        return options.services.comment.find(feathersParams).then(extractAllItems);
+        return comment.find(feathersParams).then(extractAllItems);
       },
       //!end
 
@@ -201,13 +201,13 @@ let moduleExports = function serviceResolvers(app, options) {
       // getLike(query: JSON, params: JSON, key: JSON): Like
       getLike (parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args);
-        return options.services.like.get(args.key, feathersParams).then(extractFirstItem);
+        return like.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findLike(query: JSON, params: JSON): [Like!]
       findLike(parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
-        return options.services.like.find(feathersParams).then(extractAllItems);
+        return like.find(feathersParams).then(extractAllItems);
       },
       //!end
 
@@ -215,13 +215,13 @@ let moduleExports = function serviceResolvers(app, options) {
       // getPost(query: JSON, params: JSON, key: JSON): Post
       getPost (parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args);
-        return options.services.post.get(args.key, feathersParams).then(extractFirstItem);
+        return post.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findPost(query: JSON, params: JSON): [Post!]
       findPost(parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
-        return options.services.post.find(feathersParams).then(extractAllItems);
+        return post.find(feathersParams).then(extractAllItems);
       },
       //!end
 
@@ -229,13 +229,13 @@ let moduleExports = function serviceResolvers(app, options) {
       // getRelationship(query: JSON, params: JSON, key: JSON): Relationship
       getRelationship (parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args);
-        return options.services.relationship.get(args.key, feathersParams).then(extractFirstItem);
+        return relationship.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findRelationship(query: JSON, params: JSON): [Relationship!]
       findRelationship(parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
-        return options.services.relationship.find(feathersParams).then(extractAllItems);
+        return relationship.find(feathersParams).then(extractAllItems);
       },
       //!end
 
@@ -243,18 +243,21 @@ let moduleExports = function serviceResolvers(app, options) {
       // getUser(query: JSON, params: JSON, key: JSON): User
       getUser (parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args);
-        return options.services.user.get(args.key, feathersParams).then(extractFirstItem);
+        return user.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findUser(query: JSON, params: JSON): [User!]
       findUser(parent, args, content, info) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"id":1} } });
-        return options.services.user.find(feathersParams).then(extractAllItems);
+        return user.find(feathersParams).then(extractAllItems);
       },
       //!end
       //!code: resolver_query_more //!end
     },
   };
+
+  //!code: func_return //!end
+  return returns;
 };
 
 //!code: more //!end

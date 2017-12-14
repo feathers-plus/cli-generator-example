@@ -13,11 +13,14 @@ let openDb = () => {
   return sqlite;
 };
 
-let executeSql = sql => sqlite.all(sql)
-  .catch(err => {
-    console.log('config/default/executeSql error=', err.message);
-    throw err;
-  });
+let executeSql = sql => {
+  console.log('<<<', sql);
+  return sqlite.all(sql)
+    .catch(err => {
+      console.log('executeSql error=', err);
+      throw err;
+    });
+}
 //!end
 
 let moduleExports = {
