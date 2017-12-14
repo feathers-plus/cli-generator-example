@@ -47,14 +47,8 @@ let extension = {
     ],
     add: {
     //!code: graphql_add
-      author: {
-        type: 'User!',
-        args: false,
-      },
-      likes: {
-        type: '[Like!]',
-        args: false,
-      },
+      author: { type: 'User!', args: false },
+      likes: { type: '[Like!]', args: false },
       //!end
     },
     //!code: graphql_more //!end

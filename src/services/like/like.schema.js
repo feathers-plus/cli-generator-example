@@ -45,14 +45,8 @@ let extension = {
     ],
     add: {
       //!code: graphql_add
-      author: {
-        type: 'User!',
-        args: false,
-      },
-      comment: {
-        type: 'Comment!',
-        args: false,
-      },
+      author: { type: 'User!', args: false },
+      comment: { type: 'Comment!', args: false },
       //!end
     },
     //!code: extension_more //!end

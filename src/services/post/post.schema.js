@@ -6,7 +6,7 @@ let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
   //!code: schema_header
   title: 'Post1',
-  description: 'Post data',
+  description: 'Post database.',
   //!end
   type: 'object',
   required: [
@@ -45,14 +45,8 @@ let extension = {
     ],
     add: {
       //!code: graphql_add
-      author: {
-        type: 'User!',
-        args: false,
-      },
-      comments: {
-        type: '[Comment!]',
-        args: false,
-      },
+      author: { type: 'User!', args: false },
+      comments: { type: '[Comment!]', args: false },
       //!end
     },
     //!code: extension_more //!end

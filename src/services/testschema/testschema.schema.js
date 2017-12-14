@@ -59,24 +59,7 @@ let extension = {
     ],
     add: {
     //!<DEFAULT> code: graphql_add
-      // ???: {
-      //   type: 'User!',
-      //   args: false,
-      //   service: {
-      //     resolver: (parent, args, content, ast) => {
-      //       const feathersParams = convertArgsToFeathers(args, {
-      //         query: { ???: ???, $sort: { ???: 1 } }
-      //       });
-      //       return options.services.???.find(feathersParams).then(extractFirstItem);
-      //       return options.services.???.find(feathersParams).then(extractAllItems);
-      //     },
-      //   },
-      //   sql: {
-      //     sqlJoin(ourTable, otherTable) { return ourTable + '.??? = ' + otherTable + '.???'; },
-      //     orderBy(args, content) { return makeOrderBy(args, { ???: 1 }); },
-      //     where(table, args) { return makeWhere(table, args, 'uuid', {); },
-      //   },
-      // },
+      // ___ZZZ___: { type: 'User!', args: false },
       //!end
     },
     //!code: graphql_more //!end

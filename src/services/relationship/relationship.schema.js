@@ -45,14 +45,8 @@ let extension = {
     ],
     add: {
       //!code: graphql_add
-      follower: {
-        type: 'User!',
-        args: false,
-      },
-      followee: {
-        type: 'User!',
-        args: false,
-      },
+      follower: { type: 'User!', args: false },
+      followee: { type: 'User!', args: false },
       //!end
     },
     //!code: extension_more //!end

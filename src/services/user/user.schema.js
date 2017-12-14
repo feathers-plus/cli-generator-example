@@ -54,30 +54,12 @@ let extension = {
     ],
     add: {
       //!code: graphql_add
-      fullName: {
-        type: 'String!',
-        args: false,
-      },
-      posts: {
-        type: '[Post!]',
-        // args: false,
-      },
-      comments: {
-        type: '[Comment!]',
-        args: false,
-      },
-      followed_by: {
-        type: '[Relationship!]',
-        args: false,
-      },
-      following: {
-        type: '[Relationship!]',
-        args: false,
-      },
-      likes: {
-        type: '[Like!]',
-        args: false,
-      },
+      fullName:    { type: 'String!',         args: false },
+      posts:       { type: '[Post!]'                      },
+      comments:    { type: '[Comment!]',      args: false },
+      followed_by: { type: '[Relationship!]', args: false },
+      following:   { type: '[Relationship!]', args: false },
+      likes:       { type: '[Like!]',         args: false },
       //!end
     },
     //!code: extension_more //!end
