@@ -48,13 +48,13 @@ let moduleExports = function serviceResolvers(app, options) {
     if (!dl) {
 
       switch (dataLoaderName) {
-        // Transient BatchLoaders shared among several resolvers.
+        // Transient BatchLoaders (returning one object) shared among several resolvers.
         case 'dataLoaders.user.shared.one.uuid':
-          feathersParams = convertArgsToFeathers(args);
-
           dl = feathersDataLoader(dataLoaderName, '!', 'uuid',
             keys => {
-              feathersParams.query.uuid = {$in: keys};
+              feathersParams = convertArgsToFeathers(args,
+                { query : { uuid: { $in: keys } } },
+              );
               console.log('Execute user.find(', feathersParams, ');');
               return user.find(feathersParams);
             },
@@ -62,107 +62,97 @@ let moduleExports = function serviceResolvers(app, options) {
           );
           break;
 
-        // Transient BatchLoaders used by only one resolver.
-        case 'dataLoaders.like.unshared.set.commentUuid_$uuid':
-          feathersParams = convertArgsToFeathers(args, [
-            { query : { $sort: { uuid: 1 } } },
-          ]);
-
-          dl = feathersDataLoader(dataLoaderName, '[!]', 'commentUuid',
+        // Transient BatchLoaders (returning one object) used by only one resolver.
+        case 'dataLoaders.comment.unshared.one.uuid':
+          dl = feathersDataLoader(dataLoaderName, '!', 'uuid',
             keys => {
-              feathersParams.query.commentUuid = {$in: keys};
-              console.log('Execute like.find(', feathersParams, ');');
-              return like.find(feathersParams);
+              feathersParams = convertArgsToFeathers(args,
+                { query : { uuid: { $in: keys } } },
+              );
+              console.log('Execute comment.find(', feathersParams, ');');
+              return comment.find(feathersParams);
             }
           );
           break;
-        case 'dataLoaders.comment.unshared.one.uuid':
-          feathersParams = convertArgsToFeathers(args);
 
-          dl = feathersDataLoader(dataLoaderName, '!', 'uuid',
+        // Transient BatchLoaders (returning an array of object) used by only one resolver.
+        case 'dataLoaders.comment.unshared.set.authorUuid_$uuid':
+          dl = feathersDataLoader(dataLoaderName, '[!]', 'authorUuid',
             keys => {
-              feathersParams.query.uuid = {$in: keys};
+              feathersParams = convertArgsToFeathers(args,
+                { query : { authorUuid: { $in: keys }, $sort: { uuid: 1 } } },
+              );
+              //feathersParams.query.authorUuid = { $in: keys };
               console.log('Execute comment.find(', feathersParams, ');');
               return comment.find(feathersParams);
             }
           );
           break;
         case 'dataLoaders.comment.unshared.set.postUuid_$uuid':
-          feathersParams = convertArgsToFeathers(args, [
-            { query : { $sort: { uuid: 1 } } },
-          ]);
-
           dl = feathersDataLoader(dataLoaderName, '[!]', 'postUuid',
             keys => {
-              feathersParams.query.postUuid = {$in: keys};
+              feathersParams = convertArgsToFeathers(args,
+                { query : { postUuid: { $in: keys }, $sort: { uuid: 1 } } },
+              );
               console.log('Execute comment.find(', feathersParams, ');');
               //!location: resolvers-Comment-author-keys-return
               return comment.find(feathersParams);
             }
           );
           break;
-        case 'dataLoaders.comment.unshared.set.authorUuid_$uuid':
-          feathersParams = convertArgsToFeathers(args, [
-            { query : { $sort: { uuid: 1 } } },
-          ]);
-
-          dl = feathersDataLoader(dataLoaderName, '[!]', 'authorUuid',
-            keys => {
-              feathersParams.query.authorUuid = {$in: keys};
-              console.log('Execute comment.find(', feathersParams, ');');
-              return comment.find(feathersParams);
-            }
-          );
-          break;
-        case 'dataLoaders.relationship.unshared.set.followeeUuid_$uuid_desc':
-          feathersParams = convertArgsToFeathers(args, [
-            { query : { $sort: { uuid: -1 } } },
-          ]);
-
-          dl = feathersDataLoader(dataLoaderName, '[!]', 'followeeUuid',
-            keys => {
-              feathersParams.query.followeeUuid = {$in: keys};
-              console.log('Execute relationship.find(', feathersParams, ');');
-              return relationship.find(feathersParams);
-            }
-          );
-          break;
-        case 'dataLoaders.relationship.unshared.set.followerUuid_$uuid':
-          feathersParams = convertArgsToFeathers(args, [
-            { query : { $sort: { uuid: 1 } } },
-          ]);
-
-          dl = feathersDataLoader(dataLoaderName, '[!]', 'followerUuid',
-            keys => {
-              feathersParams.query.followerUuid = {$in: keys};
-              console.log('Execute relationship.find(', feathersParams, ');');
-              return relationship.find(feathersParams);
-            }
-          );
-          break;
         case 'dataLoaders.like.unshared.set.authorUuid_$uuid':
-          feathersParams = convertArgsToFeathers(args, [
-            { query : { $sort: { uuid: 1 } } },
-          ]);
-
           dl = feathersDataLoader(dataLoaderName, '[!]', 'authorUuid',
             keys => {
-              feathersParams.query.authorUuid = {$in: keys};
+              feathersParams = convertArgsToFeathers(args,
+                { query : { authorUuid: { $in: keys }, $sort: { uuid: 1 } } },
+              );
+              feathersParams.query.authorUuid = { $in: keys };
+              console.log('Execute like.find(', feathersParams, ');');
+              return like.find(feathersParams);
+            }
+          );
+          break;
+        case 'dataLoaders.like.unshared.set.commentUuid_$uuid':
+          dl = feathersDataLoader(dataLoaderName, '[!]', 'commentUuid',
+            keys => {
+              feathersParams = convertArgsToFeathers(args,
+                { query : { commentUuid: { $in: keys }, $sort: { uuid: 1 } } },
+              );
               console.log('Execute like.find(', feathersParams, ');');
               return like.find(feathersParams);
             }
           );
           break;
         case 'dataLoaders.post.unshared.set.authorUuid_$uuid':
-          feathersParams = convertArgsToFeathers(args, [
-            { query : { $sort: { uuid: 1 } } },
-          ]);
-
           dl = feathersDataLoader(dataLoaderName, '[!]', 'authorUuid',
             keys => {
-              feathersParams.query.authorUuid = {$in: keys};
+              feathersParams = convertArgsToFeathers(args,
+                { query : { authorUuid: { $in: keys }, $sort: { uuid: 1 } } },
+              );
               console.log('Execute post.find(', feathersParams, ');');
               return post.find(feathersParams);
+            }
+          );
+          break;
+        case 'dataLoaders.relationship.unshared.set.followeeUuid_$uuid_desc':
+          dl = feathersDataLoader(dataLoaderName, '[!]', 'followeeUuid',
+            keys => {
+              feathersParams = convertArgsToFeathers(args,
+                { query : { followeeUuid: { $in: keys }, $sort: { uuid: -1 } } },
+              );
+              console.log('Execute relationship.find(', feathersParams, ');');
+              return relationship.find(feathersParams);
+            }
+          );
+          break;
+        case 'dataLoaders.relationship.unshared.set.followerUuid_$uuid':
+          dl = feathersDataLoader(dataLoaderName, '[!]', 'followerUuid',
+            keys => {
+              feathersParams = convertArgsToFeathers(args,
+                { query : { followerUuid: { $in: keys }, $sort: { uuid: 1 } } },
+              );
+              console.log('Execute relationship.find(', feathersParams, ');');
+              return relationship.find(feathersParams);
             }
           );
           break;
@@ -178,6 +168,13 @@ let moduleExports = function serviceResolvers(app, options) {
     return dl;
   }
 
+  function makeDataLoaderResolver(dataLoaderName, fieldName) {
+    return (parent, args, content, ast) => {
+      let dl = getBatchLoader(dataLoaderName, parent, args, content, ast);
+      return dl.load(parent[fieldName]);
+    }
+  }
+
   let returns = {
 
     Comment: {
@@ -185,17 +182,24 @@ let moduleExports = function serviceResolvers(app, options) {
       // author: User!
       author:
         //!code: resolver-Comment-author
+        makeDataLoaderResolver('dataLoaders.user.shared.one.uuid', 'authorUuid'),
+        /*
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.user.shared.one.uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.user.shared.one.uuid', parent, args, content, ast
+          );
           return dl.load(parent.authorUuid);
         },
+        */
         //!end
 
       // likes: [Like!]
       likes:
         //!code: resolver-Comment-likes
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.like.unshared.set.commentUuid_$uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.like.unshared.set.commentUuid_$uuid', parent, args, content, ast
+          );
           return dl.load(parent.uuid);
         },
         //!end
@@ -207,7 +211,9 @@ let moduleExports = function serviceResolvers(app, options) {
       author:
         //!code: resolver-Like-author
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.user.shared.one.uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.user.shared.one.uuid', parent, args, content, ast
+          );
           return dl.load(parent.authorUuid);
         },
         //!end
@@ -216,7 +222,9 @@ let moduleExports = function serviceResolvers(app, options) {
       comment:
         //!code: resolver-Like-comment
         (parent , args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.comment.unshared.one.uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.comment.unshared.one.uuid', parent, args, content, ast
+          );
           return dl.load(parent.commentUuid);
         },
         //!end
@@ -228,7 +236,9 @@ let moduleExports = function serviceResolvers(app, options) {
       author:
         //!code: resolver-Post-author
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.user.shared.one.uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.user.shared.one.uuid', parent, args, content, ast
+          );
           return dl.load(parent.authorUuid);
         },
         //!end
@@ -237,7 +247,9 @@ let moduleExports = function serviceResolvers(app, options) {
       comments:
         //!code: resolver-Post-comments
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.comment.unshared.set.postUuid_$uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.comment.unshared.set.postUuid_$uuid', parent, args, content, ast
+          );
           return dl.load(parent.uuid);
         },
         //!end
@@ -249,7 +261,9 @@ let moduleExports = function serviceResolvers(app, options) {
       followee:
         //!code: resolver-Relationship-followee
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.user.shared.one.uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.user.shared.one.uuid', parent, args, content, ast
+          );
           return dl.load(parent.followeeUuid);
         },
         //!end
@@ -258,7 +272,9 @@ let moduleExports = function serviceResolvers(app, options) {
       follower:
         //!code: resolver-Relationship-follower
         (parent , args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.user.shared.one.uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.user.shared.one.uuid', parent, args, content, ast
+          );
           return dl.load(parent.followerUuid);
         },
         //!end
@@ -270,7 +286,9 @@ let moduleExports = function serviceResolvers(app, options) {
       comments:
         //!code: resolver-User-comments
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.comment.unshared.set.authorUuid_$uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.comment.unshared.set.authorUuid_$uuid', parent, args, content, ast
+          );
           return dl.load(parent.uuid);
         },
         //!end
@@ -279,7 +297,9 @@ let moduleExports = function serviceResolvers(app, options) {
       followed_by:
         //!code: resolver-User-followed_by
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.relationship.unshared.set.followeeUuid_$uuid_desc', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.relationship.unshared.set.followeeUuid_$uuid_desc', parent, args, content, ast
+          );
           return dl.load(parent.uuid);
         },
         //!end
@@ -288,7 +308,9 @@ let moduleExports = function serviceResolvers(app, options) {
       following:
         //!code: resolver-User-following
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.relationship.unshared.set.followerUuid_$uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.relationship.unshared.set.followerUuid_$uuid', parent, args, content, ast
+          );
           return dl.load(parent.uuid);
         },
         //!end
@@ -303,7 +325,9 @@ let moduleExports = function serviceResolvers(app, options) {
       likes:
         //!code: resolver-User-likes
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.like.unshared.set.authorUuid_$uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.like.unshared.set.authorUuid_$uuid', parent, args, content, ast
+          );
           return dl.load(parent.uuid);
         },
         //!end
@@ -312,7 +336,9 @@ let moduleExports = function serviceResolvers(app, options) {
       posts:
         //!code: resolver-User-posts
         (parent, args, content, ast) => {
-          let dl = getBatchLoader('dataLoaders.post.unshared.set.authorUuid_$uuid', parent, args, content, ast);
+          let dl = getBatchLoader(
+            'dataLoaders.post.unshared.set.authorUuid_$uuid', parent, args, content, ast
+          );
           return dl.load(parent.uuid);
         },
         //!end
