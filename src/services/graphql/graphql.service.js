@@ -13,7 +13,7 @@ const schemas = mergeTypes([
 // Setup for using Feathers service resolvers.
 
 const serviceResolvers = (app, options) => Object.assign({},
-  require('./service.resolvers')(app, options),
+  require('./batchloader.resolvers')(app, options),
   //!code: service_resolvers //!end
 );
 

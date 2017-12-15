@@ -5,7 +5,10 @@ const { getByDot, setByDot } = require('feathers-hooks-common');
 
 let moduleExports = function batchloaderResolvers(app, options) {
   let { convertArgsToParams, convertArgsToFeathers, extractAllItems, extractFirstItem, // eslint-disable-line
-    feathersDataLoader: { feathersDataLoader: feathersBatchLoader } } = options;
+    feathersDataLoader: { feathersDataLoader } } = options;
+
+  const feathersBatchLoader = feathersDataLoader;
+  //!location: resolvers-header
 
   //!<DEFAULT> code: services
   const comment = app.service('/comment');
@@ -32,7 +35,7 @@ let moduleExports = function batchloaderResolvers(app, options) {
       }
 
       return batchLoader.load(parent[fieldName]);
-    };
+    }
   }
   //!end
 
@@ -43,13 +46,15 @@ let moduleExports = function batchloaderResolvers(app, options) {
     let feathersParams;
 
     switch (dataLoaderName) {
-      /* Persistent BatchLoaders. Stored in `content.batchLoaders._persisted`. */
       //!<DEFAULT> code: bl-persisted
+      /* Persistent BatchLoaders. Stored in 'content.batchLoaders._persisted'. */
+
       // case '_persisted.___XXX___':
       //!end
 
-      /* Transient BatchLoaders shared among resolvers. Stored in `content.batchLoaders._shared`. */
       //!code: bl-shared
+      /* Transient BatchLoaders shared among resolvers. Stored in 'content.batchLoaders._shared'. */
+
       // *.*: User
       case '_shared.user.one.uuid':
         return feathersBatchLoader(dataLoaderName, '!', 'uuid',
@@ -63,12 +68,7 @@ let moduleExports = function batchloaderResolvers(app, options) {
         );
       //!end
 
-      /* Transient BatchLoaders used by only one resolver. Stored in `content.batchLoaders`. */
-
-      // Comment.author: User!
-      //!code: bl-Comment-author
-      //...
-      //!end
+      /* Transient BatchLoaders used by only one resolver. Stored in 'content.batchLoaders'. */
 
       // Comment.likes: [Like!]
       //!code: bl-Comment-likes
@@ -83,9 +83,17 @@ let moduleExports = function batchloaderResolvers(app, options) {
         );
       //!end
 
-      // Like.author: User!
-      //!code: bl-Like-author
-      //...
+      // Posts.comments: [Comment!]
+      //!code: bl-Posts-comments
+      case 'Post.comments':
+        return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
+          keys => {
+            feathersParams = convertArgsToFeathers(args,
+              { query : { postUuid: { $in: keys }, $sort: { uuid: 1 } } },
+            );
+            return comment.find(feathersParams);
+          }
+        );
       //!end
 
       // Like.comment: Comment!
@@ -101,34 +109,6 @@ let moduleExports = function batchloaderResolvers(app, options) {
         );
       //!end
 
-      // Post.author: User!
-      //!code: bl-Post-author
-      //...
-      //!end
-
-      // Post.comments: [Comment!]
-      //!code: bl-Post-comments
-      case 'Post.comments':
-        return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query : { postUuid: { $in: keys }, $sort: { uuid: 1 } } },
-            );
-            return comment.find(feathersParams);
-          }
-        );
-      //!end
-
-      // Relationship.followee: User!
-      //!code: bl-Relationship-followee
-      //...
-      //!end
-
-      // Relationship.follower: User!
-      //!code: bl-Relationship-follower
-      //...
-      //!end
-
       // User.comments: [Comment!]
       //!code: bl-User-comments
       case 'User.comments':
@@ -140,10 +120,9 @@ let moduleExports = function batchloaderResolvers(app, options) {
             return comment.find(feathersParams);
           }
         );
-      //!end
 
       // User.followed_by: [Relationship!]
-      //!code: bl-User-followed_by
+      //!code: bl-User-followed
       case 'User.followed_by':
         return feathersBatchLoader(dataLoaderName, '[!]', 'followeeUuid',
           keys => {
@@ -167,8 +146,6 @@ let moduleExports = function batchloaderResolvers(app, options) {
           }
         );
       //!end
-
-      // User.fullName: String!
 
       // User.likes: [Like!]
       //!code: bl-User-likes
@@ -197,10 +174,11 @@ let moduleExports = function batchloaderResolvers(app, options) {
       //!end
 
       /* Throw on unknown BatchLoader name. */
+
       default:
-        //!<DEFAULT> code: bl-default
+      //!<DEFAULT> code: bl-default
         throw new Error(`GraphQL query requires BatchLoader named '${dataLoaderName}' but no definition exists for it.`);
-        //!end
+      //!end
     }
   }
 
