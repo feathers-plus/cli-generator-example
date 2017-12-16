@@ -45,7 +45,7 @@ let moduleExports = function batchloaderResolvers(app, options) {
     switch (dataLoaderName) {
       /* Persistent BatchLoaders. Stored in `content.batchLoaders._persisted`. */
       //!<DEFAULT> code: bl-persisted
-      // case '_persisted.user.one.id': // service user, returns one object, key is field id
+      // case '_persisted.___XXX___':
       //!end
 
       /* Transient BatchLoaders shared among resolvers. Stored in `content.batchLoaders._shared`. */
@@ -167,6 +167,8 @@ let moduleExports = function batchloaderResolvers(app, options) {
           }
         );
       //!end
+
+      // User.fullName: String!
 
       // User.likes: [Like!]
       //!code: bl-User-likes
