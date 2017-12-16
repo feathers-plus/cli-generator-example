@@ -248,7 +248,6 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // findUser(query: JSON, params: JSON): [User!]
       findUser(parent, args, content, info) {
-        console.log('<<<<<<<<<<<<<<<<', Object.keys(content));
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"id":1} } });
         return user.find(feathersParams).then(extractAllItems);
       },
