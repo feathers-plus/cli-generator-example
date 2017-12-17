@@ -1,6 +1,6 @@
 
 // Initializes the `graphql` service on path `/graphql`
-const createService = require('@feathers-x/graphql');
+const createService = require('@feathers-plus/graphql');
 const { mergeTypes } = require('merge-graphql-schemas');
 const deepMerge = require('deepmerge');
 const generatedSchema = require('./graphql.schemas');
