@@ -66,6 +66,44 @@
     ],
     "likes": [
       {
+        "uuid": "109",
+        "authorUuid": "1",
+        "commentUuid": "13",
+        "author": {
+          "uuid": "1",
+          "firstName": "Jessica",
+          "lastName": "Szwaronek",
+          "fullName": "Jessica Szwaronek",
+          "email": "jessica@gmail.com"
+        },
+        "comment": {
+          "uuid": "13",
+          "authorUuid": "1",
+          "postUuid": "91",
+          "body": "Comment 4",
+          "archived": 0
+        }
+      },
+      {
+        "uuid": "111",
+        "authorUuid": "1",
+        "commentUuid": "15",
+        "author": {
+          "uuid": "1",
+          "firstName": "Jessica",
+          "lastName": "Szwaronek",
+          "fullName": "Jessica Szwaronek",
+          "email": "jessica@gmail.com"
+        },
+        "comment": {
+          "uuid": "15",
+          "authorUuid": "3",
+          "postUuid": "91",
+          "body": "Comment 6",
+          "archived": 1
+        }
+      },
+      {
         "uuid": "106",
         "authorUuid": "1",
         "commentUuid": "10",
@@ -81,6 +119,25 @@
           "authorUuid": "0",
           "postUuid": "90",
           "body": "Comment 1",
+          "archived": 0
+        }
+      },
+      {
+        "uuid": "110",
+        "authorUuid": "1",
+        "commentUuid": "14",
+        "author": {
+          "uuid": "1",
+          "firstName": "Jessica",
+          "lastName": "Szwaronek",
+          "fullName": "Jessica Szwaronek",
+          "email": "jessica@gmail.com"
+        },
+        "comment": {
+          "uuid": "14",
+          "authorUuid": "2",
+          "postUuid": "91",
+          "body": "Comment 5",
           "archived": 0
         }
       },
@@ -122,63 +179,6 @@
           "archived": 0
         }
       },
-      {
-        "uuid": "109",
-        "authorUuid": "1",
-        "commentUuid": "13",
-        "author": {
-          "uuid": "1",
-          "firstName": "Jessica",
-          "lastName": "Szwaronek",
-          "fullName": "Jessica Szwaronek",
-          "email": "jessica@gmail.com"
-        },
-        "comment": {
-          "uuid": "13",
-          "authorUuid": "1",
-          "postUuid": "91",
-          "body": "Comment 4",
-          "archived": 0
-        }
-      },
-      {
-        "uuid": "110",
-        "authorUuid": "1",
-        "commentUuid": "14",
-        "author": {
-          "uuid": "1",
-          "firstName": "Jessica",
-          "lastName": "Szwaronek",
-          "fullName": "Jessica Szwaronek",
-          "email": "jessica@gmail.com"
-        },
-        "comment": {
-          "uuid": "14",
-          "authorUuid": "2",
-          "postUuid": "91",
-          "body": "Comment 5",
-          "archived": 0
-        }
-      },
-      {
-        "uuid": "111",
-        "authorUuid": "1",
-        "commentUuid": "15",
-        "author": {
-          "uuid": "1",
-          "firstName": "Jessica",
-          "lastName": "Szwaronek",
-          "fullName": "Jessica Szwaronek",
-          "email": "jessica@gmail.com"
-        },
-        "comment": {
-          "uuid": "15",
-          "authorUuid": "3",
-          "postUuid": "91",
-          "body": "Comment 6",
-          "archived": 1
-        }
-      }
     ]
   }
 }
@@ -201,11 +201,11 @@
     "likes": [
       {
         "author": {
-          "uuid": "0",
-          "firstName": "John",
-          "lastName": "Szwaronek",
-          "fullName": "John Szwaronek",
-          "email": "john@gmail.com"
+          "uuid": "2",
+          "firstName": "Nick",
+          "lastName": "Roussis",
+          "fullName": "Nick Roussis",
+          "email": "nick@gmail.com"
         },
         "comment": {
           "uuid": "10",
@@ -222,22 +222,6 @@
           "lastName": "Szwaronek",
           "fullName": "Jessica Szwaronek",
           "email": "jessica@gmail.com"
-        },
-        "comment": {
-          "uuid": "10",
-          "authorUuid": "0",
-          "postUuid": "90",
-          "body": "Comment 1",
-          "archived": 0
-        }
-      },
-      {
-        "author": {
-          "uuid": "2",
-          "firstName": "Nick",
-          "lastName": "Roussis",
-          "fullName": "Nick Roussis",
-          "email": "nick@gmail.com"
         },
         "comment": {
           "uuid": "10",
@@ -263,6 +247,22 @@
           "archived": 0
         }
       }
+      {
+        "author": {
+          "uuid": "0",
+          "firstName": "John",
+          "lastName": "Szwaronek",
+          "fullName": "John Szwaronek",
+          "email": "john@gmail.com"
+        },
+        "comment": {
+          "uuid": "10",
+          "authorUuid": "0",
+          "postUuid": "90",
+          "body": "Comment 1",
+          "archived": 0
+        }
+      },
     ]
   }
 }

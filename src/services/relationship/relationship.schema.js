@@ -45,8 +45,8 @@ let extension = {
     ],
     add: {
       //!code: graphql_add
-      follower: { type: 'User!', args: false },
-      followee: { type: 'User!', args: false },
+      follower: { type: 'User!', args: false, relation: { ourTable: 'followerUuid', otherTable: 'uuid' } },
+      followee: { type: 'User!', args: false, relation: { ourTable: 'followeeUuid', otherTable: 'uuid' } },
       //!end
     },
     //!code: extension_more //!end

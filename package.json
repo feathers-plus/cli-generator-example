@@ -22,11 +22,11 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
-    "run": "node ./src/index.js",
+    "run": "npm link @feathers-plus/graphql; reset; node ./src/index.js",
     "help": "node ./node_modules/@feathers-x/cli/lib/index",
     "app": "node ./node_modules/@feathers-x/cli/lib/index generate app",
     "service": "node ./node_modules/@feathers-x/cli/lib/index generate service",
-    "graph": "node ./node_modules/@feathers-x/cli/lib/index generate graphql",
+    "graph": "npm link @feathers-x/cli; node ./node_modules/@feathers-x/cli/lib/index generate graphql",
     "swapi": "node ./poc/schema.test.js",
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",

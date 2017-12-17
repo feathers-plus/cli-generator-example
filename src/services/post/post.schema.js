@@ -45,8 +45,8 @@ let extension = {
     ],
     add: {
       //!code: graphql_add
-      author: { type: 'User!', args: false },
-      comments: { type: '[Comment!]', args: false },
+      author: { type: 'User!', args: false, relation: { ourTable: 'authorUuid', otherTable: 'uuid' } },
+      comments: { type: '[Comment!]', args: false, relation: { ourTable: 'uuid', otherTable: 'postUuid' } },
       //!end
     },
     //!code: extension_more //!end

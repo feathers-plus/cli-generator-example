@@ -53,12 +53,12 @@ type User {
   email: String!
   firstName: String!
   lastName: String!
-  fullName: String!
-  posts(query: JSON, params: JSON, key: JSON): [Post!]
   comments: [Comment!]
   followed_by: [Relationship!]
   following: [Relationship!]
+  fullName: String!
   likes: [Like!]
+  posts(query: JSON, params: JSON, key: JSON): [Post!]
 }
  
 

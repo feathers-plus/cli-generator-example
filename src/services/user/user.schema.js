@@ -54,12 +54,12 @@ let extension = {
     ],
     add: {
       //!code: graphql_add
+      comments:    { type: '[Comment!]',      args: false, relation: { ourTable: 'uuid', otherTable: 'authorUuid' } },
+      followed_by: { type: '[Relationship!]', args: false, relation: { ourTable: 'uuid', otherTable: 'followeeUuid' } },
+      following:   { type: '[Relationship!]', args: false, relation: { ourTable: 'uuid', otherTable: 'followerUuid' } },
       fullName:    { type: 'String!',         args: false },
-      posts:       { type: '[Post!]'                      },
-      comments:    { type: '[Comment!]',      args: false },
-      followed_by: { type: '[Relationship!]', args: false },
-      following:   { type: '[Relationship!]', args: false },
-      likes:       { type: '[Like!]',         args: false },
+      likes:       { type: '[Like!]',         args: false, relation: { ourTable: 'uuid', otherTable: 'authorUuid' } },
+      posts:       { type: '[Post!]'                     , relation: { ourTable: 'uuid', otherTable: 'authorUuid' } },
       //!end
     },
     //!code: extension_more //!end

@@ -19,21 +19,21 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // author: User!
       author:
-        //!<DEFAULT> code: resolver-Comment-author
-        (parent, args, content, ast) => {
+        //!code: resolver-Comment-author
+        ({ authorUuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: parent.authorUuid }
+            query: { uuid: authorUuid, $sort: { uuid: 1 } }
           });
-          return user.find(feathersParams).then(extractFirstItem);
+          return user.find(feathersParams).then(extractFirstItem)
         },
         //!end
 
       // likes: [Like!]
       likes:
-        //!<DEFAULT> code: resolver-Comment-likes
-        (parent, args, content, ast) => {
+        //!code: resolver-Comment-likes
+        ({ uuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { commentUuid: parent.uuid, $sort: { commentUuid: 1 } }
+            query: { commentUuid: uuid, $sort: { uuid: 1 } }
           });
           return like.find(feathersParams).then(extractAllItems);
         },
@@ -44,10 +44,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // author: User!
       author:
-        //!<DEFAULT> code: resolver-Like-author
-        (parent, args, content, ast) => {
+        //!code: resolver-Like-author
+        ({ authorUuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: parent.authorUuid }
+            query: { uuid: authorUuid, $sort: { uuid: 1 } }
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
@@ -55,10 +55,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // comment: Comment!
       comment:
-        //!<DEFAULT> code: resolver-Like-comment
-        (parent, args, content, ast) => {
+        //!code: resolver-Like-comment
+        ({ commentUuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: parent.commentUuid }
+            query: { uuid: commentUuid, $sort: { uuid: 1 } }
           });
           return comment.find(feathersParams).then(extractFirstItem);
         },
@@ -69,10 +69,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // author: User!
       author:
-        //!<DEFAULT> code: resolver-Post-author
-        (parent, args, content, ast) => {
+        //!code: resolver-Post-author
+        ({ authorUuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: parent.authorUuid }
+            query: { uuid: authorUuid, $sort: { uuid: 1 } }
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
@@ -80,10 +80,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // comments: [Comment!]
       comments:
-        //!<DEFAULT> code: resolver-Post-comments
-        (parent, args, content, ast) => {
+        //!code: resolver-Post-comments
+        ({ uuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { postUuid: parent.uuid, $sort: { postUuid: 1 } }
+            query: { postUuid: uuid, $sort: { uuid: 1 } }
           });
           return comment.find(feathersParams).then(extractAllItems);
         },
@@ -94,10 +94,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // followee: User!
       followee:
-        //!<DEFAULT> code: resolver-Relationship-followee
-        (parent, args, content, ast) => {
+        //!code: resolver-Relationship-followee
+        ({ followeeUuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: parent.followeeUuid }
+            query: { uuid: followeeUuid, $sort: { uuid: 1 } }
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
@@ -105,10 +105,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // follower: User!
       follower:
-        //!<DEFAULT> code: resolver-Relationship-follower
-        (parent, args, content, ast) => {
+        //!code: resolver-Relationship-follower
+        ({ followerUuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { uuid: parent.followerUuid }
+            query: { uuid: followerUuid, $sort: { uuid: 1 } }
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
@@ -119,10 +119,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // comments: [Comment!]
       comments:
-        //!<DEFAULT> code: resolver-User-comments
-        (parent, args, content, ast) => {
+        //!code: resolver-User-comments
+        ({ uuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { authorUuid: parent.uuid, $sort: { authorUuid: 1 } }
+            query: { authorUuid: uuid, $sort: { uuid: 1 } }
           });
           return comment.find(feathersParams).then(extractAllItems);
         },
@@ -130,10 +130,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // followed_by: [Relationship!]
       followed_by:
-        //!<DEFAULT> code: resolver-User-followed_by
-        (parent, args, content, ast) => {
+        //!code: resolver-User-followed_by
+        ({ uuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { followeeUuid: parent.uuid, $sort: { followeeUuid: 1 } }
+            query: { followeeUuid: uuid, $sort: { uuid: 1 } }
           });
           return relationship.find(feathersParams).then(extractAllItems);
         },
@@ -141,10 +141,10 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // following: [Relationship!]
       following:
-        //!<DEFAULT> code: resolver-User-following
-        (parent, args, content, ast) => {
+        //!code: resolver-User-following
+        ({ uuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { followerUuid: parent.uuid, $sort: { followerUuid: 1 } }
+            query: { followerUuid: uuid, $sort: { uuid: 1 } }
           });
           return relationship.find(feathersParams).then(extractAllItems);
         },
@@ -153,15 +153,15 @@ let moduleExports = function serviceResolvers(app, options) {
       // fullName: String!
       fullName:
         //!code: resolver-User-fullName-non
-        (parent, args, content, ast) => `${parent.firstName} ${parent.lastName}`,
+        ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
         //!end
 
       // likes: [Like!]
       likes:
-        //!<DEFAULT> code: resolver-User-likes
-        (parent, args, content, ast) => {
+        //!code: resolver-User-likes
+        ({ uuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { authorUuid: parent.uuid, $sort: { authorUuid: 1 } }
+            query: {authorUuid: uuid, $sort: {uuid: 1}}
           });
           return like.find(feathersParams).then(extractAllItems);
         },
@@ -169,13 +169,13 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // posts(query: JSON, params: JSON, key: JSON): [Post!]
       posts:
-        //!<DEFAULT> code: resolver-User-posts
-        (parent, args, content, ast) => {
+        //!code: resolver-User-posts
+        ({ uuid }, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { authorUuid: parent.uuid, $sort: { authorUuid: 1 } }
+            query: { authorUuid: uuid, $sort: { uuid: 1 } }
           });
           return post.find(feathersParams).then(extractAllItems);
-        },
+        }
         //!end
     },
 
