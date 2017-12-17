@@ -3,9 +3,9 @@ const { getByDot, setByDot } = require('feathers-hooks-common');
 //!code: imports //!end
 //!code: init //!end
 
-let moduleExports = function batchloaderResolvers(app, options) {
+let moduleExports = function batchLoaderResolvers(app, options) {
   let { convertArgsToParams, convertArgsToFeathers, extractAllItems, extractFirstItem, // eslint-disable-line
-    feathersDataLoader: { feathersDataLoader: feathersBatchLoader } } = options;
+    feathersBatchLoader: { feathersBatchLoader } } = options;
 
   //!<DEFAULT> code: services
   const comment = app.service('/comment');
