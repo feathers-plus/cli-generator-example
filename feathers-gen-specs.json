@@ -53,6 +53,6 @@
   },
   "graphql": {
     "path": "graphql",
-    "strategy": "sql"
+    "strategy": "batchloaders"
   }
 }
