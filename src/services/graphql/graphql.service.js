@@ -4,11 +4,11 @@ const createService = require('@feathers-plus/graphql');
 const { mergeTypes } = require('merge-graphql-schemas');
 const deepMerge = require('deepmerge');
 const generatedSchema = require('./graphql.schemas');
-const generatedResolvers = require('./service.resolvers');
+const generatedResolvers = require('./batchloader.resolvers');
 const hooks = require('./graphql.hooks');
 //!code: imports //!end
 
-const strategy = 'services';
+const strategy = 'batchloaders';
 console.log(`\n===== configuring graphql service for ${strategy}.\n`);
 
 let schemas = mergeTypes([
@@ -18,9 +18,9 @@ let schemas = mergeTypes([
 
 let resolvers = (app, options) => deepMerge.all([{},
   generatedResolvers(app, options),
-  //!code: service_resolvers
-  // service_resolvers
-  //!end
+  //!code: batchloader_resolvers
+// bl_r
+//!end
 ]);
 //!code: init //!end
 
@@ -53,9 +53,9 @@ module.exports = moduleExports;
 
 /*
 Stash code not used now but which may be used if the module is regenerated.
-//!code: batchloader_resolvers
-// bl_r
-//!end
+//!code: service_resolvers
+  // service_resolvers
+  //!end
 //!code: sql_resolvers
 // sql_r
 //!end

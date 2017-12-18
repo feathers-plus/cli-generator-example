@@ -71,12 +71,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!end
 
       // Comment.likes: [Like!]
-      //!<DEFAULT> code: bl-Comment-likes
+      //!code: bl-Comment-likes
       case 'Comment.likes':
         return feathersBatchLoader(dataLoaderName, '[!]', 'commentUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { commentUuid: { $in: keys }, $sort: { commentUuid: 1 } }, populate: false }
+              { query : { commentUuid: { $in: keys }, $sort: { uuid: 1 } } },
             );
             return like.find(feathersParams);
           }
@@ -89,12 +89,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!end
 
       // Like.comment: Comment!
-      //!<DEFAULT> code: bl-Like-comment
+      //!code: bl-Like-comment
       case 'Like.comment':
         return feathersBatchLoader(dataLoaderName, '!', 'uuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { uuid: { $in: keys }, $sort: { uuid: 1 } }, populate: false }
+              { query : { uuid: { $in: keys } } }
             );
             return comment.find(feathersParams);
           }
@@ -107,12 +107,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!end
 
       // Post.comments: [Comment!]
-      //!<DEFAULT> code: bl-Post-comments
+      //!code: bl-Post-comments
       case 'Post.comments':
         return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { postUuid: { $in: keys }, $sort: { postUuid: 1 } }, populate: false }
+              { query : { postUuid: { $in: keys }, $sort: { uuid: 1 } } },
             );
             return comment.find(feathersParams);
           }
@@ -130,12 +130,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!end
 
       // User.comments: [Comment!]
-      //!<DEFAULT> code: bl-User-comments
+      //!code: bl-User-comments
       case 'User.comments':
         return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { authorUuid: { $in: keys }, $sort: { authorUuid: 1 } }, populate: false }
+              { query : { authorUuid: { $in: keys }, $sort: { uuid: 1 } } },
             );
             return comment.find(feathersParams);
           }
@@ -143,12 +143,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!end
 
       // User.followed_by: [Relationship!]
-      //!<DEFAULT> code: bl-User-followed_by
+      //!code: bl-User-followed_by
       case 'User.followed_by':
         return feathersBatchLoader(dataLoaderName, '[!]', 'followeeUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { followeeUuid: { $in: keys }, $sort: { followeeUuid: 1 } }, populate: false }
+              { query : { followeeUuid: { $in: keys }, $sort: { uuid: -1 } } },
             );
             return relationship.find(feathersParams);
           }
@@ -156,12 +156,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!end
 
       // User.following: [Relationship!]
-      //!<DEFAULT> code: bl-User-following
+      //!code: bl-User-following
       case 'User.following':
         return feathersBatchLoader(dataLoaderName, '[!]', 'followerUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { followerUuid: { $in: keys }, $sort: { followerUuid: 1 } }, populate: false }
+              { query : { followerUuid: { $in: keys }, $sort: { uuid: 1 } } },
             );
             return relationship.find(feathersParams);
           }
@@ -169,12 +169,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!end
 
       // User.likes: [Like!]
-      //!<DEFAULT> code: bl-User-likes
+      //!code: bl-User-likes
       case 'User.likes':
         return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { authorUuid: { $in: keys }, $sort: { authorUuid: 1 } }, populate: false }
+              { query : { authorUuid: { $in: keys }, $sort: { uuid: 1 } } },
             );
             return like.find(feathersParams);
           }
@@ -187,7 +187,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { authorUuid: { $in: keys }, $sort: { authorUuid: 1, uuid: 1 } }, populate: false }
+              { query : { authorUuid: { $in: keys }, $sort: { uuid: 1 } } },
             );
             return post.find(feathersParams);
           }
@@ -207,12 +207,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     Comment: {
 
       // author: User!
-      //!<DEFAULT> code: resolver-Comment-author
+      //!code: resolver-Comment-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
       // likes: [Like!]
-      //!<DEFAULT> code: resolver-Comment-likes
+      //!code: resolver-Comment-likes
       likes: getResult('Comment.likes', 'uuid'),
       //!end
     },
@@ -220,12 +220,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     Like: {
 
       // author: User!
-      //!<DEFAULT> code: resolver-Like-author
+      //!code: resolver-Like-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
       // comment: Comment!
-      //!<DEFAULT> code: resolver-Like-comment
+      //!code: resolver-Like-comment
       comment: getResult('Like.comment', 'commentUuid'),
       //!end
     },
@@ -233,12 +233,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     Post: {
 
       // author: User!
-      //!<DEFAULT> code: resolver-Post-author
+      //!code: resolver-Post-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
       // comments: [Comment!]
-      //!<DEFAULT> code: resolver-Post-comments
+      //!code: resolver-Post-comments
       comments: getResult('Post.comments', 'uuid'),
       //!end
     },
@@ -246,12 +246,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     Relationship: {
 
       // followee: User!
-      //!<DEFAULT> code: resolver-Relationship-followee
+      //!code: resolver-Relationship-followee
       followee: getResult('_shared.user.one.uuid', 'followeeUuid'),
       //!end
 
       // follower: User!
-      //!<DEFAULT> code: resolver-Relationship-follower
+      //!code: resolver-Relationship-follower
       follower: getResult('_shared.user.one.uuid', 'followerUuid'),
       //!end
     },
@@ -259,17 +259,17 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     User: {
 
       // comments: [Comment!]
-      //!<DEFAULT> code: resolver-User-comments
+      //!code: resolver-User-comments
       comments: getResult('User.comments', 'uuid'),
       //!end
 
       // followed_by: [Relationship!]
-      //!<DEFAULT> code: resolver-User-followed_by
+      //!code: resolver-User-followed_by
       followed_by: getResult('User.followed_by', 'uuid'),
       //!end
 
       // following: [Relationship!]
-      //!<DEFAULT> code: resolver-User-following
+      //!code: resolver-User-following
       following: getResult('User.following', 'uuid'),
       //!end
 
@@ -279,12 +279,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!end
 
       // likes: [Like!]
-      //!<DEFAULT> code: resolver-User-likes
+      //!code: resolver-User-likes
       likes: getResult('User.likes', 'uuid'),
       //!end
 
       // posts(query: JSON, params: JSON, key: JSON): [Post!]
-      //!<DEFAULT> code: resolver-User-posts
+      //!code: resolver-User-posts
       posts: getResult('User.posts', 'uuid'),
       //!end
     },
