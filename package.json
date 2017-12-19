@@ -26,7 +26,7 @@
     "help": "node ./node_modules/@feathers-x/cli/lib/index",
     "app": "node ./node_modules/@feathers-x/cli/lib/index generate app",
     "service": "node ./node_modules/@feathers-x/cli/lib/index generate service",
-    "graph": "npm link @feathers-x/cli; node ./node_modules/@feathers-x/cli/lib/index generate graphql",
+    "graph": "npm link @feathers-x/cli; reset; node ./node_modules/@feathers-x/cli/lib/index generate graphql",
     "swapi": "node ./poc/schema.test.js",
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",

@@ -207,7 +207,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     Comment: {
 
       // author: User!
-      //!<DEFAULT> code: resolver-Comment-author
+      //!code: resolver-Comment-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
@@ -220,7 +220,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     Like: {
 
       // author: User!
-      //!<DEFAULT> code: resolver-Like-author
+      //!code: resolver-Like-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
@@ -233,7 +233,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     Post: {
 
       // author: User!
-      //!<DEFAULT> code: resolver-Post-author
+      //!code: resolver-Post-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
@@ -246,12 +246,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     Relationship: {
 
       // followee: User!
-      //!<DEFAULT> code: resolver-Relationship-followee
+      //!code: resolver-Relationship-followee
       followee: getResult('_shared.user.one.uuid', 'followeeUuid'),
       //!end
 
       // follower: User!
-      //!<DEFAULT> code: resolver-Relationship-follower
+      //!code: resolver-Relationship-follower
       follower: getResult('_shared.user.one.uuid', 'followerUuid'),
       //!end
     },

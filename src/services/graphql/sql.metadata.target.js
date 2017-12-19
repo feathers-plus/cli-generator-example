@@ -25,19 +25,19 @@ let moduleExports = function sqlMetadata(app, options) {
 
         // author: User!
         author: {
-          //!<DEFAULT> code: fields-Comment-author
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.author_uuid = ${otherTable}.uuid`; },
+          //!code: fields-Comment-author
+          sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); },
+          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); }
           //!end
         },
 
         // likes: [Like!]
         likes: {
-          //!<DEFAULT> code: fields-Comment-likes
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.comment_uuid`; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+          //!code: fields-Comment-likes
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.comment_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); }
           //!end
         },
         //!code: fields-Comment //!end
@@ -60,19 +60,19 @@ let moduleExports = function sqlMetadata(app, options) {
 
         // author: User!
         author: {
-          //!<DEFAULT> code: fields-Like-author
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.author_uuid = ${otherTable}.uuid`; },
+          //!code: fields-Like-author
+          sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); },
+          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); }
           //!end
         },
 
         // comment: Comment!
         comment: {
-          //!<DEFAULT> code: fields-Like-comment
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.comment_uuid = ${otherTable}.uuid`; },
+          //!code: fields-Like-comment
+          sqlJoin(ourTable, otherTable) { return ourTable + '.comment_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'comment_uuid', undefined); },
+          where(table, args) { return makeWhere(table, args, 'comment_uuid', undefined); }
           //!end
         },
         //!code: fields-Like //!end
@@ -91,19 +91,19 @@ let moduleExports = function sqlMetadata(app, options) {
 
         // author: User!
         author: {
-          //!<DEFAULT> code: fields-Post-author
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.author_uuid = ${otherTable}.uuid`; },
+          //!code: fields-Post-author
+          sqlJoin(ourTable, otherTable) { return ourTable + '.author_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); },
+          where(table, args) { return makeWhere(table, args, 'author_uuid', undefined); }
           //!end
         },
 
         // comments: [Comment!]
         comments: {
-          //!<DEFAULT> code: fields-Post-comments
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.post_uuid`; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+          //!code: fields-Post-comments
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.post_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); }
           //!end
         },
         //!code: fields-Post //!end
@@ -126,19 +126,19 @@ let moduleExports = function sqlMetadata(app, options) {
 
         // followee: User!
         followee: {
-          //!<DEFAULT> code: fields-Relationship-followee
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.followee_uuid = ${otherTable}.uuid`; },
+          //!code: fields-Relationship-followee
+          sqlJoin(ourTable, otherTable) { return ourTable + '.followee_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'followee_uuid', undefined); },
+          where(table, args) { return makeWhere(table, args, 'followee_uuid', undefined); }
           //!end
         },
 
         // follower: User!
         follower: {
-          //!<DEFAULT> code: fields-Relationship-follower
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.follower_uuid = ${otherTable}.uuid`; },
+          //!code: fields-Relationship-follower
+          sqlJoin(ourTable, otherTable) { return ourTable + '.follower_uuid = ' + otherTable + '.uuid'; },
           orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'follower_uuid', undefined); },
+          where(table, args) { return makeWhere(table, args, 'follower_uuid', undefined); }
           //!end
         },
         //!code: fields-Relationship //!end
@@ -165,28 +165,28 @@ let moduleExports = function sqlMetadata(app, options) {
 
         // comments: [Comment!]
         comments: {
-          //!<DEFAULT> code: fields-User-comments
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.author_uuid`; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+          //!code: fields-User-comments
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); }
           //!end
         },
 
         // followed_by: [Relationship!]
         followed_by: {
-          //!<DEFAULT> code: fields-User-followed_by
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.followee_uuid`; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+          //!code: fields-User-followed_by
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.followee_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: -1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); }
           //!end
         },
 
         // following: [Relationship!]
         following: {
-          //!<DEFAULT> code: fields-User-following
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.follower_uuid`; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+          //!code: fields-User-following
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.follower_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); }
           //!end
         },
 
@@ -199,19 +199,19 @@ let moduleExports = function sqlMetadata(app, options) {
 
         // likes: [Like!]
         likes: {
-          //!<DEFAULT> code: fields-User-likes
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.author_uuid`; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+          //!code: fields-User-likes
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', undefined); }
           //!end
         },
 
         // posts(query: JSON, params: JSON, key: JSON): [Post!]
         posts: {
-          //!<DEFAULT> code: fields-User-posts
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.author_uuid`; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'uuid', undefined); },
+          //!code: fields-User-posts
+          sqlJoin(ourTable, otherTable) { return ourTable + '.uuid = ' + otherTable + '.author_uuid'; },
+          orderBy(args, content) { return makeOrderBy(args, { uuid: 1 }); },
+          where(table, args) { return makeWhere(table, args, 'uuid', {"body":{"$ne":"xxx"}}); }
           //!end
         },
         //!code: fields-User //!end
@@ -222,72 +222,72 @@ let moduleExports = function sqlMetadata(app, options) {
     Query: {
       fields: {
 
-        //!<DEFAULT> code: query-Comment
+        //!code: query-Comment
         // getComment(query: JSON, params: JSON, key: JSON): Comment
         getComment: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
 
         // findComment(query: JSON, params: JSON): [Comment!]
         findComment: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
         //!end
 
-        //!<DEFAULT> code: query-Like
+        //!code: query-Like
         // getLike(query: JSON, params: JSON, key: JSON): Like
         getLike: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
 
         // findLike(query: JSON, params: JSON): [Like!]
         findLike: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
         //!end
 
-        //!<DEFAULT> code: query-Post
+        //!code: query-Post
         // getPost(query: JSON, params: JSON, key: JSON): Post
         getPost: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
 
         // findPost(query: JSON, params: JSON): [Post!]
         findPost: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
         //!end
 
-        //!<DEFAULT> code: query-Relationship
+        //!code: query-Relationship
         // getRelationship(query: JSON, params: JSON, key: JSON): Relationship
         getRelationship: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
 
         // findRelationship(query: JSON, params: JSON): [Relationship!]
         findRelationship: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
         //!end
 
-        //!<DEFAULT> code: query-User
+        //!code: query-User
         // getUser(query: JSON, params: JSON, key: JSON): User
         getUser: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
 
         // findUser(query: JSON, params: JSON): [User!]
         findUser: {
-          orderBy: (args, content) => makeOrderBy(args, { uuid : 1 }),
+          orderBy: (args, content) => makeOrderBy(args, { uuid: 1 }),
           where: (table, args) => makeWhere(table, args, 'uuid'),
         },
         //!end
