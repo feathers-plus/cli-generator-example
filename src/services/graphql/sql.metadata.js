@@ -23,7 +23,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!code: fields-Comment-postUuid //!end
         },
 
-        // author: User!
+        // author: 
         author: {
           //!<DEFAULT> code: fields-Comment-author
           sqlJoin(ourTable, otherTable) { return `${ourTable}.author_uuid = ${otherTable}.uuid`; },
@@ -32,7 +32,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!end
         },
 
-        // likes: [Like!]
+        // likes: 
         likes: {
           //!<DEFAULT> code: fields-Comment-likes
           sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.comment_uuid`; },
@@ -58,7 +58,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!code: fields-Like-commentUuid //!end
         },
 
-        // author: User!
+        // author: 
         author: {
           //!<DEFAULT> code: fields-Like-author
           sqlJoin(ourTable, otherTable) { return `${ourTable}.author_uuid = ${otherTable}.uuid`; },
@@ -67,7 +67,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!end
         },
 
-        // comment: Comment!
+        // comment: 
         comment: {
           //!<DEFAULT> code: fields-Like-comment
           sqlJoin(ourTable, otherTable) { return `${ourTable}.comment_uuid = ${otherTable}.uuid`; },
@@ -89,7 +89,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!code: fields-Post-authorUuid //!end
         },
 
-        // author: User!
+        // author: 
         author: {
           //!<DEFAULT> code: fields-Post-author
           sqlJoin(ourTable, otherTable) { return `${ourTable}.author_uuid = ${otherTable}.uuid`; },
@@ -98,7 +98,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!end
         },
 
-        // comments: [Comment!]
+        // comments: 
         comments: {
           //!<DEFAULT> code: fields-Post-comments
           sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.post_uuid`; },
@@ -124,7 +124,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!code: fields-Relationship-followeeUuid //!end
         },
 
-        // follower: User!
+        // follower: 
         follower: {
           //!<DEFAULT> code: fields-Relationship-follower
           sqlJoin(ourTable, otherTable) { return `${ourTable}.follower_uuid = ${otherTable}.uuid`; },
@@ -133,7 +133,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!end
         },
 
-        // followee: User!
+        // followee: 
         followee: {
           //!<DEFAULT> code: fields-Relationship-followee
           sqlJoin(ourTable, otherTable) { return `${ourTable}.followee_uuid = ${otherTable}.uuid`; },
@@ -163,7 +163,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!code: fields-User-lastName //!end
         },
 
-        // comments: [Comment!]
+        // comments: 
         comments: {
           //!<DEFAULT> code: fields-User-comments
           sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.author_uuid`; },
@@ -172,7 +172,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!end
         },
 
-        // followed_by: [Relationship!]
+        // followed_by: 
         followed_by: {
           //!<DEFAULT> code: fields-User-followed_by
           sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.followee_uuid`; },
@@ -181,7 +181,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!end
         },
 
-        // following: [Relationship!]
+        // following: 
         following: {
           //!<DEFAULT> code: fields-User-following
           sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.follower_uuid`; },
@@ -190,14 +190,14 @@ let moduleExports = function sqlMetadata(app, options) {
           //!end
         },
 
-        // fullName: String!
+        // fullName: 
         fullName: {
           //!code: fields-User-fullName-non
           sqlExpr: (tableName, args) => `${tableName}.first_name || ' ' || ${tableName}.last_name`
           //!end
         },
 
-        // likes: [Like!]
+        // likes: 
         likes: {
           //!<DEFAULT> code: fields-User-likes
           sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.author_uuid`; },
@@ -206,7 +206,7 @@ let moduleExports = function sqlMetadata(app, options) {
           //!end
         },
 
-        // posts(query: JSON, params: JSON, key: JSON): [Post!]
+        // posts(query: JSON, params: JSON, key: JSON): 
         posts: {
           //!<DEFAULT> code: fields-User-posts
           sqlJoin(ourTable, otherTable) { return `${ourTable}.uuid = ${otherTable}.author_uuid`; },

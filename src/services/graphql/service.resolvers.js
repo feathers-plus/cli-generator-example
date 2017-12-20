@@ -6,18 +6,18 @@ let moduleExports = function serviceResolvers(app, options) {
   const {convertArgsToFeathers, extractAllItems, extractFirstItem} = options;
 
   //!<DEFAULT> code: services
-  const comment = app.service('/comment');
-  const like = app.service('/like');
-  const post = app.service('/post');
-  const relationship = app.service('/relationship');
-  const user = app.service('/user');
+  let comment = app.service('/comment');
+  let like = app.service('/like');
+  let post = app.service('/post');
+  let relationship = app.service('/relationship');
+  let user = app.service('/user');
   //!end
 
   let returns = {
 
     Comment: {
 
-      // author: User!
+      // author: 
       author:
         //!<DEFAULT> code: resolver-Comment-author
         (parent, args, content, ast) => {
@@ -28,7 +28,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // likes: [Like!]
+      // likes: 
       likes:
         //!<DEFAULT> code: resolver-Comment-likes
         (parent, args, content, ast) => {
@@ -42,7 +42,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     Like: {
 
-      // author: User!
+      // author: 
       author:
         //!<DEFAULT> code: resolver-Like-author
         (parent, args, content, ast) => {
@@ -53,7 +53,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // comment: Comment!
+      // comment: 
       comment:
         //!<DEFAULT> code: resolver-Like-comment
         (parent, args, content, ast) => {
@@ -67,7 +67,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     Post: {
 
-      // author: User!
+      // author: 
       author:
         //!<DEFAULT> code: resolver-Post-author
         (parent, args, content, ast) => {
@@ -78,7 +78,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // comments: [Comment!]
+      // comments: 
       comments:
         //!<DEFAULT> code: resolver-Post-comments
         (parent, args, content, ast) => {
@@ -92,7 +92,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     Relationship: {
 
-      // follower: User!
+      // follower: 
       follower:
         //!<DEFAULT> code: resolver-Relationship-follower
         (parent, args, content, ast) => {
@@ -103,7 +103,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // followee: User!
+      // followee: 
       followee:
         //!<DEFAULT> code: resolver-Relationship-followee
         (parent, args, content, ast) => {
@@ -117,7 +117,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     User: {
 
-      // comments: [Comment!]
+      // comments: 
       comments:
         //!<DEFAULT> code: resolver-User-comments
         (parent, args, content, ast) => {
@@ -128,7 +128,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // followed_by: [Relationship!]
+      // followed_by: 
       followed_by:
         //!<DEFAULT> code: resolver-User-followed_by
         (parent, args, content, ast) => {
@@ -139,7 +139,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // following: [Relationship!]
+      // following: 
       following:
         //!<DEFAULT> code: resolver-User-following
         (parent, args, content, ast) => {
@@ -150,13 +150,13 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // fullName: String!
+      // fullName: 
       fullName:
         //!code: resolver-User-fullName-non
         (parent, args, content, ast) => `${parent.firstName} ${parent.lastName}`,
         //!end
 
-      // likes: [Like!]
+      // likes: 
       likes:
         //!<DEFAULT> code: resolver-User-likes
         (parent, args, content, ast) => {
@@ -167,7 +167,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // posts(query: JSON, params: JSON, key: JSON): [Post!]
+      // posts(query: JSON, params: JSON, key: JSON): 
       posts:
         //!code: resolver-User-posts
         (parent, args, content, ast) => {
