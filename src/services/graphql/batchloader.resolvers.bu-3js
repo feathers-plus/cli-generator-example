@@ -119,13 +119,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         );
       //!end
 
-      // Relationship.follower: User!
-      //!code: bl-Relationship-follower
+      // Relationship.followee: User!
+      //!code: bl-Relationship-followee
       //...
       //!end
 
-      // Relationship.followee: User!
-      //!code: bl-Relationship-followee
+      // Relationship.follower: User!
+      //!code: bl-Relationship-follower
       //...
       //!end
 
@@ -245,14 +245,14 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
     Relationship: {
 
-      // follower: User!
-      //!code: resolver-Relationship-follower
-      follower: getResult('_shared.user.one.uuid', 'followerUuid'),
-      //!end
-
       // followee: User!
       //!code: resolver-Relationship-followee
       followee: getResult('_shared.user.one.uuid', 'followeeUuid'),
+      //!end
+
+      // follower: User!
+      //!code: resolver-Relationship-follower
+      follower: getResult('_shared.user.one.uuid', 'followerUuid'),
       //!end
     },
 
@@ -302,7 +302,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // findComment(query: JSON, params: JSON): [Comment!]
       findComment(parent, args, content, info) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
         return comment.find(feathersParams).then(extractAllItems);
       },
       //!end
@@ -316,7 +316,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // findLike(query: JSON, params: JSON): [Like!]
       findLike(parent, args, content, info) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
         return like.find(feathersParams).then(extractAllItems);
       },
       //!end
@@ -330,7 +330,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // findPost(query: JSON, params: JSON): [Post!]
       findPost(parent, args, content, info) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
         return post.find(feathersParams).then(extractAllItems);
       },
       //!end
@@ -344,7 +344,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // findRelationship(query: JSON, params: JSON): [Relationship!]
       findRelationship(parent, args, content, info) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"uuid":1} } });
         return relationship.find(feathersParams).then(extractAllItems);
       },
       //!end
@@ -358,7 +358,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // findUser(query: JSON, params: JSON): [User!]
       findUser(parent, args, content, info) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   id: 1 } } });
+        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {"id":1} } });
         return user.find(feathersParams).then(extractAllItems);
       },
       //!end
