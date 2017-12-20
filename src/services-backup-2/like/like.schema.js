@@ -5,8 +5,8 @@
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
   //!code: schema_header
-  title: 'Comment',
-  description: 'Comment data',
+  title: 'Like1',
+  description: 'Like DB',
   //!end
   type: 'object',
   required: [
@@ -18,9 +18,7 @@ let schema = {
     _id: { type: 'ID' },
     uuid: { type: 'ID' },
     authorUuid: { type: 'ID' },
-    postUuid: { type: 'ID' },
-    body: { type: 'string' },
-    archived: { type: 'integer' }
+    commentUuid: { type: 'ID'},
     //!end
   },
   //!code: schema_more //!end
@@ -29,29 +27,29 @@ let schema = {
 let extension = {
   graphql: {
     //!code: graphql_header
-    name: 'Comment',
+    name: 'Like',
     service: {
       sort: { uuid: 1 },
     },
     sql: {
-      sqlTable: 'Comments',
+      sqlTable: 'Likes',
       uniqueKey: 'uuid',
       sqlColumn: {
         authorUuid: 'author_uuid',
-        postUuid: 'post_uuid',
+        commentUuid: 'comment_uuid',
       },
     },
-    //!end,
+    //!end
     discard: [
       //!code: graphql_discard //!end
     ],
     add: {
-    //!code: graphql_add
+      //!code: graphql_add
       author: { type: 'User!', args: false, relation: { ourTable: 'authorUuid', otherTable: 'uuid' } },
-      likes: { type: '[Like!]', args: false, relation: { ourTable: 'uuid', otherTable: 'commentUuid' }  },
+      comment: { type: 'Comment!', args: false, relation: { ourTable: 'commentUuid', otherTable: 'uuid' } },
       //!end
     },
-    //!code: graphql_more //!end
+    //!code: extension_more //!end
   },
 };
 

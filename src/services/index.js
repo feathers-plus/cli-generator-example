@@ -1,17 +1,30 @@
-const user = require('./user/user.service.js');
-const graphql = require('./graphql/graphql.service.js');
-const comment = require('./comment/comment.service.js');
-const like = require('./like/like.service.js');
-const post = require('./post/post.service.js');
-const relationship = require('./relationship/relationship.service.js');
-const testschema = require('./testschema/testschema.service.js');
-module.exports = function (app) {
-  app.configure(user);
+
+// Configure Feathers services.
+let comment = require('./comment/comment.service');
+let like = require('./like/like.service');
+let post = require('./post/post.service');
+let relationship = require('./relationship/relationship.service');
+let testschema = require('./testschema/testschema.service');
+let user = require('./user/user.service');
+
+let graphql = require('./graphql/graphql.service');
+//!code: imports //!end
+//!code: init //!end
+
+let moduleExports = function (app) {
   app.configure(comment);
   app.configure(like);
   app.configure(post);
   app.configure(relationship);
+  app.configure(testschema);
+  app.configure(user);
 
   app.configure(graphql);
-  app.configure(testschema);
+  //!code: func_return //!end
 };
+
+//!code: exports //!end
+module.exports = moduleExports;
+
+//!code: funcs //!end
+//!code: end //!end

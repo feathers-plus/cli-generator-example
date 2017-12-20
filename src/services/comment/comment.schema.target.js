@@ -5,7 +5,7 @@
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
   //!code: schema_header
-  title: 'Comment',
+  title: 'Comment1',
   description: 'Comment data',
   //!end
   type: 'object',

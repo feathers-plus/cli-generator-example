@@ -52,7 +52,8 @@
     }
   },
   "graphql": {
-    "path": "graphql",
-    "strategy": "services"
+    "path": "/graphql",
+    "strategy": "services",
+    "name": "graphql"
   }
 }

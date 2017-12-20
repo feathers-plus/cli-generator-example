@@ -1,11 +1,5 @@
 
-const commonHooks = require('feathers-hooks-common');
-
 //!code: imports //!end
-
-//!<DEFAULT> code: used
-const { iff } = commonHooks;
-//!end
 //!code: init //!end
 
 let moduleExports = {
@@ -14,7 +8,9 @@ let moduleExports = {
       //!code: before_all //!end
     ],
     find: [
-      //!code: before_find //!end
+      //!code: before_find
+      () => {},
+      //!end
     ],
     get: [
       //!code: before_get //!end
