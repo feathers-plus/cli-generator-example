@@ -76,7 +76,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         return feathersBatchLoader(dataLoaderName, '[!]', 'commentUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { commentUuid: { $in: keys }, $sort: { commentUuid: 1 } }, populate: false }
+              { query: { commentUuid: { $in: keys }, $sort: undefined, populate: false }
             );
             return like.find(feathersParams);
           }
@@ -94,7 +94,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         return feathersBatchLoader(dataLoaderName, '!', 'uuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { uuid: { $in: keys }, $sort: { uuid: 1 } }, populate: false }
+              { query: { uuid: { $in: keys }, $sort: undefined, populate: false }
             );
             return comment.find(feathersParams);
           }
@@ -112,7 +112,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { postUuid: { $in: keys }, $sort: { postUuid: 1 } }, populate: false }
+              { query: { postUuid: { $in: keys }, $sort: undefined, populate: false }
             );
             return comment.find(feathersParams);
           }
@@ -135,7 +135,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { authorUuid: { $in: keys }, $sort: { authorUuid: 1 } }, populate: false }
+              { query: { authorUuid: { $in: keys }, $sort: undefined, populate: false }
             );
             return comment.find(feathersParams);
           }
@@ -148,7 +148,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         return feathersBatchLoader(dataLoaderName, '[!]', 'followeeUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { followeeUuid: { $in: keys }, $sort: { followeeUuid: 1 } }, populate: false }
+              { query: { followeeUuid: { $in: keys }, $sort: undefined, populate: false }
             );
             return relationship.find(feathersParams);
           }
@@ -161,7 +161,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         return feathersBatchLoader(dataLoaderName, '[!]', 'followerUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { followerUuid: { $in: keys }, $sort: { followerUuid: 1 } }, populate: false }
+              { query: { followerUuid: { $in: keys }, $sort: undefined, populate: false }
             );
             return relationship.find(feathersParams);
           }
@@ -174,7 +174,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
-              { query: { authorUuid: { $in: keys }, $sort: { authorUuid: 1 } }, populate: false }
+              { query: { authorUuid: { $in: keys }, $sort: undefined, populate: false }
             );
             return like.find(feathersParams);
           }

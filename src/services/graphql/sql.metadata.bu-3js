@@ -115,22 +115,13 @@ let moduleExports = function sqlMetadata(app, options) {
       sqlTable: 'Relationships',
       uniqueKey: 'uuid',
       fields: {
-        followerUuid: {
-          sqlColumn: 'follower_uuid',
-          //!code: fields-Relationship-followerUuid //!end
-        },
         followeeUuid: {
           sqlColumn: 'followee_uuid',
           //!code: fields-Relationship-followeeUuid //!end
         },
-
-        // follower: User!
-        follower: {
-          //!<DEFAULT> code: fields-Relationship-follower
-          sqlJoin(ourTable, otherTable) { return `${ourTable}.follower_uuid = ${otherTable}.uuid`; },
-          orderBy(args, content) { return makeOrderBy(args, null); },
-          where(table, args) { return makeWhere(table, args, 'follower_uuid', undefined); },
-          //!end
+        followerUuid: {
+          sqlColumn: 'follower_uuid',
+          //!code: fields-Relationship-followerUuid //!end
         },
 
         // followee: User!
@@ -139,6 +130,15 @@ let moduleExports = function sqlMetadata(app, options) {
           sqlJoin(ourTable, otherTable) { return `${ourTable}.followee_uuid = ${otherTable}.uuid`; },
           orderBy(args, content) { return makeOrderBy(args, null); },
           where(table, args) { return makeWhere(table, args, 'followee_uuid', undefined); },
+          //!end
+        },
+
+        // follower: User!
+        follower: {
+          //!<DEFAULT> code: fields-Relationship-follower
+          sqlJoin(ourTable, otherTable) { return `${ourTable}.follower_uuid = ${otherTable}.uuid`; },
+          orderBy(args, content) { return makeOrderBy(args, null); },
+          where(table, args) { return makeWhere(table, args, 'follower_uuid', undefined); },
           //!end
         },
         //!code: fields-Relationship //!end

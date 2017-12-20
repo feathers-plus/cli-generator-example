@@ -4,11 +4,13 @@ const createService = require('@feathers-plus/graphql');
 const { mergeTypes } = require('merge-graphql-schemas');
 const deepMerge = require('deepmerge');
 const generatedSchema = require('./graphql.schemas');
-const generatedResolvers = require('./batchloader.resolvers');
+const generatedResolvers = require('./sql.resolvers');
+const generatedMetadata = require('./sql.metadata');
+const { dialect, executeSql, openDb } = require('./sql.execute');
 const hooks = require('./graphql.hooks');
 //!code: imports //!end
 
-const strategy = 'batchloaders';
+const strategy = 'sql';
 console.log(`\n===== configuring graphql service for ${strategy}.\n`);
 
 let schemas = mergeTypes([
@@ -18,10 +20,21 @@ let schemas = mergeTypes([
 
 let resolvers = (app, options) => deepMerge.all([{},
   generatedResolvers(app, options),
-  //!code: batchloader_resolvers
-// bl_r
+  //!code: sql_resolvers
+// sql_r
 //!end
 ]);
+
+let sqlJoins = (app, options) => deepMerge.all([{},
+  generatedMetadata(app, options),
+  //!code: sql_metadata
+// sql_m
+//!end
+]);
+
+if (!dialect) {
+  throw new Error('services/graphql/sql.execute.js has not been configured.');
+}
 //!code: init //!end
 
 let moduleExports = function(){
@@ -31,6 +44,11 @@ let moduleExports = function(){
   let options = {
     schemas,
     resolvers,
+    sqlJoins,
+    dialect,
+    executeSql,
+    openDb,
+    logSql: false,
   };
   //!code: func_options //!end
 
@@ -56,10 +74,7 @@ Stash code not used now but which may be used if the module is regenerated.
 //!code: service_resolvers
   // service_resolvers
   //!end
-//!code: sql_resolvers
-// sql_r
-//!end
-//!code: sql_metadata
-// sql_m
+//!code: batchloader_resolvers
+// bl_r
 //!end
 */
