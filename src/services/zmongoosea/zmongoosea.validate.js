@@ -1,44 +1,57 @@
 
-// Define valiation definition for validateSchema hook for service `testschema`.
+// Validation definitions for validateSchema hook for service `zmongoosea`.
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');
 //!code: imports //!end
 //!code: init //!end
 
+//!<DEFAULT> code: set_id_type
+const ID = 'string';
+//!end
+
 const base = deepMerge.all([{},
   //!<DEFAULT> code: base
   {
     $schema: "http://json-schema.org/draft-05/schema",
-    title: "Test-Schema",
-    description: "Test schema conversion to model",
-    type: "object",
+    title: "Testa",
+    description: "Testa database.",
     required: [
-      "str1",
-      "uuid"
+      "_id",
+      "twitter"
     ],
     properties: {
-      str1: {
-        type: "string",
-        pattern: "^[0-9]+$"
+      _id: {
+        type: ID
       },
-      str2: {},
-      int1: {
-        type: "integer",
-        minimum: 13,
-        maximum: 110,
-        exclusiveMinimum: true
-      },
-      array1: {
-        type: "array",
-        items: [
-          {
-            type: "integer"
+      name: {
+        required: [
+          "firstName"
+        ],
+        properties: {
+          firstName: {
+            type: "string"
+          },
+          lastName: {
+            type: "string"
           }
-        ]
+        },
+        type: "object"
       },
-      uuid: {
-        type: "ID"
+      biography: {
+        type: "string"
+      },
+      twitter: {
+        type: "string"
+      },
+      facebook: {
+        type: "string"
+      },
+      linkedin: {
+        type: "string"
+      },
+      created: {
+        type: "date"
       }
     }
   },

@@ -43,17 +43,25 @@
       "requiresAuth": false,
       "graphql": true
     },
-    "testschema": {
-      "name": "testschema",
+    "zmongoosea": {
+      "name": "zmongoosea",
       "adapter": "nedb",
-      "path": "/testschema",
+      "path": "/zmongoosea",
+      "requiresAuth": false,
+      "graphql": false
+    },
+    "serviceAa1": {
+      "name": "serviceAa1",
+      "fileName": "service-aa-1",
+      "adapter": "nedb",
+      "path": "/service--aa--1",
       "requiresAuth": false,
       "graphql": false
     }
   },
   "graphql": {
     "path": "/graphql",
-    "strategy": "sql",
+    "strategy": "services",
     "name": "graphql"
   }
 }

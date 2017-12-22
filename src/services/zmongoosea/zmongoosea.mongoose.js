@@ -1,5 +1,5 @@
 
-// Defines Mongoose model for service `testschema`.
+// Defines Mongoose model for service `zmongoosea`.
 const deepMerge = require('deepmerge');
 const mongoose = require('mongoose');
 //!code: imports //!end
@@ -8,24 +8,16 @@ const mongoose = require('mongoose');
 let moduleExports = deepMerge.all([{},
   //!<DEFAULT> code: model
   {
-    str1: {
-      required: true,
-      type: String,
-      match: "^[0-9]+$"
+    _id: mongoose.Schema.ObjectId,
+    name: {
+      firstName: String,
+      lastName: String
     },
-    str2: String,
-    int1: {
-      type: Number,
-      min: 13,
-      max: 110
-    },
-    array1: [
-      Number
-    ],
-    uuid: {
-      required: true,
-      type: mongoose.Schema.ObjectId
-    }
+    biography: String,
+    twitter: String,
+    facebook: String,
+    linkedin: String,
+    created: Date
   },
   //!end
   //!code: moduleExports //!end

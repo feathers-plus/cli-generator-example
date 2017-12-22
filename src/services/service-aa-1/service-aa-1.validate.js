@@ -1,5 +1,5 @@
 
-// Validation definitions for validateSchema hook for service `comment`.
+// Validation definitions for validateSchema hook for service `serviceAa1`.
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');
@@ -7,41 +7,12 @@ const ajv = require('ajv');
 //!code: init //!end
 
 //!<DEFAULT> code: set_id_type
-const idType = 'string';
+const ID = 'string';
 //!end
 
 const base = deepMerge.all([{},
   //!<DEFAULT> code: base
-  {
-    $schema: "http://json-schema.org/draft-05/schema",
-    title: "Comment",
-    description: "Comment data",
-    type: "object",
-    required: [],
-    properties: {
-      id: {
-        type: "id"
-      },
-      _id: {
-        type: "id"
-      },
-      uuid: {
-        type: "id"
-      },
-      authorUuid: {
-        type: "id"
-      },
-      postUuid: {
-        type: "id"
-      },
-      body: {
-        type: "string"
-      },
-      archived: {
-        type: "integer"
-      }
-    }
-  },
+  {},
   //!end
   //!code: base_more //!end
 ]);

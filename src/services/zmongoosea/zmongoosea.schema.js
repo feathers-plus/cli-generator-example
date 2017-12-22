@@ -4,35 +4,30 @@
 
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
-  //!code: schema_header
-  title: 'Test-Schema',
-  description: 'Test schema conversion to model',
+  //!<DEFAULT> code: schema_header
+  title: 'Zmongoosea',
+  description: 'Zmongoosea database.',
   //!end
-  type: 'object',
   required: [
     //!code: schema_required
-    'str1', 'uuid'
+    '_id', 'twitter'
     //!end
   ],
   properties: {
     //!code: schema_properties
-    str1: {
-      type: 'string',
-      pattern: '^[0-9]+$'
+    _id: { type: 'ID' },
+    name: {
+      required: [ 'firstName'],
+      properties: {
+        firstName: {},
+        lastName: {}
+      }
     },
-    str2: {},
-    int1: {
-      type: 'integer',
-      minimum: 13,
-      maximum: 110,
-      exclusiveMinimum: true
-    },
-    array1: {
-      type: 'array',
-      items: [{ type: 'integer' }], },
-    uuid: {
-      type: 'ID'
-    },
+    biography: {},
+    twitter: {},
+    facebook: {},
+    linkedin: {},
+    created: { type: 'date' }
     //!end
   },
   //!code: schema_more //!end
@@ -41,17 +36,16 @@ let schema = {
 let extension = {
   graphql: {
     //!<DEFAULT> code: graphql_header
-    // name: '...',
+    // name: 'Zmongoosea',
     // service : {
-    //   sort: { id: 1 },
+    //   sort: { __id__: 1 },
     // },
     // sql: {
-    // sqlTable: 'Accounts',
-    //   uniqueKey: 'uuid',
+    //   sqlTable: 'Zmongoosea',
+    //   uniqueKey: '__id__',
     //   sqlColumn: {
-    //   email: { sqlColumn: 'email_address' },
-    //   firstName: { sqlColumn: 'first_name' },
-    //   lastName: { sqlColumn: 'last_name' },
+    //     __authorId__: '__author_id__',
+    //   }
     // },
     //!end,
     discard: [
@@ -59,7 +53,7 @@ let extension = {
     ],
     add: {
     //!<DEFAULT> code: graphql_add
-      // ___ZZZ___: { type: 'User!', args: false },
+      // __author__: { type: '__User__!', args: false, relation: { ourTable: '__authorId__', otherTable: '__id__' } },
       //!end
     },
     //!code: graphql_more //!end

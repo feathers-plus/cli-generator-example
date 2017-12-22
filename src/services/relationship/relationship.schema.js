@@ -24,7 +24,7 @@ let schema = {
   //!code: schema_more //!end
 };
 
-let extension = {
+let extensions = {
   graphql: {
     //!code: graphql_header
     name: 'Relationship',
@@ -57,7 +57,7 @@ let extension = {
 
 let moduleExports = {
   schema,
-  extension,
+  extensions,
   //!code: moduleExports //!end
 };
 
