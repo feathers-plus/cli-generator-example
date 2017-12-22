@@ -12,7 +12,13 @@ const ID = 'string';
 
 const base = deepMerge.all([{},
   //!<DEFAULT> code: base
-  {},
+  {
+    $schema: "http://json-schema.org/draft-05/schema",
+    title: "ServiceAa1",
+    description: "ServiceAa1 database.",
+    required: [],
+    properties: {}
+  },
   //!end
   //!code: base_more //!end
 ]);

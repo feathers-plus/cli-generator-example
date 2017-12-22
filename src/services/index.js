@@ -4,7 +4,7 @@ let comment = require('./comment/comment.service');
 let like = require('./like/like.service');
 let post = require('./post/post.service');
 let relationship = require('./relationship/relationship.service');
-let serviceAa1 = require('./serviceAa1/serviceAa1.service');
+let serviceAa1 = require('./service-aa-1/service-aa-1.service');
 let user = require('./user/user.service');
 let zmongoosea = require('./zmongoosea/zmongoosea.service');
 
