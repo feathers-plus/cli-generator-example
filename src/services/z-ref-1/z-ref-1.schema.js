@@ -8,10 +8,7 @@ let schema = {
   title: 'Comment',
   description: 'Comment data',
   //!end
-  type: 'object',
-  required: [
-    //!code: schema_required //!end
-  ],
+  //!code: schema_definitions
   definitions: {
     id: {
       description: 'unique identifier',
@@ -20,14 +17,19 @@ let schema = {
       readOnly: true
     }
   },
+  //!end
+  required: [
+    //!code: schema_required //!end
+  ],
   properties: {
     //!code: schema_properties
     _id: { $ref: '#/definitions/id' },
     uuid: { type: 'ID' },
     authorUuid: { type: 'ID' },
     postUuid: { type: 'ID' },
-    body: { $ref: 'test.json' },
-    archived: { type: 'integer' }
+    body: { $ref: 'body.json' },
+    archived: { type: 'integer' },
+    email: { $ref: 'common-definitions.json#/definitions/email' }
     //!end
   },
   //!code: schema_more //!end

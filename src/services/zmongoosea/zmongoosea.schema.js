@@ -33,7 +33,7 @@ let schema = {
   //!code: schema_more //!end
 };
 
-let extension = {
+let extensions = {
   graphql: {
     //!<DEFAULT> code: graphql_header
     // name: 'Zmongoosea',
@@ -64,7 +64,7 @@ let extension = {
 
 let moduleExports = {
   schema,
-  extension,
+  extensions,
   //!code: moduleExports //!end
 };
 

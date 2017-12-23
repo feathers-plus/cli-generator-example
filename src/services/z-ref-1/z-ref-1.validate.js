@@ -1,5 +1,5 @@
 
-// Validation definitions for validateSchema hook for service `serviceAa1`.
+// Validation definitions for validateSchema hook for service `zRef1`.
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');
@@ -14,10 +14,41 @@ const base = deepMerge.all([{},
   //!<DEFAULT> code: base
   {
     $schema: "http://json-schema.org/draft-05/schema",
-    title: "ServiceAa1",
-    description: "ServiceAa1 database.",
+    title: "Comment",
+    description: "Comment data",
     required: [],
-    properties: {}
+    properties: {
+      _id: {
+        description: "unique identifier",
+        type: ID,
+        minLength: 1,
+        readOnly: true
+      },
+      uuid: {
+        type: ID
+      },
+      authorUuid: {
+        type: ID
+      },
+      postUuid: {
+        type: ID
+      },
+      body: {
+        description: "unique identifier of a the object",
+        type: "string",
+        minLength: 1
+      },
+      archived: {
+        type: "integer"
+      },
+      email: {
+        description: "Email",
+        format: "email",
+        readOnly: false,
+        type: "string",
+        minLength: 1
+      }
+    }
   },
   //!end
   //!code: base_more //!end

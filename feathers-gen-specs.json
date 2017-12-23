@@ -50,11 +50,11 @@
       "requiresAuth": false,
       "graphql": false
     },
-    "serviceAa1": {
-      "name": "serviceAa1",
-      "fileName": "service-aa-1",
+    "zRef1": {
+      "name": "zRef1",
+      "fileName": "z-ref-1",
       "adapter": "nedb",
-      "path": "/service--aa--1",
+      "path": "/z-ref-1",
       "requiresAuth": false,
       "graphql": false
     }
