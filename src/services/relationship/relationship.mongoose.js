@@ -1,5 +1,5 @@
 
-// Defines Mongoose model for service `relationship`.
+// Defines Mongoose model for service `relationship`. (Can be re-generated.)
 const deepMerge = require('deepmerge');
 const mongoose = require('mongoose'); // eslint-disable-line no-unused-vars
 //!code: imports //!end

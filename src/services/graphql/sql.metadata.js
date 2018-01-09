@@ -1,4 +1,5 @@
 
+// Metadata for forming raw SQL statements for GraphQL. (Can be re-generated.)
 //!code: imports //!end
 //!code: init //!end
 

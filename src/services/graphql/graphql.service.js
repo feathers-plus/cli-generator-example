@@ -1,5 +1,5 @@
 
-// Initializes the `graphql` service on path `/graphql`
+// Initializes the `graphql` service on path `/graphql`. (Can be re-generated.)
 const createService = require('@feathers-plus/graphql');
 const { mergeTypes } = require('merge-graphql-schemas');
 const deepMerge = require('deepmerge');

@@ -1,4 +1,6 @@
 
+// Hooks for GraphQL service. (Can be re-generated.)
+
 //!code: imports //!end
 //!code: init //!end
 

@@ -1,4 +1,5 @@
 
+// Define the Feathers schema for service `relationship`. (Can be re-generated.)
 //!code: imports //!end
 //!code: init //!end
 

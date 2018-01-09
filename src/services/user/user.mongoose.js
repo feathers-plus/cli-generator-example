@@ -1,5 +1,5 @@
 
-// Defines Mongoose model for service `user`.
+// Defines Mongoose model for service `user`. (Can be re-generated.)
 const deepMerge = require('deepmerge');
 const mongoose = require('mongoose'); // eslint-disable-line no-unused-vars
 //!code: imports //!end

@@ -1,5 +1,5 @@
 
-// Configure Feathers services.
+// Configure the Feathers services. (Can be re-generated.)
 let comment = require('./comment/comment.service');
 let like = require('./like/like.service');
 let post = require('./post/post.service');

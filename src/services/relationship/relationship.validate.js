@@ -1,5 +1,6 @@
+
 /* eslint quotes: 0 */
-// Validation definitions for validateSchema hook for service `relationship`.
+// Validation definitions for validateSchema hook for service `relationship`. (Can be re-generated.)
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');

@@ -1,5 +1,6 @@
+
 /* eslint quotes: 0 */
-// Validation definitions for validateSchema hook for service `user`.
+// Validation definitions for validateSchema hook for service `user`. (Can be re-generated.)
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');
@@ -16,7 +17,12 @@ const base = deepMerge.all([{},
     $schema: "http://json-schema.org/draft-05/schema",
     title: "User",
     description: "User database.",
-    required: [],
+    required: [
+      "uuid",
+      "email",
+      "firstName",
+      "lastName"
+    ],
     properties: {
       id: {
         type: ID

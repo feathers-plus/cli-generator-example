@@ -1,4 +1,5 @@
 
+// Hooks for service `relationship`. (Can be re-generated.)
 const commonHooks = require('feathers-hooks-common');
 
 //!code: imports //!end

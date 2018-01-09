@@ -1,4 +1,5 @@
 
+// Configure channels. (Can be re-generated.)
 //!code: imports //!end
 //!code: init //!end
 

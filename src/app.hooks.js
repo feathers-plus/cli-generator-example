@@ -1,5 +1,5 @@
 
-// Application hooks that run for every service
+// Application hooks that run for every service. (Can be re-generated.)
 const commonHooks = require('feathers-hooks-common');
 
 //!<DEFAULT> code: imports

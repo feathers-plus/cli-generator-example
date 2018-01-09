@@ -1,4 +1,5 @@
 
+// Hooks for service `comment`. (Can be re-generated.)
 const commonHooks = require('feathers-hooks-common');
 
 //!code: imports //!end

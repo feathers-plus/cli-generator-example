@@ -1,5 +1,6 @@
+
 /* eslint quotes: 0 */
-// Validation definitions for validateSchema hook for service `post`.
+// Validation definitions for validateSchema hook for service `post`. (Can be re-generated.)
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');
