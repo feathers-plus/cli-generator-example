@@ -5,21 +5,20 @@ const { join } = require('path');
 //!code: init //!end
 
 //!code: main
+let dialect, openDb, executeSql;
 const sqlite = require('sqlite')
-let dialect = 'sqlite3';
+dialect = 'sqlite3';
 
-let openDb = () => {
+openDb = () => {
   sqlite.open(join(cwd(), 'data', 'sqlite3.db'));
   return sqlite;
 };
 
-let executeSql = sql => {
-  return sqlite.all(sql)
-    .catch(err => {
-      console.log('executeSql error=', err.message);
-      throw err;
-    });
-}
+executeSql = sql => sqlite.all(sql)
+  .catch(err => {
+    console.log('executeSql error=', err.message);
+    throw err;
+  });
 //!end
 
 let moduleExports = {

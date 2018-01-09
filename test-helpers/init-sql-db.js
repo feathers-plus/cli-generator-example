@@ -105,5 +105,11 @@ async function copyServiceToTable (data, tableName, options = {}) {
   }
 
   const all = await sqlDb.all(`SELECT * FROM ${tableName}`);
-  if (log) console.log(`\n${tableName}:`, all);
+  if (log) inspector(tableName, all);
+}
+
+const { inspect } = require('util');
+function inspector(desc, obj, depth = 5) {
+  console.log(`\n${desc}`);
+  console.log(inspect(obj, { depth, colors: true }));
 }

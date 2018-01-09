@@ -1,5 +1,5 @@
-
-// Validation definitions for validateSchema hook for service `zmongoosea`.
+/* eslint quotes: 0 */
+// Validation definitions for validateSchema hook for service `user`.
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');
@@ -7,51 +7,34 @@ const ajv = require('ajv');
 //!code: init //!end
 
 //!<DEFAULT> code: set_id_type
-const ID = 'string';
+const ID = 'string'; // eslint-disable-line no-unused-vars
 //!end
 
 const base = deepMerge.all([{},
   //!<DEFAULT> code: base
   {
     $schema: "http://json-schema.org/draft-05/schema",
-    title: "Testa",
-    description: "Testa database.",
-    required: [
-      "_id",
-      "twitter"
-    ],
+    title: "User",
+    description: "User database.",
+    required: [],
     properties: {
+      id: {
+        type: ID
+      },
       _id: {
         type: ID
       },
-      name: {
-        required: [
-          "firstName"
-        ],
-        properties: {
-          firstName: {
-            type: "string"
-          },
-          lastName: {
-            type: "string"
-          }
-        },
-        type: "object"
+      uuid: {
+        type: ID
       },
-      biography: {
+      email: {
         type: "string"
       },
-      twitter: {
+      firstName: {
         type: "string"
       },
-      facebook: {
+      lastName: {
         type: "string"
-      },
-      linkedin: {
-        type: "string"
-      },
-      created: {
-        type: "date"
       }
     }
   },

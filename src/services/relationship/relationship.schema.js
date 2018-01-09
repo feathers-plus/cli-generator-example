@@ -4,11 +4,11 @@
 
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
-  //!code: schema_header
-  title: 'Relationship1',
-  description: 'Relationship data',
+  //!<DEFAULT> code: schema_header
+  title: 'Relationship',
+  description: 'Relationship database.',
   //!end
-  type: 'object',
+  //!code: schema_definitions //!end
   required: [
     //!code: schema_required //!end
   ],
@@ -49,7 +49,7 @@ let extensions = {
       followee: { type: 'User!', args: false, relation: { ourTable: 'followeeUuid', otherTable: 'uuid' } },
       //!end
     },
-    //!code: extension_more //!end
+    //!code: graphql_more //!end
   },
 };
 

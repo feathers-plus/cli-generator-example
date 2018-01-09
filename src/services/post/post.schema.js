@@ -4,11 +4,11 @@
 
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
-  //!code: schema_header
-  title: 'Post1',
+  //!<DEFAULT> code: schema_header
+  title: 'Post',
   description: 'Post database.',
   //!end
-  type: 'object',
+  //!code: schema_definitions //!end
   required: [
     //!code: schema_required //!end
   ],
@@ -49,7 +49,7 @@ let extensions = {
       comments: { type: '[Comment!]', args: false, relation: { ourTable: 'uuid', otherTable: 'postUuid' } },
       //!end
     },
-    //!code: extension_more //!end
+    //!code: graphql_more //!end
   },
 };
 

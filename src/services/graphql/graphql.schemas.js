@@ -46,14 +46,6 @@ type Relationship {
   followee: User!
 }
  
-type undefined {
-  str1: String!
-  str2: String
-  int1: Int
-  array1: [String]
-  uuid: ID!
-}
- 
 type User {
   id: ID
   _id: ID
@@ -79,8 +71,6 @@ type Query {
   findPost(query: JSON, params: JSON): [Post]!
   getRelationship(key: JSON, query: JSON, params: JSON): Relationship
   findRelationship(query: JSON, params: JSON): [Relationship]!
-  getundefined(key: JSON, query: JSON, params: JSON): undefined
-  findundefined(query: JSON, params: JSON): [undefined]!
   getUser(key: JSON, query: JSON, params: JSON): User
   findUser(query: JSON, params: JSON): [User]!
 }

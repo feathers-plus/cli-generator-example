@@ -1,4 +1,7 @@
 {
+  "options": {
+    "configJs": false
+  },
   "app": {
     "src": "src",
     "packager": "npm@>= 3.0.0",
@@ -8,22 +11,25 @@
     ]
   },
   "services": {
-    "user": {
-      "name": "user",
-      "adapter": "nedb",
-      "path": "/user",
-      "requiresAuth": false,
-      "graphql": true
-    },
     "comment": {
       "name": "comment",
+      "fileName": "comment",
       "adapter": "nedb",
       "path": "/comment",
       "requiresAuth": false,
       "graphql": true
     },
+    "user": {
+      "name": "user",
+      "fileName": "user",
+      "adapter": "nedb",
+      "path": "/user",
+      "requiresAuth": false,
+      "graphql": true
+    },
     "like": {
       "name": "like",
+      "fileName": "like",
       "adapter": "nedb",
       "path": "/like",
       "requiresAuth": false,
@@ -31,6 +37,7 @@
     },
     "post": {
       "name": "post",
+      "fileName": "post",
       "adapter": "nedb",
       "path": "/post",
       "requiresAuth": false,
@@ -38,30 +45,23 @@
     },
     "relationship": {
       "name": "relationship",
+      "fileName": "relationship",
       "adapter": "nedb",
       "path": "/relationship",
       "requiresAuth": false,
       "graphql": true
-    },
-    "zmongoosea": {
-      "name": "zmongoosea",
+    }
+  },
+  "connections": {
+    "nedb+nedb": {
+      "database": "nedb",
       "adapter": "nedb",
-      "path": "/zmongoosea",
-      "requiresAuth": false,
-      "graphql": false
-    },
-    "zRef1": {
-      "name": "zRef1",
-      "fileName": "z-ref-1",
-      "adapter": "nedb",
-      "path": "/z-ref-1",
-      "requiresAuth": false,
-      "graphql": false
+      "connectionString": "../data"
     }
   },
   "graphql": {
-    "path": "/graphql",
-    "strategy": "services",
-    "name": "graphql"
+    "name": "graphql",
+    "path": "graphql",
+    "strategy": "services"
   }
 }

@@ -18,9 +18,7 @@ let schemas = mergeTypes([
 
 let resolvers = (app, options) => deepMerge.all([{},
   generatedResolvers(app, options),
-  //!code: service_resolvers
-  // service_resolvers
-  //!end
+  //!code: service_resolvers //!end
 ]);
 //!code: init //!end
 
@@ -53,13 +51,7 @@ module.exports = moduleExports;
 
 /*
 Stash code not used now but which may be used if the module is regenerated.
-//!code: batchloader_resolvers
-// bl_r
-//!end
-//!code: sql_resolvers
-// sql_r
-//!end
-//!code: sql_metadata
-// sql_m
-//!end
+//!code: batchloader_resolvers //!end
+//!code: sql_resolvers //!end
+//!code: sql_metadata //!end
 */

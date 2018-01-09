@@ -4,14 +4,11 @@
 
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
-  //!code: schema_header
+  //!<DEFAULT> code: schema_header
   title: 'Comment',
-  description: 'Comment data',
+  description: 'Comment database.',
   //!end
-  type: 'object',
-  required: [
-    //!code: schema_required //!end
-  ],
+  //!code: schema_definitions
   definitions: {
     id: {
       description: 'unique identifier',
@@ -20,13 +17,18 @@ let schema = {
       readOnly: true
     }
   },
+  //!end
+  required: [
+    //!code: schema_required //!end
+  ],
   properties: {
     //!code: schema_properties
+    id: { type: 'ID' },
     _id: { $ref: '#/definitions/id' },
     uuid: { type: 'ID' },
     authorUuid: { type: 'ID' },
     postUuid: { type: 'ID' },
-    body: { $ref: 'test.json' },
+    body: { $ref: 'body.json' },
     archived: { type: 'integer' }
     //!end
   },
@@ -48,12 +50,12 @@ let extensions = {
         postUuid: 'post_uuid',
       },
     },
-    //!end,
+    //!end
     discard: [
       //!code: graphql_discard //!end
     ],
     add: {
-    //!code: graphql_add
+      //!code: graphql_add
       author: { type: 'User!', args: false, relation: { ourTable: 'authorUuid', otherTable: 'uuid' } },
       likes: { type: '[Like!]', args: false, relation: { ourTable: 'uuid', otherTable: 'commentUuid' }  },
       //!end

@@ -51,7 +51,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       /* Transient BatchLoaders shared among resolvers. Stored in `content.batchLoaders._shared`. */
       //!code: bl-shared
       // *.*: User
-      case '_shared.user.one.uuid':
+      case '_shared.user.one.uuid': // service user, returns one object, key is field uuid
         return feathersBatchLoader(dataLoaderName, '!', 'uuid',
           keys => {
             feathersParams = convertArgsToFeathers(args,
@@ -65,12 +65,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       /* Transient BatchLoaders used by only one resolver. Stored in `content.batchLoaders`. */
 
-      // Comment.author: undefined
+      // Comment.author: User!
       //!code: bl-Comment-author
-      //...
+      // ... Using instead _shared.user.one.id
       //!end
 
-      // Comment.likes: undefined
+      // Comment.likes: [Like!]
       //!<DEFAULT> code: bl-Comment-likes
       case 'Comment.likes':
         return feathersBatchLoader(dataLoaderName, '[!]', 'commentUuid',
@@ -83,12 +83,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         );
       //!end
 
-      // Like.author: undefined
+      // Like.author: User!
       //!code: bl-Like-author
-      //...
+      // ... Using instead _shared.user.one.id
       //!end
 
-      // Like.comment: undefined
+      // Like.comment: Comment!
       //!<DEFAULT> code: bl-Like-comment
       case 'Like.comment':
         return feathersBatchLoader(dataLoaderName, '!', 'uuid',
@@ -101,12 +101,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         );
       //!end
 
-      // Post.author: undefined
+      // Post.author: User!
       //!code: bl-Post-author
-      //...
+      // ... Using instead _shared.user.one.id
       //!end
 
-      // Post.comments: undefined
+      // Post.comments: [Comment!]
       //!<DEFAULT> code: bl-Post-comments
       case 'Post.comments':
         return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
@@ -119,17 +119,17 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         );
       //!end
 
-      // Relationship.follower: undefined
+      // Relationship.follower: User!
       //!code: bl-Relationship-follower
-      //...
+      // ... Using instead _shared.user.one.id
       //!end
 
-      // Relationship.followee: undefined
+      // Relationship.followee: User!
       //!code: bl-Relationship-followee
-      //...
+      // ... Using instead _shared.user.one.id
       //!end
 
-      // User.comments: undefined
+      // User.comments: [Comment!]
       //!<DEFAULT> code: bl-User-comments
       case 'User.comments':
         return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
@@ -142,7 +142,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         );
       //!end
 
-      // User.followed_by: undefined
+      // User.followed_by: [Relationship!]
       //!<DEFAULT> code: bl-User-followed_by
       case 'User.followed_by':
         return feathersBatchLoader(dataLoaderName, '[!]', 'followeeUuid',
@@ -155,7 +155,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         );
       //!end
 
-      // User.following: undefined
+      // User.following: [Relationship!]
       //!<DEFAULT> code: bl-User-following
       case 'User.following':
         return feathersBatchLoader(dataLoaderName, '[!]', 'followerUuid',
@@ -168,7 +168,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         );
       //!end
 
-      // User.likes: undefined
+      // User.likes: [Like!]
       //!<DEFAULT> code: bl-User-likes
       case 'User.likes':
         return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
@@ -181,7 +181,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         );
       //!end
 
-      // User.posts(query: JSON, params: JSON, key: JSON): undefined
+      // User.posts(query: JSON, params: JSON, key: JSON): [Post!]
       //!code: bl-User-posts
       case 'User.posts':
         return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
@@ -206,12 +206,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
     Comment: {
 
-      // author: 
+      // author: User!
       //!code: resolver-Comment-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
-      // likes: 
+      // likes: [Like!]
       //!<DEFAULT> code: resolver-Comment-likes
       likes: getResult('Comment.likes', 'uuid'),
       //!end
@@ -219,12 +219,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
     Like: {
 
-      // author: 
+      // author: User!
       //!code: resolver-Like-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
-      // comment: 
+      // comment: Comment!
       //!<DEFAULT> code: resolver-Like-comment
       comment: getResult('Like.comment', 'commentUuid'),
       //!end
@@ -232,12 +232,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
     Post: {
 
-      // author: 
+      // author: User!
       //!code: resolver-Post-author
       author: getResult('_shared.user.one.uuid', 'authorUuid'),
       //!end
 
-      // comments: 
+      // comments: [Comment!]
       //!<DEFAULT> code: resolver-Post-comments
       comments: getResult('Post.comments', 'uuid'),
       //!end
@@ -245,12 +245,12 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
     Relationship: {
 
-      // follower: 
+      // follower: User!
       //!code: resolver-Relationship-follower
       follower: getResult('_shared.user.one.uuid', 'followerUuid'),
       //!end
 
-      // followee: 
+      // followee: User!
       //!code: resolver-Relationship-followee
       followee: getResult('_shared.user.one.uuid', 'followeeUuid'),
       //!end
@@ -258,32 +258,32 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
     User: {
 
-      // comments: 
+      // comments: [Comment!]
       //!<DEFAULT> code: resolver-User-comments
       comments: getResult('User.comments', 'uuid'),
       //!end
 
-      // followed_by: 
+      // followed_by: [Relationship!]
       //!<DEFAULT> code: resolver-User-followed_by
       followed_by: getResult('User.followed_by', 'uuid'),
       //!end
 
-      // following: 
+      // following: [Relationship!]
       //!<DEFAULT> code: resolver-User-following
       following: getResult('User.following', 'uuid'),
       //!end
 
-      // fullName: 
+      // fullName: String!
       //!code: resolver-User-fullName-non
       fullName: ({ firstName, lastName }, args, context, ast) => `${firstName} ${lastName}`,
       //!end
 
-      // likes: 
+      // likes: [Like!]
       //!<DEFAULT> code: resolver-User-likes
       likes: getResult('User.likes', 'uuid'),
       //!end
 
-      // posts(query: JSON, params: JSON, key: JSON): 
+      // posts(query: JSON, params: JSON, key: JSON): [Post!]
       //!<DEFAULT> code: resolver-User-posts
       posts: getResult('User.posts', 'uuid'),
       //!end
@@ -358,7 +358,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // findUser(query: JSON, params: JSON): [User!]
       findUser(parent, args, content, info) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   id: 1 } } });
+        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
         return user.find(feathersParams).then(extractAllItems);
       },
       //!end

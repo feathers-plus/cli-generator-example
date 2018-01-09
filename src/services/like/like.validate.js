@@ -1,5 +1,5 @@
 /* eslint quotes: 0 */
-// Validation definitions for validateSchema hook for service `comment`.
+// Validation definitions for validateSchema hook for service `like`.
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');
@@ -14,18 +14,15 @@ const base = deepMerge.all([{},
   //!<DEFAULT> code: base
   {
     $schema: "http://json-schema.org/draft-05/schema",
-    title: "Comment",
-    description: "Comment database.",
+    title: "Like",
+    description: "Like database.",
     required: [],
     properties: {
       id: {
         type: ID
       },
       _id: {
-        description: "unique identifier",
-        type: ID,
-        minLength: 1,
-        readOnly: true
+        type: ID
       },
       uuid: {
         type: ID
@@ -33,16 +30,8 @@ const base = deepMerge.all([{},
       authorUuid: {
         type: ID
       },
-      postUuid: {
+      commentUuid: {
         type: ID
-      },
-      body: {
-        description: "body of posting or comment",
-        type: "string",
-        minLength: 1
-      },
-      archived: {
-        type: "integer"
       }
     }
   },

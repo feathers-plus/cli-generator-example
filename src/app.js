@@ -1,3 +1,4 @@
+
 const path = require('path');
 const favicon = require('serve-favicon');
 const compress = require('compression');
@@ -10,21 +11,16 @@ const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
 
-
 const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
 const channels = require('./channels');
 
-//!code: imports
-const a1 = 1;
-//!end
+//!code: imports //!end
 //!code: init //!end
 
 const app = express(feathers());
-//!code: use_start
-const a2 = 2;
-//!end
+//!code: use_start //!end
 
 // Load app configuration
 app.configure(configuration());
@@ -44,6 +40,7 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio());
 
+
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
 // Set up our services (see `services/index.js`)
@@ -59,9 +56,9 @@ app.use(express.errorHandler({ logger }));
 
 app.hooks(appHooks);
 
+const moduleExports = app;
 //!code: exports //!end
-module.exports = app;
+module.exports = moduleExports;
 
-//!code: end
-function foo11 () {}
-//!end
+//!code: funcs //!end
+//!code: end //!end

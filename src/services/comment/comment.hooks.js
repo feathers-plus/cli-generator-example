@@ -4,7 +4,7 @@ const commonHooks = require('feathers-hooks-common');
 //!code: imports //!end
 
 //!<DEFAULT> code: used
-const { iff } = commonHooks;
+const { iff } = commonHooks; // eslint-disable-line no-unused-vars
 //!end
 //!code: init //!end
 
@@ -35,7 +35,7 @@ let moduleExports = {
 
   after: {
     all: [
-     //!code: after_all //!end
+      //!code: after_all //!end
     ],
     find: [
       //!code: after_find //!end

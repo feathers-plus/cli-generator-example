@@ -1,6 +1,8 @@
 
 const asyncTest = require('../test-helpers/async-test');
 
+const log = false;
+
 const getUser = `{
   getUser(key: 1) {
     _id
@@ -41,23 +43,33 @@ const getComment = `{
 
 module.exports = function testGraphql(app) {
   const graphql = app.service('/graphql');
+  console.log('>>>>> start sync test');
 
+  log && console.log('\n<<<<< findUser', findUser);
   graphql.find({ query: { graphql: findUser } })
     .then(response => {
-      console.log('>>>>> findUser\n', response);
+      log && inspector('>>>>> findUser', response);
 
+      log && console.log('\n<<<<< getUser', getUser);
       return graphql.find({ query: { graphql: getUser } });
     })
     .then(response => {
-      console.log('>>>>> getUser(key: 1)\n', response);
+      log && inspector('>>>>> getUser(key: 1)', response);
 
+      log && console.log('\n>>>>> getComment', getComment);
       return graphql.find({ query: { graphql: getComment } });
     })
     .then(response => {
-      console.log('>>>>> getComment(key: 10)\n', response);
+      log && inspector('>>>>> getComment(key: 10)', response);
 
       console.log('>>>>> start async test');
       asyncTest(app, 10);
     })
     .catch(err => console.log(err));
 };
+
+const { inspect } = require('util');
+function inspector(desc, obj, depth = 5) {
+  console.log(`\n${desc}`);
+  console.log(inspect(obj, { depth, colors: true }));
+}

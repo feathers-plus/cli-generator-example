@@ -1,8 +1,8 @@
 {
   "host": "localhost",
-  "port": 3032,
+  "port": 3030,
   "public": "../public/",
-  "paginatexxxxxxxxxxxxxxxxxxxx": {
+  ">>> paginate": {
     "default": 10,
     "max": 50
   },

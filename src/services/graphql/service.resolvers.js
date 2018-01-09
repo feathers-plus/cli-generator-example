@@ -17,7 +17,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     Comment: {
 
-      // author: 
+      // author: User!
       author:
         //!<DEFAULT> code: resolver-Comment-author
         (parent, args, content, ast) => {
@@ -28,7 +28,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // likes: 
+      // likes: [Like!]
       likes:
         //!<DEFAULT> code: resolver-Comment-likes
         (parent, args, content, ast) => {
@@ -42,7 +42,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     Like: {
 
-      // author: 
+      // author: User!
       author:
         //!<DEFAULT> code: resolver-Like-author
         (parent, args, content, ast) => {
@@ -53,7 +53,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // comment: 
+      // comment: Comment!
       comment:
         //!<DEFAULT> code: resolver-Like-comment
         (parent, args, content, ast) => {
@@ -67,7 +67,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     Post: {
 
-      // author: 
+      // author: User!
       author:
         //!<DEFAULT> code: resolver-Post-author
         (parent, args, content, ast) => {
@@ -78,7 +78,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // comments: 
+      // comments: [Comment!]
       comments:
         //!<DEFAULT> code: resolver-Post-comments
         (parent, args, content, ast) => {
@@ -92,7 +92,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     Relationship: {
 
-      // follower: 
+      // follower: User!
       follower:
         //!<DEFAULT> code: resolver-Relationship-follower
         (parent, args, content, ast) => {
@@ -103,7 +103,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // followee: 
+      // followee: User!
       followee:
         //!<DEFAULT> code: resolver-Relationship-followee
         (parent, args, content, ast) => {
@@ -117,7 +117,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
     User: {
 
-      // comments: 
+      // comments: [Comment!]
       comments:
         //!<DEFAULT> code: resolver-User-comments
         (parent, args, content, ast) => {
@@ -128,7 +128,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // followed_by: 
+      // followed_by: [Relationship!]
       followed_by:
         //!<DEFAULT> code: resolver-User-followed_by
         (parent, args, content, ast) => {
@@ -139,7 +139,7 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // following: 
+      // following: [Relationship!]
       following:
         //!<DEFAULT> code: resolver-User-following
         (parent, args, content, ast) => {
@@ -150,13 +150,13 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // fullName: 
+      // fullName: String!
       fullName:
         //!code: resolver-User-fullName-non
         (parent, args, content, ast) => `${parent.firstName} ${parent.lastName}`,
         //!end
 
-      // likes: 
+      // likes: [Like!]
       likes:
         //!<DEFAULT> code: resolver-User-likes
         (parent, args, content, ast) => {
@@ -167,12 +167,12 @@ let moduleExports = function serviceResolvers(app, options) {
         },
         //!end
 
-      // posts(query: JSON, params: JSON, key: JSON): 
+      // posts(query: JSON, params: JSON, key: JSON): [Post!]
       posts:
-        //!code: resolver-User-posts
+        //!<DEFAULT> code: resolver-User-posts
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
-            query: { authorUuid: parent.uuid, $sort: { uuid: 1 } }, paginate: false
+            query: { authorUuid: parent.uuid, $sort: undefined }, paginate: false
           });
           return post.find(feathersParams).then(extractAllItems);
         },
@@ -248,7 +248,7 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // findUser(query: JSON, params: JSON): [User!]
       findUser(parent, args, content, info) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   id: 1 } } });
+        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
         return user.find(feathersParams).then(extractAllItems);
       },
       //!end

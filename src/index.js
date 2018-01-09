@@ -5,7 +5,7 @@ const app = require('./app');
 //!code: imports
 const initDb = require('../test-helpers/init-db');
 const testGraphql = require('./test-graphql');
-// !end
+//!end
 //!code: init //!end
 
 const port = app.get('port');
@@ -28,8 +28,6 @@ server.on('listening', () => {
 
 //!code: funcs //!end
 //!code: end
-
-
 initDb(app)
   .then(() => testGraphql(app))
   .catch(err => {

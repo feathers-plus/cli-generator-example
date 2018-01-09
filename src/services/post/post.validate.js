@@ -1,5 +1,5 @@
-
-// Validation definitions for validateSchema hook for service `zRef1`.
+/* eslint quotes: 0 */
+// Validation definitions for validateSchema hook for service `post`.
 const { validateSchema } = require('@feathers-plus/feathers-hooks-common');
 const deepMerge = require('deepmerge');
 const ajv = require('ajv');
@@ -7,22 +7,22 @@ const ajv = require('ajv');
 //!code: init //!end
 
 //!<DEFAULT> code: set_id_type
-const ID = 'string';
+const ID = 'string'; // eslint-disable-line no-unused-vars
 //!end
 
 const base = deepMerge.all([{},
   //!<DEFAULT> code: base
   {
     $schema: "http://json-schema.org/draft-05/schema",
-    title: "Comment",
-    description: "Comment data",
+    title: "Post",
+    description: "Post database.",
     required: [],
     properties: {
+      id: {
+        type: ID
+      },
       _id: {
-        description: "unique identifier",
-        type: ID,
-        minLength: 1,
-        readOnly: true
+        type: ID
       },
       uuid: {
         type: ID
@@ -30,23 +30,11 @@ const base = deepMerge.all([{},
       authorUuid: {
         type: ID
       },
-      postUuid: {
-        type: ID
-      },
       body: {
-        description: "unique identifier of a the object",
-        type: "string",
-        minLength: 1
+        type: "string"
       },
-      archived: {
+      draft: {
         type: "integer"
-      },
-      email: {
-        description: "Email",
-        format: "email",
-        readOnly: false,
-        type: "string",
-        minLength: 1
       }
     }
   },

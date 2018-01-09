@@ -1,5 +1,5 @@
 
-// Defines Mongoose model for service `comment`.
+// Defines Mongoose model for service `post`.
 const deepMerge = require('deepmerge');
 const mongoose = require('mongoose'); // eslint-disable-line no-unused-vars
 //!code: imports //!end
@@ -10,9 +10,8 @@ let moduleExports = deepMerge.all([{},
   {
     uuid: mongoose.Schema.ObjectId,
     authorUuid: mongoose.Schema.ObjectId,
-    postUuid: mongoose.Schema.ObjectId,
     body: String,
-    archived: Number
+    draft: Number
   },
   //!end
   //!code: moduleExports //!end

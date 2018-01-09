@@ -5,10 +5,10 @@
 let schema = {
   $schema: 'http://json-schema.org/draft-05/schema',
   //!<DEFAULT> code: schema_header
-  title: 'Users1',
-  description: 'User data',
+  title: 'User',
+  description: 'User database.',
   //!end
-  type: 'object',
+  //!code: schema_definitions //!end
   required: [
     //!code: schema_required
     'uuid',
@@ -34,8 +34,8 @@ let extensions = {
   graphql: {
     //!code: graphql_header
     name: 'User',
-    service : {
-      sort: { id: 1 },
+    service: {
+      sort: { uuid: 1 },
     },
     sql: {
       sqlTable: 'Accounts',
@@ -48,9 +48,7 @@ let extensions = {
     },
     //!end
     discard: [
-      //!code: graphql_discard
-      'mass', 'height'
-      //!end
+      //!code: graphql_discard //!end
     ],
     add: {
       //!code: graphql_add
@@ -62,7 +60,7 @@ let extensions = {
       posts:       { type: '[Post!]'                     , relation: { ourTable: 'uuid', otherTable: 'authorUuid' } },
       //!end
     },
-    //!code: extension_more //!end
+    //!code: graphql_more //!end
   },
 };
 

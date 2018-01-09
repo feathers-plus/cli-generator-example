@@ -7,7 +7,7 @@ let graphql;
 const getUser = bool => `{
   getUser(${qlParams({ key: 1 })}) {
     fullName
-    posts(${qlParams({ query: { draft: bool } })}) {
+    posts(${qlParams({ query: { draft: bool, __sort: { uuid: 1 } } })}) {
       uuid
       draft
     }

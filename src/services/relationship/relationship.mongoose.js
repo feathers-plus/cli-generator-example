@@ -1,23 +1,16 @@
 
-// Defines Mongoose model for service `zmongoosea`.
+// Defines Mongoose model for service `relationship`.
 const deepMerge = require('deepmerge');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); // eslint-disable-line no-unused-vars
 //!code: imports //!end
 //!code: init //!end
 
 let moduleExports = deepMerge.all([{},
   //!<DEFAULT> code: model
   {
-    _id: mongoose.Schema.ObjectId,
-    name: {
-      firstName: String,
-      lastName: String
-    },
-    biography: String,
-    twitter: String,
-    facebook: String,
-    linkedin: String,
-    created: Date
+    uuid: mongoose.Schema.ObjectId,
+    followerUuid: mongoose.Schema.ObjectId,
+    followeeUuid: mongoose.Schema.ObjectId
   },
   //!end
   //!code: moduleExports //!end
