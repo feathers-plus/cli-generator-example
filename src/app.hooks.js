@@ -18,74 +18,40 @@ let moduleExports = {
       logger(),
       //!end
     ],
-    find: [
-      //!code: before_find //!end
-    ],
-    get: [
-      //!code: before_get //!end
-    ],
-    create: [
-      //!code: before_create //!end
-    ],
-    update: [
-      //!code: before_update //!end
-    ],
-    patch: [
-      //!code: before_patch //!end
-    ],
-    remove: [
-      //!code: before_remove //!end
-    ]
+    //!<DEFAULT> code: before
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: [],
+    //!end
   },
 
   after: {
+    //!<DEFAULT> code: after
     all: [
-      //!<DEFAULT> code: after_all
       logger(),
-      //!end
     ],
-    find: [
-      //!code: after_find //!end
-    ],
-    get: [
-      //!code: after_get //!end
-    ],
-    create: [
-      //!code: after_create //!end
-    ],
-    update: [
-      //!code: after_update //!end
-    ],
-    patch: [
-      //!code: after_patch //!end
-    ],
-    remove: [
-      //!code: after_remove //!end
-    ]
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: [],
+    //!end
   },
 
   error: {
-    all: [
-      //!code: error_all //!end
-    ],
-    find: [
-      //!code: error_find //!end
-    ],
-    get: [
-      //!code: error_get //!end
-    ],
-    create: [
-      //!code: error_create //!end
-    ],
-    update: [
-      //!code: error_update //!end
-    ],
-    patch: [
-      //!code: error_patch //!end
-    ],
-    remove: [
-      //!code: error_remove //!end
-    ]
+    //!<DEFAULT> code: error
+    all: [],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: [],
+    //!end
   },
   //!code: moduleExports //!end
 };
