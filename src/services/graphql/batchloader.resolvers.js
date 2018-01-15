@@ -1,4 +1,5 @@
 
+/* eslint-disable no-unused-vars */
 // Define GraphQL resolvers using Feathers services and BatchLoaders. (Can be re-generated.)
 const { getByDot, setByDot } = require('feathers-hooks-common');
 //!code: imports //!end
@@ -44,162 +45,162 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     let feathersParams;
 
     switch (dataLoaderName) {
-      /* Persistent BatchLoaders. Stored in `content.batchLoaders._persisted`. */
-      //!<DEFAULT> code: bl-persisted
-      // case '_persisted.user.one.id': // service user, returns one object, key is field id
-      //!end
+    /* Persistent BatchLoaders. Stored in `content.batchLoaders._persisted`. */
+    //!<DEFAULT> code: bl-persisted
+    // case '_persisted.user.one.id': // service user, returns one object, key is field id
+    //!end
 
-      /* Transient BatchLoaders shared among resolvers. Stored in `content.batchLoaders._shared`. */
-      //!code: bl-shared
-      // *.*: User
-      case '_shared.user.one.uuid': // service user, returns one object, key is field uuid
-        return feathersBatchLoader(dataLoaderName, '!', 'uuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query : { uuid: { $in: keys } } }
-            );
-            return user.find(feathersParams);
-          },
-          50
-        );
-      //!end
+    /* Transient BatchLoaders shared among resolvers. Stored in `content.batchLoaders._shared`. */
+    //!code: bl-shared
+    // *.*: User
+    case '_shared.user.one.uuid': // service user, returns one object, key is field uuid
+      return feathersBatchLoader(dataLoaderName, '!', 'uuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query : { uuid: { $in: keys } } }
+          );
+          return user.find(feathersParams);
+        },
+        50
+      );
+    //!end
 
-      /* Transient BatchLoaders used by only one resolver. Stored in `content.batchLoaders`. */
+    /* Transient BatchLoaders used by only one resolver. Stored in `content.batchLoaders`. */
 
-      // Comment.author: User!
-      //!code: bl-Comment-author
+    // Comment.author: User!
+    //!code: bl-Comment-author
       // ... Using instead _shared.user.one.id
       //!end
 
-      // Comment.likes: [Like!]
-      //!<DEFAULT> code: bl-Comment-likes
-      case 'Comment.likes':
-        return feathersBatchLoader(dataLoaderName, '[!]', 'commentUuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query: { commentUuid: { $in: keys }, $sort: undefined }, populate: false }
-            );
-            return like.find(feathersParams);
-          }
-        );
-      //!end
+    // Comment.likes: [Like!]
+    //!<DEFAULT> code: bl-Comment-likes
+    case 'Comment.likes':
+      return feathersBatchLoader(dataLoaderName, '[!]', 'commentUuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query: { commentUuid: { $in: keys }, $sort: undefined }, populate: false }
+          );
+          return like.find(feathersParams);
+        }
+      );
+    //!end
 
-      // Like.author: User!
-      //!code: bl-Like-author
+    // Like.author: User!
+    //!code: bl-Like-author
       // ... Using instead _shared.user.one.id
       //!end
 
-      // Like.comment: Comment!
-      //!<DEFAULT> code: bl-Like-comment
-      case 'Like.comment':
-        return feathersBatchLoader(dataLoaderName, '!', 'uuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query: { uuid: { $in: keys }, $sort: undefined }, populate: false }
-            );
-            return comment.find(feathersParams);
-          }
-        );
-      //!end
+    // Like.comment: Comment!
+    //!<DEFAULT> code: bl-Like-comment
+    case 'Like.comment':
+      return feathersBatchLoader(dataLoaderName, '!', 'uuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query: { uuid: { $in: keys }, $sort: undefined }, populate: false }
+          );
+          return comment.find(feathersParams);
+        }
+      );
+    //!end
 
-      // Post.author: User!
-      //!code: bl-Post-author
+    // Post.author: User!
+    //!code: bl-Post-author
       // ... Using instead _shared.user.one.id
       //!end
 
-      // Post.comments: [Comment!]
-      //!<DEFAULT> code: bl-Post-comments
-      case 'Post.comments':
-        return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query: { postUuid: { $in: keys }, $sort: undefined }, populate: false }
-            );
-            return comment.find(feathersParams);
-          }
-        );
-      //!end
+    // Post.comments: [Comment!]
+    //!<DEFAULT> code: bl-Post-comments
+    case 'Post.comments':
+      return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query: { postUuid: { $in: keys }, $sort: undefined }, populate: false }
+          );
+          return comment.find(feathersParams);
+        }
+      );
+    //!end
 
-      // Relationship.follower: User!
-      //!code: bl-Relationship-follower
+    // Relationship.follower: User!
+    //!code: bl-Relationship-follower
       // ... Using instead _shared.user.one.id
       //!end
 
-      // Relationship.followee: User!
-      //!code: bl-Relationship-followee
+    // Relationship.followee: User!
+    //!code: bl-Relationship-followee
       // ... Using instead _shared.user.one.id
       //!end
 
-      // User.comments: [Comment!]
-      //!<DEFAULT> code: bl-User-comments
-      case 'User.comments':
-        return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query: { authorUuid: { $in: keys }, $sort: undefined }, populate: false }
-            );
-            return comment.find(feathersParams);
-          }
-        );
-      //!end
+    // User.comments: [Comment!]
+    //!<DEFAULT> code: bl-User-comments
+    case 'User.comments':
+      return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query: { authorUuid: { $in: keys }, $sort: undefined }, populate: false }
+          );
+          return comment.find(feathersParams);
+        }
+      );
+    //!end
 
-      // User.followed_by: [Relationship!]
-      //!<DEFAULT> code: bl-User-followed_by
-      case 'User.followed_by':
-        return feathersBatchLoader(dataLoaderName, '[!]', 'followeeUuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query: { followeeUuid: { $in: keys }, $sort: undefined }, populate: false }
-            );
-            return relationship.find(feathersParams);
-          }
-        );
-      //!end
+    // User.followed_by: [Relationship!]
+    //!<DEFAULT> code: bl-User-followed_by
+    case 'User.followed_by':
+      return feathersBatchLoader(dataLoaderName, '[!]', 'followeeUuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query: { followeeUuid: { $in: keys }, $sort: undefined }, populate: false }
+          );
+          return relationship.find(feathersParams);
+        }
+      );
+    //!end
 
-      // User.following: [Relationship!]
-      //!<DEFAULT> code: bl-User-following
-      case 'User.following':
-        return feathersBatchLoader(dataLoaderName, '[!]', 'followerUuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query: { followerUuid: { $in: keys }, $sort: undefined }, populate: false }
-            );
-            return relationship.find(feathersParams);
-          }
-        );
-      //!end
+    // User.following: [Relationship!]
+    //!<DEFAULT> code: bl-User-following
+    case 'User.following':
+      return feathersBatchLoader(dataLoaderName, '[!]', 'followerUuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query: { followerUuid: { $in: keys }, $sort: undefined }, populate: false }
+          );
+          return relationship.find(feathersParams);
+        }
+      );
+    //!end
 
-      // User.likes: [Like!]
-      //!<DEFAULT> code: bl-User-likes
-      case 'User.likes':
-        return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query: { authorUuid: { $in: keys }, $sort: undefined }, populate: false }
-            );
-            return like.find(feathersParams);
-          }
-        );
-      //!end
+    // User.likes: [Like!]
+    //!<DEFAULT> code: bl-User-likes
+    case 'User.likes':
+      return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query: { authorUuid: { $in: keys }, $sort: undefined }, populate: false }
+          );
+          return like.find(feathersParams);
+        }
+      );
+    //!end
 
-      // User.posts(query: JSON, params: JSON, key: JSON): [Post!]
-      //!code: bl-User-posts
-      case 'User.posts':
-        return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
-          keys => {
-            feathersParams = convertArgsToFeathers(args,
-              { query: { authorUuid: { $in: keys }, $sort: { uuid: 1 } }, populate: false }
-            );
-            return post.find(feathersParams);
-          }
-        );
-      //!end
+    // User.posts(query: JSON, params: JSON, key: JSON): [Post!]
+    //!code: bl-User-posts
+    case 'User.posts':
+      return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
+        keys => {
+          feathersParams = convertArgsToFeathers(args,
+            { query: { authorUuid: { $in: keys }, $sort: { uuid: 1 } }, populate: false }
+          );
+          return post.find(feathersParams);
+        }
+      );
+    //!end
 
-      /* Throw on unknown BatchLoader name. */
-      default:
-        //!<DEFAULT> code: bl-default
-        throw new Error(`GraphQL query requires BatchLoader named '${dataLoaderName}' but no definition exists for it.`);
-        //!end
+    /* Throw on unknown BatchLoader name. */
+    default:
+      //!<DEFAULT> code: bl-default
+      throw new Error(`GraphQL query requires BatchLoader named '${dataLoaderName}' but no definition exists for it.`);
+      //!end
     }
   }
 

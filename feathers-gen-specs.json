@@ -1,6 +1,6 @@
 {
   "options": {
-    "configJs": false
+    "ver": "1.0.0"
   },
   "app": {
     "src": "src",

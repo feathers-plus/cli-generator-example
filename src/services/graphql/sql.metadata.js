@@ -1,4 +1,5 @@
 
+/* eslint-disable no-unused-vars */
 // Metadata for forming raw SQL statements for GraphQL. (Can be re-generated.)
 //!code: imports //!end
 //!code: init //!end
@@ -299,8 +300,8 @@ let moduleExports = function sqlMetadata(app, options) {
   //!code: metadata_more //!end
   };
 
-//!code: func_return //!end
-return returns;
+  //!code: func_return //!end
+  return returns;
 };
 
 //!code: more //!end

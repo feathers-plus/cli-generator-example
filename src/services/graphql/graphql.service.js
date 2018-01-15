@@ -9,7 +9,7 @@ const hooks = require('./graphql.hooks');
 //!code: imports //!end
 
 const strategy = 'services';
-console.log(`\n===== configuring graphql service for ${strategy}.\n`);
+console.log(`\n===== configuring graphql service for ${strategy}.\n`); // eslint-disable-line no-console
 
 let schemas = mergeTypes([
   generatedSchema,

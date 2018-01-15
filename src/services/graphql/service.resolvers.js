@@ -1,4 +1,5 @@
 
+/* eslint-disable no-unused-vars, indent */
 // Define GraphQL resolvers using only Feathers services. (Can be re-generated.)
 //!code: imports //!end
 //!code: init //!end

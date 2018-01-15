@@ -13,12 +13,10 @@ const { iff } = commonHooks; // eslint-disable-line no-unused-vars
 
 let moduleExports = {
   before: {
-    all: [ 
-      //!<DEFAULT> code: before_all
-      logger(),
-      //!end
-    ],
     //!<DEFAULT> code: before
+    all: [
+      logger(),
+    ],
     find: [],
     get: [],
     create: [],
@@ -30,9 +28,7 @@ let moduleExports = {
 
   after: {
     //!<DEFAULT> code: after
-    all: [
-      logger(),
-    ],
+    all: [ logger() ],
     find: [],
     get: [],
     create: [],
