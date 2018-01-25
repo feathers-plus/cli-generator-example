@@ -28,6 +28,7 @@ module.exports = function initNonSqlDb (app) {
     ]))
     .then(() => user.find())
     .then(result => {
+      console.log('user create', result);
       userDb = result.sort(sort('uuid'));
       if (log) inspector('userDB', userDb); // eslint-disable-line
     })

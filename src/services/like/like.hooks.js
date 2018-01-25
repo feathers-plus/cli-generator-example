@@ -18,7 +18,7 @@ let moduleExports = {
     create: [],
     update: [],
     patch: [],
-    remove: [],
+    remove: []
     //!end
   },
 
@@ -30,7 +30,7 @@ let moduleExports = {
     create: [],
     update: [],
     patch: [],
-    remove: [],
+    remove: []
     //!end
   },
 
@@ -42,7 +42,7 @@ let moduleExports = {
     create: [],
     update: [],
     patch: [],
-    remove: [],
+    remove: []
     //!end
   },
   //!code: moduleExports //!end

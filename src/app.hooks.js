@@ -1,7 +1,6 @@
 
 // Application hooks that run for every service. (Can be re-generated.)
 const commonHooks = require('feathers-hooks-common');
-
 //!<DEFAULT> code: imports
 const logger = require('./hooks/logger');
 //!end
@@ -14,15 +13,13 @@ const { iff } = commonHooks; // eslint-disable-line no-unused-vars
 let moduleExports = {
   before: {
     //!<DEFAULT> code: before
-    all: [
-      logger(),
-    ],
+    all: [ logger() ],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: [],
+    remove: []
     //!end
   },
 
@@ -34,19 +31,19 @@ let moduleExports = {
     create: [],
     update: [],
     patch: [],
-    remove: [],
+    remove: []
     //!end
   },
 
   error: {
     //!<DEFAULT> code: error
-    all: [],
+    all: [ logger() ],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: [],
+    remove: []
     //!end
   },
   //!code: moduleExports //!end
