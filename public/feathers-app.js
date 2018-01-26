@@ -325,7 +325,7 @@ setOnclickHandlers('run', function () {
 
   console.log('========== query:\n', queryEl.value);
 
-  graphql.find({ query: { graphql: queryEl.value } })
+  graphql.find({ query: { query: queryEl.value } })
     .catch(err => err)
     .then(response => {
       console.log('========== response:\n', response);
