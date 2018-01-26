@@ -44,7 +44,7 @@ function runTest (count, max, delay, bool, expected) {
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      graphql.find({ query: { graphql: getUser(bool) } })
+      graphql.find({ query: { query: getUser(bool) } })
         .catch(err => reject(err))
         .then(response => {
           if (!deepEqual(response, expected, { strict: true })) {
