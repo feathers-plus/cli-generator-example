@@ -1,4 +1,5 @@
-// Initializes the `like` service on path `/like`
+
+// Initializes the `like` service on path `/like`. (Can be re-generated.)
 const createService = require('feathers-nedb');
 const createModel = require('../../models/like.model');
 const hooks = require('./like.hooks');

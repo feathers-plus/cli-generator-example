@@ -1,19 +1,26 @@
 
 /* eslint quotes: 0 */
-// Defines Mongoose model for service `user`. (Can be re-generated.)
+// Defines the MongoDB $jsonSchema for service `relationship`. (Can be re-generated.)
 const deepMerge = require('deepmerge');
-// eslint-disable-next-line no-unused-vars
-const mongoose = require('mongoose');
 //!code: imports //!end
 //!code: init //!end
 
 let moduleExports = deepMerge.all([{},
   //!<DEFAULT> code: model
   {
-    uuid: mongoose.Schema.ObjectId,
-    email: String,
-    firstName: String,
-    lastName: String
+    bsonType: "object",
+    required: [],
+    properties: {
+      uuid: {
+        bsonType: "string"
+      },
+      followerUuid: {
+        bsonType: "string"
+      },
+      followeeUuid: {
+        bsonType: "string"
+      }
+    }
   },
   //!end
   //!code: moduleExports //!end

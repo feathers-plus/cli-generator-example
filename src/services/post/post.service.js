@@ -1,4 +1,5 @@
-// Initializes the `post` service on path `/post`
+
+// Initializes the `post` service on path `/post`. (Can be re-generated.)
 const createService = require('feathers-nedb');
 const createModel = require('../../models/post.model');
 const hooks = require('./post.hooks');
