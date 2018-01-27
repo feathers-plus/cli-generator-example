@@ -6,7 +6,8 @@ const { getByDot, setByDot } = require('feathers-hooks-common');
 //!code: init //!end
 
 let moduleExports = function batchLoaderResolvers(app, options) {
-  let { convertArgsToParams, convertArgsToFeathers, extractAllItems, extractFirstItem, // eslint-disable-line
+  // eslint-disable-next-line
+  let { convertArgsToParams, convertArgsToFeathers, extractAllItems, extractFirstItem,
     feathersBatchLoader: { feathersBatchLoader } } = options;
 
   //!<DEFAULT> code: services
@@ -297,71 +298,71 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       //!<DEFAULT> code: query-Comment
       // getComment(query: JSON, params: JSON, key: JSON): Comment
-      getComment (parent, args, content, info) {
+      getComment (parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args);
         return comment.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findComment(query: JSON, params: JSON): [Comment!]
-      findComment(parent, args, content, info) {
+      findComment(parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
-        return comment.find(feathersParams).then(extractAllItems);
+        return comment.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
 
       //!<DEFAULT> code: query-Like
       // getLike(query: JSON, params: JSON, key: JSON): Like
-      getLike (parent, args, content, info) {
+      getLike (parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args);
         return like.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findLike(query: JSON, params: JSON): [Like!]
-      findLike(parent, args, content, info) {
+      findLike(parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
-        return like.find(feathersParams).then(extractAllItems);
+        return like.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
 
       //!<DEFAULT> code: query-Post
       // getPost(query: JSON, params: JSON, key: JSON): Post
-      getPost (parent, args, content, info) {
+      getPost (parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args);
         return post.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findPost(query: JSON, params: JSON): [Post!]
-      findPost(parent, args, content, info) {
+      findPost(parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
-        return post.find(feathersParams).then(extractAllItems);
+        return post.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
 
       //!<DEFAULT> code: query-Relationship
       // getRelationship(query: JSON, params: JSON, key: JSON): Relationship
-      getRelationship (parent, args, content, info) {
+      getRelationship (parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args);
         return relationship.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findRelationship(query: JSON, params: JSON): [Relationship!]
-      findRelationship(parent, args, content, info) {
+      findRelationship(parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
-        return relationship.find(feathersParams).then(extractAllItems);
+        return relationship.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
 
       //!<DEFAULT> code: query-User
       // getUser(query: JSON, params: JSON, key: JSON): User
-      getUser (parent, args, content, info) {
+      getUser (parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args);
         return user.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findUser(query: JSON, params: JSON): [User!]
-      findUser(parent, args, content, info) {
+      findUser(parent, args, content, ast) {
         const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
-        return user.find(feathersParams).then(extractAllItems);
+        return user.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
       //!code: resolver_query_more //!end
@@ -377,5 +378,16 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 //!code: exports //!end
 module.exports = moduleExports;
 
+function paginate(content) {
+  return result => {
+    content.pagination = !result.data ? undefined : {
+      total: result.total,
+      limit: result.limit,
+      skip: result.skip,
+    };
+
+    return result;
+  };
+}
 //!code: funcs //!end
 //!code: end //!end

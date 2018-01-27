@@ -1,4 +1,5 @@
-// Initializes the `relationship` service on path `/relationship`
+
+// Initializes the `relationship` service on path `/relationship`. (Can be re-generated.)
 const createService = require('feathers-nedb');
 const createModel = require('../../models/relationship.model');
 const hooks = require('./relationship.hooks');

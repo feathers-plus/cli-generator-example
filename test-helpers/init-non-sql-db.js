@@ -28,8 +28,7 @@ module.exports = function initNonSqlDb (app) {
     ]))
     .then(() => user.find())
     .then(result => {
-      console.log('user create', result);
-      userDb = result.sort(sort('uuid'));
+      userDb = (result.data || result).sort(sort('uuid'));
       if (log) inspector('userDB', userDb); // eslint-disable-line
     })
 
@@ -42,7 +41,7 @@ module.exports = function initNonSqlDb (app) {
     ]))
     .then(() => post.find())
     .then(result => {
-      postDb = result.sort(sort('uuid'));
+      postDb = (result.data || result).sort(sort('uuid'));
       if (log) inspector('postDB', postDb); // eslint-disable-line
     })
 
@@ -56,14 +55,14 @@ module.exports = function initNonSqlDb (app) {
     ]))
     .then(() => comments.find())
     .then(result => {
-      commentsDb = result.sort(sort('uuid'));
+      commentsDb = (result.data || result).sort(sort('uuid'));
       if (log) inspector('commentsDB', commentsDb); // eslint-disable-line
     })
 
     .then(() => Promise.all(makelike(like)))
     .then(() => like.find())
     .then(result => {
-      const likeDb = result.sort(sort('uuid'));
+      const likeDb = (result.data || result).sort(sort('uuid'));
       if (log) inspector('likeDb', likeDb); // eslint-disable-line
     })
 
@@ -75,7 +74,7 @@ module.exports = function initNonSqlDb (app) {
     ]))
     .then(() => relationship.find())
     .then(result => {
-      relationshipDb = result.sort(sort('uuid'));
+      relationshipDb = (result.data || result).sort(sort('uuid'));
       if (log) inspector('relationshipDB', relationshipDb); // eslint-disable-line
     })
 

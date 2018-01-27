@@ -10,7 +10,8 @@ let graphql = require('./graphql/graphql.service');
 //!code: imports //!end
 //!code: init //!end
 
-let moduleExports = function (app) { // eslint-disable-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
+let moduleExports = function (app) {
   app.configure(comment);
   app.configure(like);
   app.configure(post);

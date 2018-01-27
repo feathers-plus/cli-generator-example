@@ -1,4 +1,5 @@
-// Initializes the `comment` service on path `/comment`
+
+// Initializes the `comment` service on path `/comment`. (Can be re-generated.)
 const createService = require('feathers-nedb');
 const createModel = require('../../models/comment.model');
 const hooks = require('./comment.hooks');
