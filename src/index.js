@@ -29,10 +29,12 @@ server.on('listening', () => {
 
 //!code: funcs //!end
 //!code: end
-initDb(app)
-  .then(() => testGraphql(app))
-  .catch(err => {
-    console.log(err.message);
-    console.log(err.stack);
-  });
+setTimeout(() => { //
+  initDb(app)
+    .then(() => testGraphql(app))
+    .catch(err => {
+      console.log(err.message);
+      console.log(err.stack);
+    });
+}, 1000);
 //!end
