@@ -21,164 +21,164 @@ let moduleExports = function serviceResolvers(app, options) {
 
       // author: User!
       author:
-      //!<DEFAULT> code: resolver-Comment-author
+        //!<DEFAULT> code: resolver-Comment-author
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { uuid: parent.authorUuid }, paginate: false
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
-      //!end
+        //!end
 
       // likes: [Like!]
       likes:
-      //!<DEFAULT> code: resolver-Comment-likes
+        //!<DEFAULT> code: resolver-Comment-likes
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { commentUuid: parent.uuid, $sort: undefined }, paginate: false
           });
           return like.find(feathersParams).then(extractAllItems);
         },
-      //!end
+        //!end
     },
 
     Like: {
 
       // author: User!
       author:
-      //!<DEFAULT> code: resolver-Like-author
+        //!<DEFAULT> code: resolver-Like-author
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { uuid: parent.authorUuid }, paginate: false
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
-      //!end
+        //!end
 
       // comment: Comment!
       comment:
-      //!<DEFAULT> code: resolver-Like-comment
+        //!<DEFAULT> code: resolver-Like-comment
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { uuid: parent.commentUuid }, paginate: false
           });
           return comment.find(feathersParams).then(extractFirstItem);
         },
-      //!end
+        //!end
     },
 
     Post: {
 
       // author: User!
       author:
-      //!<DEFAULT> code: resolver-Post-author
+        //!<DEFAULT> code: resolver-Post-author
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { uuid: parent.authorUuid }, paginate: false
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
-      //!end
+        //!end
 
       // comments: [Comment!]
       comments:
-      //!<DEFAULT> code: resolver-Post-comments
+        //!<DEFAULT> code: resolver-Post-comments
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { postUuid: parent.uuid, $sort: undefined }, paginate: false
           });
           return comment.find(feathersParams).then(extractAllItems);
         },
-      //!end
+        //!end
     },
 
     Relationship: {
 
       // follower: User!
       follower:
-      //!<DEFAULT> code: resolver-Relationship-follower
+        //!<DEFAULT> code: resolver-Relationship-follower
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { uuid: parent.followerUuid }, paginate: false
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
-      //!end
+        //!end
 
       // followee: User!
       followee:
-      //!<DEFAULT> code: resolver-Relationship-followee
+        //!<DEFAULT> code: resolver-Relationship-followee
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { uuid: parent.followeeUuid }, paginate: false
           });
           return user.find(feathersParams).then(extractFirstItem);
         },
-      //!end
+        //!end
     },
 
     User: {
 
       // comments: [Comment!]
       comments:
-      //!<DEFAULT> code: resolver-User-comments
+        //!<DEFAULT> code: resolver-User-comments
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { authorUuid: parent.uuid, $sort: undefined }, paginate: false
           });
           return comment.find(feathersParams).then(extractAllItems);
         },
-      //!end
+        //!end
 
       // followed_by: [Relationship!]
       followed_by:
-      //!<DEFAULT> code: resolver-User-followed_by
+        //!<DEFAULT> code: resolver-User-followed_by
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { followeeUuid: parent.uuid, $sort: undefined }, paginate: false
           });
           return relationship.find(feathersParams).then(extractAllItems);
         },
-      //!end
+        //!end
 
       // following: [Relationship!]
       following:
-      //!<DEFAULT> code: resolver-User-following
+        //!<DEFAULT> code: resolver-User-following
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { followerUuid: parent.uuid, $sort: undefined }, paginate: false
           });
           return relationship.find(feathersParams).then(extractAllItems);
         },
-      //!end
+        //!end
 
       // fullName: String!
       fullName:
-      //!code: resolver-User-fullName-non
+        //!code: resolver-User-fullName-non
         (parent, args, content, ast) => `${parent.firstName} ${parent.lastName}`,
-      //!end
+        //!end
 
       // likes: [Like!]
       likes:
-      //!<DEFAULT> code: resolver-User-likes
+        //!<DEFAULT> code: resolver-User-likes
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { authorUuid: parent.uuid, $sort: undefined }, paginate: false
           });
           return like.find(feathersParams).then(extractAllItems);
         },
-      //!end
+        //!end
 
       // posts(query: JSON, params: JSON, key: JSON): [Post!]
       posts:
-      //!<DEFAULT> code: resolver-User-posts
+        //!<DEFAULT> code: resolver-User-posts
         (parent, args, content, ast) => {
           const feathersParams = convertArgsToFeathers(args, {
             query: { authorUuid: parent.uuid, $sort: undefined }, paginate: false
           });
           return post.find(feathersParams).then(extractAllItems);
         },
-      //!end
+        //!end
     },
 
     //!code: resolver_field_more //!end
