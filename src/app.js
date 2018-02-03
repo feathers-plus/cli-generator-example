@@ -17,6 +17,7 @@ const services = require('./services');
 const appHooks = require('./app.hooks');
 const channels = require('./channels');
 
+const mongodb = require('./mongodb');
 //!code: imports //!end
 //!code: init //!end
 
@@ -41,6 +42,8 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio());
 
+// Configure database adapters
+app.configure(mongodb);
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);

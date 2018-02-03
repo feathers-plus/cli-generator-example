@@ -9,6 +9,11 @@ let moduleExports = function batchLoaderResolvers(app, options) {
   // eslint-disable-next-line
   let { convertArgsToParams, convertArgsToFeathers, extractAllItems, extractFirstItem,
     feathersBatchLoader: { feathersBatchLoader } } = options;
+  //!<DEFAULT> code: max-batch-size
+  let defaultPaginate = app.get('paginate');
+  let maxBatchSize = defaultPaginate && typeof defaultPaginate.max === 'number' ?
+    defaultPaginate.max : undefined;
+  //!end
 
   //!<DEFAULT> code: services
   let comment = app.service('/comment');
@@ -20,8 +25,8 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
   //!<DEFAULT> code: get-result
   // Given a fieldName in the parent record, return the result from a BatchLoader
-  // The result will be an object, an array of objects, or null.
-  function getResult(batchLoaderName, fieldName) {
+  // The result will be an object (or null), or an array of objects (possibly empty).
+  function getResult(batchLoaderName, fieldName, isArray) {
     const contentByDot = `batchLoaders.${batchLoaderName}`;
 
     // `content.app = app` is the Feathers app object.
@@ -34,7 +39,8 @@ let moduleExports = function batchLoaderResolvers(app, options) {
         setByDot(content, contentByDot, batchLoader);
       }
 
-      return batchLoader.load(parent[fieldName]);
+      const returns = batchLoader.load(parent[fieldName]);
+      return !isArray ? returns : returns.then(result => result || []);
     };
   }
   //!end
@@ -78,11 +84,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'Comment.likes':
       return feathersBatchLoader(dataLoaderName, '[!]', 'commentUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
-            { query: { commentUuid: { $in: keys }, $sort: undefined }, populate: false }
-          );
+          feathersParams = convertArgsToFeathers(args, {
+            query: { commentUuid: { $in: keys }, $sort: undefined },
+            _populate: 'skip', paginate: false
+          });
           return like.find(feathersParams);
-        }
+        },
+        maxBatchSize // Max #keys in a BatchLoader func call.
       );
     //!end
 
@@ -96,11 +104,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'Like.comment':
       return feathersBatchLoader(dataLoaderName, '!', 'uuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
-            { query: { uuid: { $in: keys }, $sort: undefined }, populate: false }
-          );
+          feathersParams = convertArgsToFeathers(args, {
+            query: { uuid: { $in: keys }, $sort: undefined },
+            _populate: 'skip', paginate: false
+          });
           return comment.find(feathersParams);
-        }
+        },
+        maxBatchSize // Max #keys in a BatchLoader func call.
       );
     //!end
 
@@ -114,11 +124,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'Post.comments':
       return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
-            { query: { postUuid: { $in: keys }, $sort: undefined }, populate: false }
-          );
+          feathersParams = convertArgsToFeathers(args, {
+            query: { postUuid: { $in: keys }, $sort: undefined },
+            _populate: 'skip', paginate: false
+          });
           return comment.find(feathersParams);
-        }
+        },
+        maxBatchSize // Max #keys in a BatchLoader func call.
       );
     //!end
 
@@ -137,11 +149,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.comments':
       return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
-            { query: { authorUuid: { $in: keys }, $sort: undefined }, populate: false }
-          );
+          feathersParams = convertArgsToFeathers(args, {
+            query: { authorUuid: { $in: keys }, $sort: undefined },
+            _populate: 'skip', paginate: false
+          });
           return comment.find(feathersParams);
-        }
+        },
+        maxBatchSize // Max #keys in a BatchLoader func call.
       );
     //!end
 
@@ -150,11 +164,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.followed_by':
       return feathersBatchLoader(dataLoaderName, '[!]', 'followeeUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
-            { query: { followeeUuid: { $in: keys }, $sort: undefined }, populate: false }
-          );
+          feathersParams = convertArgsToFeathers(args, {
+            query: { followeeUuid: { $in: keys }, $sort: undefined },
+            _populate: 'skip', paginate: false
+          });
           return relationship.find(feathersParams);
-        }
+        },
+        maxBatchSize // Max #keys in a BatchLoader func call.
       );
     //!end
 
@@ -163,11 +179,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.following':
       return feathersBatchLoader(dataLoaderName, '[!]', 'followerUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
-            { query: { followerUuid: { $in: keys }, $sort: undefined }, populate: false }
-          );
+          feathersParams = convertArgsToFeathers(args, {
+            query: { followerUuid: { $in: keys }, $sort: undefined },
+            _populate: 'skip', paginate: false
+          });
           return relationship.find(feathersParams);
-        }
+        },
+        maxBatchSize // Max #keys in a BatchLoader func call.
       );
     //!end
 
@@ -176,11 +194,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.likes':
       return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
-            { query: { authorUuid: { $in: keys }, $sort: undefined }, populate: false }
-          );
+          feathersParams = convertArgsToFeathers(args, {
+            query: { authorUuid: { $in: keys }, $sort: undefined },
+            _populate: 'skip', paginate: false
+          });
           return like.find(feathersParams);
-        }
+        },
+        maxBatchSize // Max #keys in a BatchLoader func call.
       );
     //!end
 
@@ -216,7 +236,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // likes: [Like!]
       //!<DEFAULT> code: resolver-Comment-likes
-      likes: getResult('Comment.likes', 'uuid'),
+      likes: getResult('Comment.likes', 'uuid', true),
       //!end
     },
 
@@ -242,7 +262,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // comments: [Comment!]
       //!<DEFAULT> code: resolver-Post-comments
-      comments: getResult('Post.comments', 'uuid'),
+      comments: getResult('Post.comments', 'uuid', true),
       //!end
     },
 
@@ -263,17 +283,17 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // comments: [Comment!]
       //!<DEFAULT> code: resolver-User-comments
-      comments: getResult('User.comments', 'uuid'),
+      comments: getResult('User.comments', 'uuid', true),
       //!end
 
       // followed_by: [Relationship!]
       //!<DEFAULT> code: resolver-User-followed_by
-      followed_by: getResult('User.followed_by', 'uuid'),
+      followed_by: getResult('User.followed_by', 'uuid', true),
       //!end
 
       // following: [Relationship!]
       //!<DEFAULT> code: resolver-User-following
-      following: getResult('User.following', 'uuid'),
+      following: getResult('User.following', 'uuid', true),
       //!end
 
       // fullName: String!
@@ -283,17 +303,16 @@ let moduleExports = function batchLoaderResolvers(app, options) {
 
       // likes: [Like!]
       //!<DEFAULT> code: resolver-User-likes
-      likes: getResult('User.likes', 'uuid'),
+      likes: getResult('User.likes', 'uuid', true),
       //!end
 
       // posts(query: JSON, params: JSON, key: JSON): [Post!]
       //!<DEFAULT> code: resolver-User-posts
-      posts: getResult('User.posts', 'uuid'),
+      posts: getResult('User.posts', 'uuid', true),
       //!end
     },
 
     //!code: resolver_field_more //!end
-
     Query: {
 
       //!<DEFAULT> code: query-Comment

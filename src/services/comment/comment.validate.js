@@ -45,6 +45,28 @@ const base = deepMerge.all([{},
       },
       archived: {
         type: "integer"
+      },
+      xx: {
+        properties: {
+          a: {
+            type: "string"
+          },
+          b: {
+            type: ID
+          }
+        },
+        type: "object"
+      },
+      yy: {
+        type: "array",
+        items: [
+          {
+            type: "string"
+          },
+          {
+            type: ID
+          }
+        ]
       }
     }
   },

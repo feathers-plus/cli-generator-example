@@ -30,7 +30,20 @@ let schema = {
     authorUuid: { type: 'ID' },
     postUuid: { type: 'ID' },
     body: { $ref: 'body.json' },
-    archived: { type: 'integer' }
+    archived: { type: 'integer' },
+    xx: {
+      properties: {
+        a: {},
+        b: { type: 'ID' }
+      }
+    },
+    yy: {
+      "type": "array",
+      "items": [
+        { "type": "ID" },
+        { "type": "ID" }
+      ]
+    }
     //!end
   },
   //!code: schema_more //!end

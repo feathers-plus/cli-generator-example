@@ -14,7 +14,14 @@ let moduleExports = deepMerge.all([{},
     authorUuid: mongoose.Schema.ObjectId,
     postUuid: mongoose.Schema.ObjectId,
     body: String,
-    archived: Number
+    archived: Number,
+    xx: {
+      a: String,
+      b: mongoose.Schema.ObjectId
+    },
+    yy: [
+      String
+    ]
   },
   //!end
   //!code: moduleExports //!end
