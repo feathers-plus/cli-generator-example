@@ -12,6 +12,11 @@ type Comment {
   postUuid: ID
   body: String
   archived: Int
+  xx: {
+    a: String
+    b: ID
+  }
+  yy: [String]
   author: User!
   likes: [Like!]
 }

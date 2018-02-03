@@ -14,10 +14,11 @@
     "comment": {
       "name": "comment",
       "fileName": "comment",
-      "adapter": "nedb",
+      "adapter": "mongodb",
       "path": "/comment",
       "requiresAuth": false,
-      "graphql": true
+      "graphql": true,
+      "isAuthEntity": false
     },
     "user": {
       "name": "user",
@@ -57,12 +58,17 @@
       "database": "nedb",
       "adapter": "nedb",
       "connectionString": "../data"
+    },
+    "mongodb+mongodb": {
+      "database": "mongodb",
+      "adapter": "mongodb",
+      "connectionString": "mongodb://localhost:27017/cli_generator_example"
     }
   },
   "graphql": {
     "name": "graphql",
     "path": "graphql",
-    "strategy": "services",
+    "strategy": "batchloaders",
     "requiresAuth": false
   }
 }
