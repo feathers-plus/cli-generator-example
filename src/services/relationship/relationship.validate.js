@@ -27,13 +27,13 @@ const base = deepMerge.all([{},
         type: ID
       },
       uuid: {
-        type: ID
+        type: "integer"
       },
       followerUuid: {
-        type: ID
+        type: "integer"
       },
       followeeUuid: {
-        type: ID
+        type: "integer"
       }
     }
   },

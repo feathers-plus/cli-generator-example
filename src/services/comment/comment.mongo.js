@@ -12,34 +12,19 @@ let moduleExports = deepMerge.all([{},
     required: [],
     properties: {
       uuid: {
-        bsonType: "string"
+        bsonType: "integer"
       },
       authorUuid: {
-        bsonType: "string"
+        bsonType: "integer"
       },
       postUuid: {
-        bsonType: "string"
+        bsonType: "integer"
       },
       body: {
         bsonType: "string"
       },
       archived: {
         bsonType: "integer"
-      },
-      xx: {
-        bsonType: "object",
-        required: undefined,
-        properties: {
-          a: {
-            bsonType: "string"
-          },
-          b: {
-            bsonType: "string"
-          }
-        }
-      },
-      yy: {
-        bsonType: "array"
       }
     }
   },

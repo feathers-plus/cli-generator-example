@@ -7,16 +7,11 @@ let moduleExports = `
 type Comment {
   id: ID
   _id: ID
-  uuid: ID
-  authorUuid: ID
-  postUuid: ID
+  uuid: Int
+  authorUuid: Int
+  postUuid: Int
   body: String
   archived: Int
-  xx: {
-    a: String
-    b: ID
-  }
-  yy: [String]
   author: User!
   likes: [Like!]
 }
@@ -24,9 +19,9 @@ type Comment {
 type Like {
   id: ID
   _id: ID
-  uuid: ID
-  authorUuid: ID
-  commentUuid: ID
+  uuid: Int
+  authorUuid: Int
+  commentUuid: Int
   author: User!
   comment: Comment!
 }
@@ -34,8 +29,8 @@ type Like {
 type Post {
   id: ID
   _id: ID
-  uuid: ID
-  authorUuid: ID
+  uuid: Int
+  authorUuid: Int
   body: String
   draft: Int
   author: User!
@@ -45,9 +40,9 @@ type Post {
 type Relationship {
   id: ID
   _id: ID
-  uuid: ID
-  followerUuid: ID
-  followeeUuid: ID
+  uuid: Int
+  followerUuid: Int
+  followeeUuid: Int
   follower: User!
   followee: User!
 }
@@ -55,7 +50,7 @@ type Relationship {
 type User {
   id: ID
   _id: ID
-  uuid: ID!
+  uuid: Int!
   email: String!
   firstName: String!
   lastName: String!

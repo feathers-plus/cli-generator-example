@@ -10,18 +10,11 @@ const mongoose = require('mongoose');
 let moduleExports = deepMerge.all([{},
   //!<DEFAULT> code: model
   {
-    uuid: mongoose.Schema.ObjectId,
-    authorUuid: mongoose.Schema.ObjectId,
-    postUuid: mongoose.Schema.ObjectId,
+    uuid: Number,
+    authorUuid: Number,
+    postUuid: Number,
     body: String,
-    archived: Number,
-    xx: {
-      a: String,
-      b: mongoose.Schema.ObjectId
-    },
-    yy: [
-      String
-    ]
+    archived: Number
   },
   //!end
   //!code: moduleExports //!end

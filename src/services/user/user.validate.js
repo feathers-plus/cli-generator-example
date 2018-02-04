@@ -32,7 +32,7 @@ const base = deepMerge.all([{},
         type: ID
       },
       uuid: {
-        type: ID
+        type: "integer"
       },
       email: {
         type: "string"

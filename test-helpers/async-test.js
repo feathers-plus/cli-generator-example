@@ -22,8 +22,8 @@ module.exports = function runAsyncTest (app, max) {
       getUser: {
         fullName: 'Jessica Szwaronek',
         posts: [
-          { uuid: '93', draft: 0 },
-          { uuid: '94', draft: 0 }
+          { uuid: 93, draft: 0 },
+          { uuid: 94, draft: 0 }
         ]
       }
     }),
@@ -32,7 +32,7 @@ module.exports = function runAsyncTest (app, max) {
       getUser: {
         fullName: 'Jessica Szwaronek',
         posts: [
-          { uuid: '92', draft: 1 }
+          { uuid: 92, draft: 1 }
         ]
       }
     })

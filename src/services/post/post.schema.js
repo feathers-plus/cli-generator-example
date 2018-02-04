@@ -17,8 +17,8 @@ let schema = {
     //!code: schema_properties
     id: { type: 'ID' },
     _id: { type: 'ID' },
-    uuid: { type: 'ID' },
-    authorUuid: { type: 'ID' },
+    uuid: { type: 'integer' },
+    authorUuid: { type: 'integer' },
     body: {},
     draft: { type: 'integer' },
     //!end

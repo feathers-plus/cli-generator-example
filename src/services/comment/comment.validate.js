@@ -30,13 +30,13 @@ const base = deepMerge.all([{},
         readOnly: true
       },
       uuid: {
-        type: ID
+        type: "integer"
       },
       authorUuid: {
-        type: ID
+        type: "integer"
       },
       postUuid: {
-        type: ID
+        type: "integer"
       },
       body: {
         description: "body of posting or comment",
@@ -45,28 +45,6 @@ const base = deepMerge.all([{},
       },
       archived: {
         type: "integer"
-      },
-      xx: {
-        properties: {
-          a: {
-            type: "string"
-          },
-          b: {
-            type: ID
-          }
-        },
-        type: "object"
-      },
-      yy: {
-        type: "array",
-        items: [
-          {
-            type: "string"
-          },
-          {
-            type: ID
-          }
-        ]
       }
     }
   },
