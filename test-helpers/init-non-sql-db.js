@@ -1,5 +1,5 @@
 
-const log = true;
+const log = false;
 
 let userDb;
 let commentsDb;

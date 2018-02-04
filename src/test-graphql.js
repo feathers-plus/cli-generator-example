@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 const asyncTest = require('../test-helpers/async-test');
 
-const log = true;
+const log = false;
 
 const getUser = `{
   getUser(key: 1) {
