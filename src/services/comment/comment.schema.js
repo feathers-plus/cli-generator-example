@@ -26,24 +26,11 @@ let schema = {
     //!code: schema_properties
     id: { type: 'ID' },
     _id: { $ref: '#/definitions/id' },
-    uuid: { type: 'ID' },
-    authorUuid: { type: 'ID' },
-    postUuid: { type: 'ID' },
+    uuid: { type: 'integer' },
+    authorUuid: { type: 'integer' },
+    postUuid: { type: 'integer' },
     body: { $ref: 'body.json' },
-    archived: { type: 'integer' },
-    xx: {
-      properties: {
-        a: {},
-        b: { type: 'ID' }
-      }
-    },
-    yy: {
-      "type": "array",
-      "items": [
-        { "type": "ID" },
-        { "type": "ID" }
-      ]
-    }
+    archived: { type: 'integer' }
     //!end
   },
   //!code: schema_more //!end

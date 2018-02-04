@@ -17,7 +17,7 @@ let moduleExports = deepMerge.all([{},
     ],
     properties: {
       uuid: {
-        bsonType: "string"
+        bsonType: "integer"
       },
       email: {
         bsonType: "string"

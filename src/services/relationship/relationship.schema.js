@@ -17,9 +17,9 @@ let schema = {
     //!code: schema_properties
     id: { type: 'ID' },
     _id: { type: 'ID' },
-    uuid: { type: 'ID' },
-    followerUuid: { type: 'ID' },
-    followeeUuid: { type: 'ID' },
+    uuid: { type: 'integer' },
+    followerUuid: { type: 'integer' },
+    followeeUuid: { type: 'integer' },
     //!end
   },
   //!code: schema_more //!end

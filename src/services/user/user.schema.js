@@ -22,7 +22,7 @@ let schema = {
     //!code: schema_properties
     id: { type: 'ID' },
     _id: { type: 'ID' },
-    uuid: { type: 'ID' },
+    uuid: { type: 'integer' },
     email: {},
     firstName: {},
     lastName: {},
