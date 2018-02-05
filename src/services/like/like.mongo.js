@@ -12,13 +12,13 @@ let moduleExports = deepMerge.all([{},
     required: [],
     properties: {
       uuid: {
-        bsonType: "integer"
+        bsonType: "int"
       },
       authorUuid: {
-        bsonType: "integer"
+        bsonType: "int"
       },
       commentUuid: {
-        bsonType: "integer"
+        bsonType: "int"
       }
     }
   },

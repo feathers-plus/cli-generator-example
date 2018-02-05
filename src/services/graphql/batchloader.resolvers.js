@@ -84,7 +84,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'Comment.likes':
       return feathersBatchLoader(dataLoaderName, '[!]', 'commentUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args, {
+          feathersParams = convertArgsToFeathers(args, null, {
             query: { commentUuid: { $in: keys }, $sort: undefined },
             _populate: 'skip', paginate: false
           });
@@ -104,7 +104,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'Like.comment':
       return feathersBatchLoader(dataLoaderName, '!', 'uuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args, {
+          feathersParams = convertArgsToFeathers(args, null, {
             query: { uuid: { $in: keys }, $sort: undefined },
             _populate: 'skip', paginate: false
           });
@@ -124,7 +124,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'Post.comments':
       return feathersBatchLoader(dataLoaderName, '[!]', 'postUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args, {
+          feathersParams = convertArgsToFeathers(args, null, {
             query: { postUuid: { $in: keys }, $sort: undefined },
             _populate: 'skip', paginate: false
           });
@@ -149,7 +149,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.comments':
       return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args, {
+          feathersParams = convertArgsToFeathers(args, null, {
             query: { authorUuid: { $in: keys }, $sort: undefined },
             _populate: 'skip', paginate: false
           });
@@ -164,7 +164,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.followed_by':
       return feathersBatchLoader(dataLoaderName, '[!]', 'followeeUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args, {
+          feathersParams = convertArgsToFeathers(args, null, {
             query: { followeeUuid: { $in: keys }, $sort: undefined },
             _populate: 'skip', paginate: false
           });
@@ -179,7 +179,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.following':
       return feathersBatchLoader(dataLoaderName, '[!]', 'followerUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args, {
+          feathersParams = convertArgsToFeathers(args, null, {
             query: { followerUuid: { $in: keys }, $sort: undefined },
             _populate: 'skip', paginate: false
           });
@@ -194,7 +194,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.likes':
       return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args, {
+          feathersParams = convertArgsToFeathers(args, null, {
             query: { authorUuid: { $in: keys }, $sort: undefined },
             _populate: 'skip', paginate: false
           });
@@ -318,13 +318,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!<DEFAULT> code: query-Comment
       // getComment(query: JSON, params: JSON, key: JSON): Comment
       getComment (parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args);
+        const feathersParams = convertArgsToFeathers(args, ast);
         return comment.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findComment(query: JSON, params: JSON): [Comment!]
       findComment(parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args,ast, { query: { $sort:{   uuid: 1 } } });
         return comment.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
@@ -332,13 +332,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!<DEFAULT> code: query-Like
       // getLike(query: JSON, params: JSON, key: JSON): Like
       getLike (parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args);
+        const feathersParams = convertArgsToFeathers(args, ast);
         return like.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findLike(query: JSON, params: JSON): [Like!]
       findLike(parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args,ast, { query: { $sort:{   uuid: 1 } } });
         return like.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
@@ -346,13 +346,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!<DEFAULT> code: query-Post
       // getPost(query: JSON, params: JSON, key: JSON): Post
       getPost (parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args);
+        const feathersParams = convertArgsToFeathers(args, ast);
         return post.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findPost(query: JSON, params: JSON): [Post!]
       findPost(parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args,ast, { query: { $sort:{   uuid: 1 } } });
         return post.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
@@ -360,13 +360,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!<DEFAULT> code: query-Relationship
       // getRelationship(query: JSON, params: JSON, key: JSON): Relationship
       getRelationship (parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args);
+        const feathersParams = convertArgsToFeathers(args, ast);
         return relationship.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findRelationship(query: JSON, params: JSON): [Relationship!]
       findRelationship(parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args,ast, { query: { $sort:{   uuid: 1 } } });
         return relationship.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end
@@ -374,13 +374,13 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       //!<DEFAULT> code: query-User
       // getUser(query: JSON, params: JSON, key: JSON): User
       getUser (parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args);
+        const feathersParams = convertArgsToFeathers(args, ast);
         return user.get(args.key, feathersParams).then(extractFirstItem);
       },
 
       // findUser(query: JSON, params: JSON): [User!]
       findUser(parent, args, content, ast) {
-        const feathersParams = convertArgsToFeathers(args, { query: { $sort: {   uuid: 1 } } });
+        const feathersParams = convertArgsToFeathers(args,ast, { query: { $sort:{   uuid: 1 } } });
         return user.find(feathersParams).then(paginate(content)).then(extractAllItems);
       },
       //!end

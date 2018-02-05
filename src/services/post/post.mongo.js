@@ -12,16 +12,16 @@ let moduleExports = deepMerge.all([{},
     required: [],
     properties: {
       uuid: {
-        bsonType: "integer"
+        bsonType: "int"
       },
       authorUuid: {
-        bsonType: "integer"
+        bsonType: "int"
       },
       body: {
         bsonType: "string"
       },
       draft: {
-        bsonType: "integer"
+        bsonType: "int"
       }
     }
   },

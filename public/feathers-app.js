@@ -311,6 +311,7 @@ var queries = {
 };
 
 // DOM
+var serverIp = document.getElementById('server-ip');
 var queryEl = document.getElementById('query');
 var resultsEl = document.getElementById('results');
 var resultsCheckEl = document.getElementById('results-check');
@@ -341,6 +342,7 @@ setOnclickHandlers('run', function () {
 
 // Initialize
 
+serverIp.innerHTML = 'Server is at ' + serverUrl;
 var selectedQuery = 'findUser';
 queryEl.innerHTML = queries[selectedQuery];
 resultsCheckEl.innerHTML = '';
