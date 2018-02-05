@@ -63,7 +63,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case '_shared.user.one.uuid': // service user, returns one object, key is field uuid
       return feathersBatchLoader(dataLoaderName, '!', 'uuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
+          feathersParams = convertArgsToFeathers(args, null,
             { query : { uuid: { $in: keys } } }
           );
           return user.find(feathersParams);
@@ -209,7 +209,7 @@ let moduleExports = function batchLoaderResolvers(app, options) {
     case 'User.posts':
       return feathersBatchLoader(dataLoaderName, '[!]', 'authorUuid',
         keys => {
-          feathersParams = convertArgsToFeathers(args,
+          feathersParams = convertArgsToFeathers(args, null,
             { query: { authorUuid: { $in: keys }, $sort: { uuid: 1 } }, populate: false }
           );
           return post.find(feathersParams);
