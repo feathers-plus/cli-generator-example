@@ -80,7 +80,7 @@ module.exports = function initNonSqlDb (app) {
     })
 
     .then(() => Promise.all([
-      foo.create({ uuid: 12345, foo: 1 }),
+      // foo.create({ uuid: 12345, foo: 1 }),
     ]))
 
     .catch(err => {
