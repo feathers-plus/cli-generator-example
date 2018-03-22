@@ -103,6 +103,8 @@ async function copyServiceToTable (data, tableName, options = {}) {
   await executeSql(`DROP TABLE IF EXISTS ${tableName}`);
   await executeSql(`CREATE TABLE ${tableName} (${schema})`);
 
+  console.log(`\nCREATE TABLE ${tableName} (${schema})`);
+
   for (let i = 0, lenI = data.length; i < lenI; i++) {
     const valueList = Object.keys(expandedColumns).reduce((valueList, key, j) => {
       const { type } = expandedColumns[key];
