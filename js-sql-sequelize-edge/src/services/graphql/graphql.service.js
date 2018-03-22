@@ -60,6 +60,7 @@ let moduleExports = function () {
   const service = app.service('/graphql');
 
   service.hooks(hooks);
+  service.executeSql = executeSql;
   // !code: func_return // !end
 };
 

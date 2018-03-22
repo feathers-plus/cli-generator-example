@@ -1,7 +1,7 @@
 
 const log = false;
 let results;
-let sqlDb;
+let executeSql;
 
 module.exports = async function initSqlDb (app) { // eslint-disable-line
   const comments = app.service('comments');
@@ -9,8 +9,9 @@ module.exports = async function initSqlDb (app) { // eslint-disable-line
   const posts = app.service('posts');
   const relationships = app.service('relationships');
   const users = app.service('users');
+  // const foo = app.service('foo');
 
-  sqlDb = app.service('graphql').sqlDb;
+  executeSql = app.service('graphql').executeSql;
 
   results = await users.find({ query: { $sort: { uuid: 1 } } });
   await copyServiceToTable(results.data, 'Accounts', {
@@ -58,13 +59,13 @@ module.exports = async function initSqlDb (app) { // eslint-disable-line
     }
   });
 
-  results = await foo.find({ query: { $sort: { uuid: 1 } } });
-  await copyServiceToTable(results.data, 'Foo', {
-    columns: {
-      uuid: { type: 'INTEGER PRIMARY KEY' },
-      foo: { name: 'foo' }
-    }
-  });
+  // results = await foo.find({ query: { $sort: { uuid: 1 } } });
+  // await copyServiceToTable(results.data, 'Foo', {
+  //   columns: {
+  //     uuid: { type: 'INTEGER PRIMARY KEY' },
+  //     foo: { name: 'foo' }
+  //   }
+  // });
 };
 
 // todo enhancement: ensure support for different flavors of SQL
@@ -99,8 +100,8 @@ async function copyServiceToTable (data, tableName, options = {}) {
     return `${fieldList}${i ? ', ' : ''}${column.name}`;
   }, '');
 
-  await sqlDb.run(`DROP TABLE IF EXISTS ${tableName}`);
-  await sqlDb.run(`CREATE TABLE ${tableName} (${schema})`);
+  await executeSql(`DROP TABLE IF EXISTS ${tableName}`);
+  await executeSql(`CREATE TABLE ${tableName} (${schema})`);
 
   for (let i = 0, lenI = data.length; i < lenI; i++) {
     const valueList = Object.keys(expandedColumns).reduce((valueList, key, j) => {
@@ -110,10 +111,10 @@ async function copyServiceToTable (data, tableName, options = {}) {
       return `${valueList}${j ? ', ' : ''}${quote}${value}${quote}`;
     }, '');
 
-    await sqlDb.run(`INSERT INTO ${tableName} (${fieldList}) VALUES (${valueList})`);
+    await executeSql(`INSERT INTO ${tableName} (${fieldList}) VALUES (${valueList})`);
   }
 
-  const all = await sqlDb.all(`SELECT * FROM ${tableName}`);
+  const all = await executeSql(`SELECT * FROM ${tableName}`);
   if (log) inspector(tableName, all);
 }
 
