@@ -64,14 +64,18 @@ module.exports = function (app) {
 
     // Set up data relationships
     const models = sequelize.models;
+    console.log('\n...MODELS 1');
+    console.log(models);
     Object.keys(models).forEach(name => {
       if ('associate' in models[name]) {
         models[name].associate(models);
       }
     });
+    console.log('\n...MODELS 2');
+    console.log(models);
 
     // Sync to the database
-    sequelize.sync();
+    sequelize.sync({force: true});
 
     // !code: func_return // !end
     return result;
