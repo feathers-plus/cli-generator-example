@@ -37,7 +37,7 @@ let moduleExports = {
     // Your hooks should include:
     //   all   : protect('password') /* Must always be the last hook */
     // !<DEFAULT> code: after
-    //all: [ protect('password') /* Must always be the last hook */ ],
+    all: [ protect('password') /* Must always be the last hook */ ],
     find: [],
     get: [],
     create: [],

@@ -2,10 +2,11 @@
 /* eslint-disable no-console */
 const asyncTest = require('../test-helpers/async-test');
 
+const idName = 'id';
 const log = false;
 
 module.exports = function testGraphql(app) {
-  const { getUser, findUser, getComment } = getTestQueries('_id');
+  const { getUser, findUser, getComment } = getTestQueries(idName);
 
   const graphql = app.service('/graphql');
   console.log('>>>>> start sync test');

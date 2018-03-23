@@ -12,12 +12,11 @@ let moduleExports = function (app) {
   // !code: func_init // !end
 
   let options = {
-    name: 'users',
+    name: 'Users',
     Model,
     paginate,
     // !code: options_more
     id: 'uuid',
-    tableName: 'Accounts',
     // !end
   };
   // !code: options_change // !end

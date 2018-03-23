@@ -6,31 +6,45 @@ let commentsDb;
 let postDb;
 let relationshipDb;
 
-module.exports = function initNonSqlDb (app) {
-  /*
-  const executeSql = app.service('graphql').executeSql;
+module.exports = async function initNonSqlDb (app) {
+  let sequelize = app.get('sequelizeClient');
 
-  executeSql('DROP TABLE IF EXISTS Accounts');
-  executeSql('DROP TABLE IF EXISTS Posts');
-  executeSql('DROP TABLE IF EXISTS Comments');
-  executeSql('DROP TABLE IF EXISTS Likes');
-  executeSql('DROP TABLE IF EXISTS Relationships');
+  async function executeSql(sql) {
+    // eslint-disable-next-line no-console
+    console.log(sql);
 
-  function createTable(tableName, columnSpecs) {
-    executeSql([
+    return await sequelize.query(sql)
+      .then(([result]) => result)
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.log('executeSql error=', err.message);
+        throw err;
+      });
+  }
+
+  async function createTable(tableName, columnSpecs) {
+    const sql =[
       'CREATE TABLE',
       tableName,
       '(id INTEGER PRIMARY KEY, uuid INTEGER, createdAt TIMESTAMP, updatedAt TIMESTAMP,',
       columnSpecs,
       ')',
-    ].join(' '));
-  }
+    ].join(' ');
 
-  createTable('Accounts', 'firstName TEXT, lastName TEXT, emailAddress TEXT, password TEXT');
-  createTable('Posts', 'authorUuid INTEGER, body TEXT, draft INTEGER');
-  createTable('Comments', 'authorUuid INTEGER, postUuid INTEGER, body TEXT, archived INTEGER');
-  createTable('Likes', 'authorUuid INTEGER, commentUuid INTEGER');
-  createTable('Relationships', 'followerUuid INTEGER, followeeUuid INTEGER');
+    await executeSql(sql);
+  }
+/*
+  await executeSql('DROP TABLE IF EXISTS Accounts');
+  await executeSql('DROP TABLE IF EXISTS Posts');
+  await executeSql('DROP TABLE IF EXISTS Comments');
+  await executeSql('DROP TABLE IF EXISTS Likes');
+  await executeSql('DROP TABLE IF EXISTS Relationships');
+
+  await createTable('Accounts', 'firstName TEXT, lastName TEXT, email TEXT, password TEXT');
+  await createTable('Posts', 'authorUuid INTEGER, body TEXT, draft INTEGER');
+  await createTable('Comments', 'authorUuid INTEGER, postUuid INTEGER, body TEXT, archived INTEGER');
+  await createTable('Likes', 'authorUuid INTEGER, commentUuid INTEGER');
+  await createTable('Relationships', 'followerUuid INTEGER, followeeUuid INTEGER');
 */
   const users = app.service('users');
   const posts = app.service('posts');
@@ -38,24 +52,32 @@ module.exports = function initNonSqlDb (app) {
   const likes = app.service('likes');
   const relationships = app.service('relationships');
 
-  console.log('\n..................removing');
   return Promise.all([
-    users.remove(null, { query: {} }).then(res => console.log('\n==============users remove', res)),
+    users.remove(null, { query: {} }).then(result => console.log('\n.....users removed', result)),
     comments.remove(null, { query: {} }),
     posts.remove(null, { query: {} }),
     likes.remove(null, { query: {} }),
     relationships.remove(null, { query: {} })
   ])
+
+    .then(() => console.log('\n.....Tables removed\n'))
+
     .then(() => Promise.all([
       users.create({ uuid: 0, firstName: 'John', lastName: 'Szwaronek', email: 'john@gmail.com', password: 'john' }),
       users.create({ uuid: 1, firstName: 'Jessica', lastName: 'Szwaronek', email: 'jessica@gmail.com', password: 'jessica' }),
       users.create({ uuid: 2, firstName: 'Nick', lastName: 'Roussis', email: 'nick@gmail.com', password: 'nick' }),
-      users.create({ uuid: 3, firstName: 'Barbara', lastName: 'Lewis', email: 'barbara@gmail.com', password: 'barbara' })
+      users.create({ uuid: 3, firstName: 'Barbara', lastName: 'Lewis', email: '111barbara@gmail.com', password: 'barbara' })
     ]))
     .then(() => users.find())
+
+    .then(result => {
+      inspector('\n.....Users created. users.find=', result);
+      return result;
+    })
+
     .then(result => {
       userDb = (result.data || result).sort(sort('uuid'));
-      if (log) inspector('userDB', userDb); // eslint-disable-line
+      if (true || log) inspector('userDB', userDb); // eslint-disable-line
     })
 
     .then(() => Promise.all([

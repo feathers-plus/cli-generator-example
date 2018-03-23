@@ -7,15 +7,40 @@ let postDb;
 let relationshipDb;
 
 module.exports = function initNonSqlDb (app) {
+  /*
+  const executeSql = app.service('graphql').executeSql;
+
+  executeSql('DROP TABLE IF EXISTS Accounts');
+  executeSql('DROP TABLE IF EXISTS Posts');
+  executeSql('DROP TABLE IF EXISTS Comments');
+  executeSql('DROP TABLE IF EXISTS Likes');
+  executeSql('DROP TABLE IF EXISTS Relationships');
+
+  function createTable(tableName, columnSpecs) {
+    executeSql([
+      'CREATE TABLE',
+      tableName,
+      '(id INTEGER PRIMARY KEY, uuid INTEGER, createdAt TIMESTAMP, updatedAt TIMESTAMP,',
+      columnSpecs,
+      ')',
+    ].join(' '));
+  }
+
+  createTable('Accounts', 'firstName TEXT, lastName TEXT, emailAddress TEXT, password TEXT');
+  createTable('Posts', 'authorUuid INTEGER, body TEXT, draft INTEGER');
+  createTable('Comments', 'authorUuid INTEGER, postUuid INTEGER, body TEXT, archived INTEGER');
+  createTable('Likes', 'authorUuid INTEGER, commentUuid INTEGER');
+  createTable('Relationships', 'followerUuid INTEGER, followeeUuid INTEGER');
+*/
   const users = app.service('users');
   const posts = app.service('posts');
   const comments = app.service('comments');
   const likes = app.service('likes');
   const relationships = app.service('relationships');
-  const foo = app.service('foo');
 
+  console.log('\n..................removing');
   return Promise.all([
-    users.remove(null, { query: {} }),
+    users.remove(null, { query: {} }).then(res => console.log('\n==============users remove', res)),
     comments.remove(null, { query: {} }),
     posts.remove(null, { query: {} }),
     likes.remove(null, { query: {} }),
