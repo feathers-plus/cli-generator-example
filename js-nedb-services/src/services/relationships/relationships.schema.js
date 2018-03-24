@@ -42,14 +42,6 @@ let extensions = {
     service: {
       sort: { uuid: 1 },
     },
-    sql: {
-      sqlTable: 'Relationships',
-      uniqueKey: 'uuid',
-      sqlColumn: {
-        followerUuid: 'follower_uuid',
-        followeeUuid: 'followee_uuid',
-      },
-    },
     // !end
     discard: [
       // !code: graphql_discard // !end

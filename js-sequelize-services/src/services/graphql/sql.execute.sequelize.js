@@ -23,9 +23,10 @@ let moduleExports = function sqlExecuteSequelize(app) {
     throw new Error('Unsupported Sequelize dialect: \'' + sequelize.getDialect() + '\'. (sql.execute.sequelize.*s)');
   }
   // !end
-  // !code: func_init
+  // !code: func_init // !end
+
+  // !<DEFAULT> code: func_exec
   let executeSql = sql => {
-    console.log('\n.....executeSql=', sql);
     return sequelize.query(sql)
       .then(([result]) => result)
       .catch(err => {
@@ -35,14 +36,6 @@ let moduleExports = function sqlExecuteSequelize(app) {
       });
   };
   // !end
-
-  let executeSql = sql => sequelize.query(sql)
-    .then(([result]) => result)
-    .catch(err => {
-      // eslint-disable-next-line no-console
-      console.log('executeSql error=', err.message);
-      throw err;
-    });
 
   let returns = {
     dialect,

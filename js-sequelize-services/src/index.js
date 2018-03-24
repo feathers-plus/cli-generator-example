@@ -24,17 +24,17 @@ server.on('listening', () => {
   // !code: listening_log
   logger.info('Feathers application started on http://%s:%d', app.get('host'), port);
   // !end
-  // !code: listening // !end
+  // !code: listening
+  setTimeout(() => { //
+    initDb(app)
+      .then(() => testGraphql(app))
+      .catch(err => {
+        console.log(err.message);
+        console.log(err.stack);
+      });
+  }, 1000);
+  // !end
 });
 
 // !code: funcs // !end
-// !code: end
-setTimeout(() => { //
-  initDb(app)
-    .then(() => testGraphql(app))
-    .catch(err => {
-      console.log(err.message);
-      console.log(err.stack);
-    });
-}, 1000);
-// !end
+// !code: end // !end

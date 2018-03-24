@@ -1,8 +1,8 @@
 
-const initNonSqlDb = require('./init-non-sql-db');
+const initFeathersDb = require('./init-feathers-db');
 
 module.exports = function initDb (app) {
-  return initNonSqlDb(app)
+  return initFeathersDb(app)
     .then(() => {
       console.log('DB initialized using Feathers services.');
     })

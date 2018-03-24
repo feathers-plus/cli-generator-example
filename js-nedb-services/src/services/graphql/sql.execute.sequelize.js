@@ -25,13 +25,17 @@ let moduleExports = function sqlExecuteSequelize(app) {
   // !end
   // !code: func_init // !end
 
-  let executeSql = sql => sequelize.query(sql)
-    .then(([result]) => result)
-    .catch(err => {
-      // eslint-disable-next-line no-console
-      console.log('executeSql error=', err.message);
-      throw err;
-    });
+  // !<DEFAULT> code: func_exec
+  let executeSql = sql => {
+    return sequelize.query(sql)
+      .then(([result]) => result)
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.log('executeSql error=', err.message);
+        throw err;
+      });
+  };
+  // !end
 
   let returns = {
     dialect,

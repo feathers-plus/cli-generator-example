@@ -48,15 +48,6 @@ let extensions = {
     service: {
       sort: { uuid: 1 },
     },
-    sql: {
-      sqlTable: 'Accounts',
-      uniqueKey: 'uuid',
-      sqlColumn: {
-        email: 'email_address',
-        firstName: 'first_name',
-        lastName: 'last_name',
-      },
-    },
     // !end
     discard: [
       // !code: graphql_discard // !end
