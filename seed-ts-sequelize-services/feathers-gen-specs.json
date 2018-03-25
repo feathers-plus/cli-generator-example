@@ -1,0 +1,105 @@
+{
+  "options": {
+    "ver": "1.0.0",
+    "inspectConflicts": false,
+    "semicolons": true,
+    "freeze": [],
+    "ts": true
+  },
+  "app": {
+    "name": "GraphQL-test",
+    "description": "Test Feathers GraphQL adapter.",
+    "src": "src",
+    "packager": "npm@>= 3.0.0",
+    "providers": [
+      "rest",
+      "socketio"
+    ]
+  },
+  "services": {
+    "users": {
+      "name": "users",
+      "nameSingular": "user",
+      "fileName": "users",
+      "adapter": "sequelize",
+      "path": "/users",
+      "isAuthEntity": true,
+      "requiresAuth": true,
+      "graphql": true
+    },
+    "comments": {
+      "name": "comments",
+      "nameSingular": "comment",
+      "fileName": "comments",
+      "adapter": "sequelize",
+      "path": "/comments",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "likes": {
+      "name": "likes",
+      "nameSingular": "like",
+      "fileName": "likes",
+      "adapter": "sequelize",
+      "path": "/likes",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "posts": {
+      "name": "posts",
+      "nameSingular": "post",
+      "fileName": "posts",
+      "adapter": "sequelize",
+      "path": "/posts",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "relationships": {
+      "name": "relationships",
+      "nameSingular": "relationship",
+      "fileName": "relationships",
+      "adapter": "sequelize",
+      "path": "/relationships",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    }
+  },
+  "authentication": {
+    "strategies": [
+      "local"
+    ],
+    "entity": "users"
+  },
+  "connections": {
+    "sequelize": {
+      "database": "sqlite",
+      "adapter": "sequelize",
+      "connectionString": "sqlite://data/db.sqlite"
+    }
+  },
+  "middlewares": {
+    "mw1": {
+      "path": "*",
+      "camel": "mw1",
+      "kebab": "mw-1"
+    },
+    "mw2": {
+      "path": "mw2",
+      "camel": "mw2",
+      "kebab": "mw-2"
+    }
+  },
+  "graphql": {
+    "name": "graphql",
+    "path": "/graphql",
+    "strategy": "services",
+    "sqlInterface": null,
+    "requiresAuth": true
+  },
+  "additional-dependencies": ["deep-equal", "sqlite3"],
+  "additional-devDependencies": []
+}

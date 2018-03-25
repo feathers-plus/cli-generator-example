@@ -1,0 +1,5 @@
+{
+  "description": "body of posting or comment",
+  "type": "string",
+  "minLength": 1
+}
