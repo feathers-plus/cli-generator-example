@@ -1,0 +1,103 @@
+{
+  "options": {
+    "ver": "1.0.0",
+    "inspectConflicts": false,
+    "semicolons": true,
+    "freeze": [],
+    "ts": true
+  },
+  "app": {
+    "name": "GraphQL-test",
+    "description": "Test Feathers GraphQL adapter.",
+    "src": "src",
+    "packager": "npm@>= 3.0.0",
+    "providers": [
+      "rest",
+      "socketio"
+    ]
+  },
+  "services": {
+    "users": {
+      "name": "users",
+      "nameSingular": "user",
+      "fileName": "users",
+      "adapter": "nedb",
+      "path": "/users",
+      "isAuthEntity": true,
+      "requiresAuth": true,
+      "graphql": true
+    },
+    "comments": {
+      "name": "comments",
+      "nameSingular": "comment",
+      "fileName": "comments",
+      "adapter": "nedb",
+      "path": "/comments",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "likes": {
+      "name": "likes",
+      "nameSingular": "like",
+      "fileName": "likes",
+      "adapter": "nedb",
+      "path": "/likes",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "posts": {
+      "name": "posts",
+      "nameSingular": "post",
+      "fileName": "posts",
+      "adapter": "nedb",
+      "path": "/posts",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    },
+    "relationships": {
+      "name": "relationships",
+      "nameSingular": "relationship",
+      "fileName": "relationships",
+      "adapter": "nedb",
+      "path": "/relationships",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    }
+  },
+  "authentication": {
+    "strategies": [
+      "local"
+    ],
+    "entity": "users"
+  },
+  "connections": {
+    "nedb": {
+      "database": "nedb",
+      "adapter": "nedb",
+      "connectionString": "nedb://../data"
+    }
+  },
+  "middlewares": {
+    "mw1": {
+      "path": "*",
+      "camel": "mw1",
+      "kebab": "mw-1"
+    },
+    "mw2": {
+      "path": "mw2",
+      "camel": "mw2",
+      "kebab": "mw-2"
+    }
+  },
+  "graphql": {
+    "name": "graphql",
+    "path": "/graphql",
+    "strategy": "batchloaders",
+    "sqlInterface": null,
+    "requiresAuth": true
+  }
+}

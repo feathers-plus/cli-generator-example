@@ -1,11 +1,12 @@
+/// <reference types="mocha"/>
 
-const assert = require('assert');
-const rp = require('request-promise');
-const url = require('url');
-const app = require('../src/app');
+import assert from 'assert';
+import rp from 'request-promise';
+import url from 'url';
+import app from '../src/app';
 
 const port = app.get('port') || 3030;
-const getUrl = pathname => url.format({
+const getUrl = (pathname?: string) => url.format({
   hostname: app.get('host') || 'localhost',
   protocol: 'http',
   port,
@@ -23,7 +24,7 @@ describe('Feathers application tests', () => {
   });
 
   it('starts and shows the index page', () => {
-    return rp(getUrl()).then(body =>
+    return rp(getUrl()).then((body: string) =>
       assert.ok(body.indexOf('<html>') !== -1)
     );
   });
@@ -46,11 +47,6 @@ describe('Feathers application tests', () => {
         url: getUrl('path/to/nowhere'),
         json: true
       }).catch(res => {
-        console.log('res.statusCode', res.statusCode);
-        console.log('res.error.code', res.error.code);
-        console.log('res.error.message', res.error.message);
-        console.log('res.error.name', res.error.name);
-
         assert.equal(res.statusCode, 404);
         assert.equal(res.error.code, 404);
         assert.equal(res.error.message, 'Page not found');
