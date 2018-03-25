@@ -17,7 +17,9 @@ let moduleExports = function (app: App) {
     name: 'relationships',
     Model,
     paginate,
-    // !code: options_more // !end
+    // !code: options_more
+    id: 'uuid',
+    // !end
   };
   // !code: options_change // !end
 

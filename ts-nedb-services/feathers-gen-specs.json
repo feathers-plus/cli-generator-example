@@ -99,5 +99,9 @@
     "strategy": "batchloaders",
     "sqlInterface": null,
     "requiresAuth": true
-  }
+  },
+  "additional-dependencies": [
+    "deep-equal"
+  ],
+  "additional-devDependencies": []
 }

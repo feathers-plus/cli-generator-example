@@ -1,14 +1,12 @@
 
 // Initializes the `posts` service on path `/posts`. (Can be re-generated.)
-import { App } from '../../app.interface';
-
-import createService from 'feathers-nedb';
-import createModel from '../../models/posts.model';
-import hooks from './posts.hooks';
+const createService = require('feathers-nedb');
+const createModel = require('../../models/posts.model');
+const hooks = require('./posts.hooks');
 // !code: imports // !end
 // !code: init // !end
 
-let moduleExports = function (app: App) {
+let moduleExports = function (app) {
   let Model = createModel(app);
   let paginate = app.get('paginate');
   // !code: func_init // !end
@@ -34,7 +32,7 @@ let moduleExports = function (app: App) {
 };
 
 // !code: exports // !end
-export default moduleExports;
+module.exports = moduleExports;
 
 // !code: funcs // !end
 // !code: end // !end

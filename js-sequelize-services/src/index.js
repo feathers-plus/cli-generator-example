@@ -4,7 +4,9 @@
 const logger = require('winston');
 const app = require('./app');
 // !code: imports
+// tslint:disable-next-line
 const initDb = require('../test-helpers/init-db');
+// tslint:disable-next-line
 const testGraphql = require('./test-graphql');
 // !end
 // !code: init // !end
