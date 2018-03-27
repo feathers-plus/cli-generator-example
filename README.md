@@ -18,6 +18,10 @@
     npm start
     ```
 
+
+The app will create the database
+and then run a short async test to confirm it is functioning correctly.
+
 ## Starting the client test harness
 
 Point your browser at `localhost:3030` and you will see this test harness:
@@ -52,6 +56,9 @@ Both databases have the same structure:
 and contain the same data:
 
 ![database data](./docs/assets/tables.jpg)
+
+`uuid` fields are used as foreign keys for table relations
+so as to avoid differences between `id` and `_id` in different databases.
 
 ## Ten examples
 
@@ -131,21 +138,6 @@ Setting up resolvers for `join-monster` is more complex than the previous 2 meth
 The results will be significantly faster than using FeathersJS services alone.
 The results may be usefully faster than using batch-loaders,
 depending on the Query and on the data set,
-
-## Database
-
-This app can use either an NeDB or SQLite database, both of which reside in `./data`.
-
-Both databases have the same structure:
-
-![database stucture](./docs/schema.jpg)
-
-and contain the same data:
-
-![database data](./docs/tables.jpg)
-
-## Scaffolding
-
 
 ## License
 
