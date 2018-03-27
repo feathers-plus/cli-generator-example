@@ -18,14 +18,38 @@
     npm start
     ```
 
-## Starting the app
-
-Its assumed your browser can access the server on `localhost:3030`.
-You can change the URL in `graphql-examples/example-name/public/serverUrl.js` if necessary.
+## Starting the client test harness
 
 Point your browser at `localhost:3030` and you will see this test harness:
 
-![test harness](./docs/test-harness.jpg)
+![test harness](./assets/test-harness.jpg)
+
+The client will authenticate with the server before enabling the `Run query` button.
+
+You can run any of the 10 provided queries.
+The query appears in the editable window on top.
+The result (or error message) appears in the bottom window after you click `Run query`.
+
+You can modify any of those queries before running them.
+
+The keywords allowed in some of the resolvers are Feathers service-like:
+- key: The same as Feathers `id`, numeric or string.
+- query: The same as Feathers `params.query`.
+- params: The same as Feathers `params`.
+
+`$` is a reserved character in GraphQL, so Feathers props such as `$sort` and `$in` will result in GraphQL errors.
+You can instead use a double underscore `__` where ever you would use a `$` with Feathers. 
+
+
+## Database
+
+This app can use either an NeDB or SQLite database, both of which reside in `./data`.
+
+Both databases have the same structure:
+
+![database stucture](./assets/schema.jpg)
+
+and contain the same data:
 
 ## Ten examples
 
