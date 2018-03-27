@@ -22,7 +22,7 @@
 
 Point your browser at `localhost:3030` and you will see this test harness:
 
-![test harness](./assets/test-harness.jpg)
+![test harness](./docs/assets/test-harness.jpg)
 
 The client will authenticate with the server before enabling the `Run query` button.
 
@@ -47,9 +47,11 @@ This app can use either an NeDB or SQLite database, both of which reside in `./d
 
 Both databases have the same structure:
 
-![database stucture](./assets/schema.jpg)
+![database stucture](./docs/assets/schema.jpg)
 
 and contain the same data:
+
+![database data](./docs/assets/tables.jpg)
 
 ## Ten examples
 
