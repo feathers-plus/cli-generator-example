@@ -28,8 +28,6 @@ Point your browser at `localhost:3030` and you will see this test harness:
 
 ![test harness](./docs/assets/test-harness.jpg)
 
-The client will authenticate with the server before enabling the `Run query` button.
-
 You can run any of the 10 provided queries.
 The query appears in the editable window on top.
 The result (or error message) appears in the bottom window after you click `Run query`.
@@ -57,6 +55,12 @@ Using it in GraphQL queries also results in a conflict-free interface.
 `$` is a reserved character in GraphQL, so Feathers props such as `$sort` and `$in` will result in GraphQL errors.
 You can instead use a double underscore `__` where ever you would use a `$` with Feathers. 
 
+### Authentication
+
+The client will authenticate with the server before enabling the `Run query` button.
+
+Internally, the `users` service also requires authentication, the others do not.
+The apps show how you can pass along your GraphQL authentication when calling other services.
 
 ## Database
 
