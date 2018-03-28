@@ -64,7 +64,7 @@ The apps show how you can pass along your GraphQL authentication when calling ot
 
 ## Database
 
-This app can use either an NeDB or SQLite database, both of which reside in `./data`.
+This apps use either an NeDB or SQLite database, both of which reside in `./data`.
 
 Both databases have the same structure:
 
@@ -85,7 +85,8 @@ via the feathers-plus/graphql adapter.
 
 The examples all use the same data set,
 and the same frontend client for testing.
-Each example is available in both JavaScript and TypeScript.
+
+> Each example is available in both JavaScript and TypeScript.
 
 The examples differ in the database being used and in how the Query is resolved.
 We've chosen representative databases which require no installation.
@@ -117,8 +118,7 @@ They would also work with the [Knex](https://github.com/kripod/knex-orm) ORM.
 
 ### Different GraphQL resolvers
 
-The 5 examples (both in .js and .ts flavors) differ in how they implement their
-GraphQL resolvers.
+The 5 examples differ in how they implement their GraphQL resolvers.
 
 #### FeathersJS services alone
 
@@ -140,9 +140,10 @@ The same batch-loader, for example, may be used by resolvers needing the Users t
 This further reduces the number of service calls as one cache is shared,
 and service calls for different resolvers may be satisfied together in one service call.
 
-It is more complex to set up batch-loader resolvers than ones using just FeathersJS services,
-batch-loaders may typically reduce the number of service calls by a factor of 10,
-e.g. 2 calls instead of 20.
+It is more complex to set up batch-loader resolvers than ones using just FeathersJS services.
+
+> Batch-loaders typically reduce the number of service calls by a factor of 10,
+> e.g. 2 calls instead of 20.
 
 #### Using raw SQL statements
 
@@ -155,7 +156,16 @@ It fetches only the data you need - nothing more, nothing less.
 Setting up resolvers for `join-monster` is more complex than the previous 2 methods.
 The results will be significantly faster than using FeathersJS services alone.
 The results may be usefully faster than using batch-loaders,
-depending on the Query and on the data set,
+depending on the Query and on the data set.
+
+Although we can resolve any GraphQL query with a single round-trip to the database
+by using one SQL statement, the queries generated can be very expensive. 
+The [Join-monster](https://join-monster.readthedocs.io/en/latest/) documentation
+explains how to effectively
+[handle these situations](https://join-monster.readthedocs.io/en/latest/query-planning/).
+
+> The example apps and the join-monster documentation use the same database schema,
+> so switching between the 2 sets of documents is seamless.
 
 ## License
 
