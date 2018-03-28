@@ -36,10 +36,23 @@ The result (or error message) appears in the bottom window after you click `Run 
 
 You can modify any of those queries before running them.
 
-The keywords allowed in some of the resolvers are Feathers service-like:
-- key: The same as Feathers `id`, numeric or string.
-- query: The same as Feathers `params.query`.
-- params: The same as Feathers `params`.
+### Keywords
+
+The GraphQL types `findUser` and `posts` in the example above allow keywords.
+The `comments` and `followed_by` types do not.
+
+The example apps show how to implement FeathersJS-like keywords,
+as you can see in the example above.
+The apps support these keywords:
+- **key**: The same as Feathers `id`, numeric or string.
+- **query**: The same as Feathers `params.query`.
+- **params**: The same as Feathers `params`.
+
+The FeathersJS API provides a great deal of flexibility which is now available to your queries.
+Using it in GraphQL queries also results in a conflict-free interface.
+
+> You are not required to use the FeathersJS API.
+> You control what keywords are allowed and how the resolvers use them.
 
 `$` is a reserved character in GraphQL, so Feathers props such as `$sort` and `$in` will result in GraphQL errors.
 You can instead use a double underscore `__` where ever you would use a `$` with Feathers. 
@@ -57,8 +70,9 @@ and contain the same data:
 
 ![database data](./docs/assets/tables.jpg)
 
-`uuid` fields are used as foreign keys for table relations
-so as to avoid differences between `id` and `_id` in different databases.
+> We use `uuid` fields as foreign keys for table relations
+> to avoid the differences involving primary keys in different databases.
+> You, of course, are likely to use the primary key for the relations.
 
 ## Ten examples
 
