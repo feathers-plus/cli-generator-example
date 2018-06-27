@@ -1,6 +1,28 @@
-# graphql-examples
+# GraphQL examples
 
-> Example apps using feathers-plus/graphql
+> Examples of various ways to use GraphQL with FeathersJS.
+
+These GraphQL examples were generated using [@feathers-plus/cli](https://generator.feathers-plus.com/)
+and [@feathers-plus/graphql](https://generator.feathers-plus.com/api/#graphql).
+
+The GraphQL endpoints [interface seamlessly](https://generator.feathers-plus.com/guide/#graphql) with FeathersJS.
+
+## Examples
+
+There are 10 examples, each in its own folder. 
+
+folder name | language | database | resolver functions
+:-|:-|:-|:-|
+js-nedb-services | JavaScript | NeDB | plain Feathers calls
+js-nedb-batchloaders | JavaScript | NeDB | BatchLoader calls
+js-sequelize-services | JavaScript | Sequelize + SQLite | plain Feathers calls
+js-sequelize-batchloaders | JavaScript | Sequelize + SQLite | BatchLoader calls
+js-sequelize-sql | JavaScript | Sequelize + SQLite | raw SQL statements
+ts-nedb-services | TypeScript | NeDB | plain Feathers calls
+ts-nedb-batchloaders | TypeScript | NeDB | BatchLoader calls
+ts-sequelize-services | TypeScript | Sequelize + SQLite | plain Feathers calls
+ts-sequelize-batchloaders | TypeScript | Sequelize + SQLite | BatchLoader calls
+ts-sequelize-sql | TypeScript | Sequelize + SQLite | raw SQL statements
 
 ## Installation
 
@@ -9,6 +31,7 @@
    ```text
    cd graphql-examples/js-nedb-services
    ```
+   
 3. Install your dependencies
     ```
     npm install
