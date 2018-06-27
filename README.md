@@ -1,9 +1,9 @@
 # GraphQL examples
 
-> Examples of various ways to use GraphQL with FeathersJS.
+> Several examples of using GraphQL with FeathersJS.
 
 These GraphQL examples were generated using [@feathers-plus/cli](https://generator.feathers-plus.com/)
-and [@feathers-plus/graphql](https://generator.feathers-plus.com/api/#graphql).
+and [@feathers-plus/graphql](https://github.com/feathers-plus/graphql).
 
 The GraphQL endpoints [interface seamlessly](https://generator.feathers-plus.com/guide/#graphql) with FeathersJS.
 
@@ -57,6 +57,9 @@ The result (or error message) appears in the bottom window after you click `Run 
 
 You can modify any of those queries before running them.
 
+> You can also [use GraphiQL as an interface](https://generator.feathers-plus.com/guide/#using-graphiql)
+to the examples.
+
 ### Keywords
 
 The GraphQL types `findUser` and `posts` in the example above allow keywords.
@@ -78,12 +81,16 @@ Using it in GraphQL queries also results in a conflict-free interface.
 `$` is a reserved character in GraphQL, so Feathers props such as `$sort` and `$in` will result in GraphQL errors.
 You can instead use a double underscore `__` where ever you would use a `$` with Feathers. 
 
+> There is more information in the [docs](https://generator.feathers-plus.com/get-started/#our-app-as-an-example).
+
 ### Authentication
 
 The client will authenticate with the server before enabling the `Run query` button.
 
 Internally, the `users` service also requires authentication, the others do not.
 The apps show how you can pass along your GraphQL authentication when calling other services.
+
+> There is some more information in the [docs](https://generator.feathers-plus.com/guide/#authentication)
 
 ## Database
 
