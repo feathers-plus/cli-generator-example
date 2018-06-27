@@ -33,7 +33,7 @@ to create a local copy on your computer.
 
 3. Change the directory to the example you want to run, e.g.
    ```text
-   cd cli-generator-example/js-nedb-services
+   cd path/to/cli-generator-example/js-nedb-services
    ```
    
 4. Install your dependencies
@@ -46,7 +46,7 @@ to create a local copy on your computer.
     npm start
     ```
 
-The app will create the database
+The app will create the sample database,
 and then run a short async test to confirm it is functioning correctly.
 
 ## Starting the client test harness
