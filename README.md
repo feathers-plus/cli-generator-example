@@ -27,20 +27,24 @@ ts-sequelize-sql | TypeScript | Sequelize + SQLite | raw SQL statements
 ## Installation
 
 1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Change the directory to the example you want to run, e.g.
+
+2. [Clone the repository](https://help.github.com/articles/cloning-a-repository/)
+to create a local copy on your computer.
+
+3. Change the directory to the example you want to run, e.g.
    ```text
-   cd graphql-examples/js-nedb-services
+   cd cli-generator-example/js-nedb-services
    ```
    
-3. Install your dependencies
+4. Install your dependencies
     ```
     npm install
     ``` 
-4. Start the app
+    
+5. Start the app
     ```
     npm start
     ```
-
 
 The app will create the database
 and then run a short async test to confirm it is functioning correctly.
