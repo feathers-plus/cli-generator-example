@@ -82,7 +82,6 @@ and contain the same data:
 
 This repo contains several example FeathersJS applications using GraphQL Query
 via the feathers-plus/graphql adapter.
-
 The examples all use the same data set,
 and the same frontend client for testing.
 
